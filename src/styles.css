@@ -1,0 +1,191 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap");
+@import url("https://fonts.googleapis.com/icon?family=Material+Icons");
+* {
+    box-sizing: border-box;
+    margin: 0;
+}
+body {
+    font-family: "Open Sans", sans-serif;
+    width: 100%;
+}
+
+.app-header {
+    text-align: center;
+}
+
+.app-body {
+    margin: 0rem 2rem 0rem 2rem;
+}
+
+.hamnav {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    /* justify-content: space-around; */
+    align-items: center;
+    background-color: black;
+    font-size: 1rem;
+    letter-spacing: 1px;
+    font-weight: bold;
+}
+.hamitems {
+    display: flex;
+    justify-content: space-around;
+}
+.hamitems a {
+    /* flex-grow: 1; */
+    /* flex-basis: 0; */
+    padding: 1rem;
+    width: 5rem;
+    /* color: white; */
+    text-decoration: none;
+    /* text-align: center; */
+}
+.hamitems a:hover {
+    background: #a02620;
+    /* padding: 1rem; */
+    /* padding: 0; */
+    border-radius: 25px;
+}
+.hamnav label,
+#hamburger {
+    display: none;
+}
+.logo {
+    padding: 2rem 0;
+    float: left;
+}
+.hamitems {
+    float: right;
+}
+/* .hamnav {
+    position: sticky;
+    top: 0;
+} */
+.searchbar {
+    padding: 0.5rem 0;
+}
+.searchbar input {
+    padding: 0.5rem 1rem;
+    width: 20vw;
+}
+@media screen and (max-width: 768px) {
+    /* (A) BREAK INTO VERTICAL MENU */
+    .hamitems a {
+        box-sizing: border-box;
+        display: block;
+        width: 100%;
+        border-top: 1px solid #333;
+    }
+    /* (B) SHOW HAMBURGER ICON */
+    .hamnav label {
+        color: white;
+        background: #a02620;
+        font-style: normal;
+        font-size: 1.2em;
+        display: flex;
+        padding: 10px;
+        /* justify-content: flex-start; */
+        /* flex-direction: column; */
+        /* align-items: flex-start; */
+        align-self: flex-start;
+    }
+
+    /* (C) TOGGLE SHOW/HIDE MENU */
+    .hamitems {
+        display: none;
+    }
+    .hamnav input:checked ~ .hamitems {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+}
+
+.scroll-to-top {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    width: 4rem;
+    height: 4rem;
+    animation: fadeIn 700ms ease-in-out 1s both;
+    cursor: pointer;
+}
+.scroll-to-top i {
+    position: relative;
+    padding: 1rem;
+    left: 1rem;
+    top: 1rem;
+    font-size: 1rem;
+    color: white;
+    background-color: #b91c1c;
+    border-radius: 50%;
+}
+.Toastify__toast--success {
+    background-color: #38a169 !important;
+}
+.Toastify__toast--error {
+    background-color: #e53e3e !important;
+}
+.Toastify__toast-container,
+.Toastify__toast-container--bottom-center {
+    width: 16rem !important;
+}
+/* ProductDetails */
+
+.productDetails {
+    display: flex;
+    flex-direction: row;
+    height: 300vh;
+    margin-top: 2rem;
+}
+.productImage {
+    /* flex-direction: column; */
+    width: 50%;
+    height: 10px;
+    position: sticky;
+    top: 0;
+    left: 0;
+    right: 0;
+    margin-left: 20%;
+}
+.productInfo {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    height: 50rem;
+    margin-right: 20%;
+}
+.productName {
+    font-size: 1.5rem;
+}
+.price {
+    font-size: 2rem;
+    padding: 1rem 0;
+}
+.specifications {
+    border: 2px solid #f0f0f0;
+    margin-bottom: 2rem;
+}
+.specs {
+    padding: 1rem 1rem;
+}
+.reviews {
+    border: 2px solid #f0f0f0;
+    padding: 1.5rem 1rem;
+}
+.offers {
+    border: 2px solid #f0f0f0;
+    margin-bottom: 2rem;
+}
+.warranty {
+    border: 2px solid #f0f0f0;
+    margin-bottom: 2rem;
+}
+.seller {
+    border: 2px solid #f0f0f0;
+    margin-bottom: 2rem;
+}
