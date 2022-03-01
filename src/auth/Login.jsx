@@ -1,29 +1,25 @@
-import { useNavigate } from "react-router-dom";
-import { useAuth } from "./authContext";
+import { useAuth } from "../Context/authContext";
 import React, { useState } from "react";
-import { Routes, Route, NavLink } from "react-router-dom";
-export default function Login() {
-    const { loginWithCredentials, error } = useAuth();
-    const navigate = useNavigate();
+import { NavLink } from "react-router-dom";
+import { TextField } from "@mui/material";
+import "./Account.css";
+import { validateForm } from "../components/ValidateForm";
+export const Login = () => {
+    const { loginWithCredentials, error, setError } = useAuth();
+
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    function userNameHandler(e) {
-        let email = e.target.value;
-        setEmail(email);
-    }
-
-    const passwordHandler = (e) => {
-        let password = e.target.value;
-        setPassword(password);
-    };
-    function submitHandler(e) {
+    const [errorMessage, setErrorMessage] = useState("");
+    const submitHandler = (e) => {
         e.preventDefault();
-        loginWithCredentials(email, password);
-    }
+
+        validateForm({ email, password, setErrorMessage }) &&
+            loginWithCredentials(email, password);
+        setError("");
+    };
 
     return (
-        <>
-            <h1>This is login page</h1>
+        <div className="login">
             <form
                 onSubmit={submitHandler}
                 style={{
@@ -31,49 +27,59 @@ export default function Login() {
                     justifyContent: "center",
                     alignItems: "center",
                     flexDirection: "column",
-                    margin: "6rem auto",
+                    margin: "1rem auto",
                     padding: "4rem",
-                    border: "2px solid #f0f0f0"
+                    border: "2px solid #f0f0f0",
+                    width: "20rem"
                 }}
             >
-                <label>
-                    Email:{" "}
-                    <input
-                        type="text"
-                        name="email"
-                        placeholder="Enter your email here"
-                        onChange={userNameHandler}
-                        required
-                    />
-                </label>
-                <div className="email__error">{error && error.email}</div>
+                <h2>Login</h2>
+                <br />
+                <TextField
+                    id="standard__basic"
+                    label="Email"
+                    type="text"
+                    name="email"
+                    helperText="Enter your email here"
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                    value={email}
+                />
+
                 <br />
                 <br />
-                <label>
-                    Password:{" "}
-                    <input
-                        type="password"
-                        name="password"
-                        placeholder="Enter your password here"
-                        onChange={passwordHandler}
-                    />
-                </label>
-                <div className="password__error">{error && error.password}</div>
+
+                <TextField
+                    id="standard__basic"
+                    label="Password"
+                    type="password"
+                    name="password"
+                    helperText="Enter your password here"
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                    value={password}
+                />
                 <br />
-                <input type="submit" value="Login" />
+                <div className="name__error">
+                    {errorMessage !== "" && errorMessage}
+                </div>
+                <div>{error?.message}</div>
+                <br />
+                {/*Login button*/}
+                <input type="submit" value="LOGIN" id="login__btn__outlined" />
+                <br />
                 <p>
                     <NavLink
                         style={{
                             textDecoration: "none",
-                            color: "#3B82F6"
+                            color: "black"
                         }}
-                        activeStyle={{ fontWeight: "bold" }}
                         to="/signup"
                     >
                         Create an account
                     </NavLink>
                 </p>
             </form>
-        </>
+        </div>
     );
-}
+};

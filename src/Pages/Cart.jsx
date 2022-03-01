@@ -1,10 +1,10 @@
 import axios from "axios";
 import React from "react";
-import { useCart } from "./cart-context";
-import { errorToast, successToastWishlist } from "./components/toasts";
+import { useCart } from "../Context/cart-context";
+import { errorToast, successToastWishlist } from "../components/toasts";
 import { ToastContainer } from "react-toastify";
 import "./Cart.css";
-import { useAuth } from "./auth/authContext";
+import { useAuth } from "../Context/authContext";
 import { useNavigate } from "react-router-dom";
 export default function Cart() {
     const { token } = useAuth();

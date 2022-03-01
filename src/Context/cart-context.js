@@ -1,12 +1,6 @@
-import {
-    createContext,
-    useContext,
-    useReducer,
-    useEffect,
-    useState
-} from "react";
+import { createContext, useContext, useReducer, useEffect } from "react";
 import axios from "axios";
-import { useAuth } from "./auth/authContext";
+import { useAuth } from "./authContext";
 
 export const data = { itemsInCart: [], wishlist: [] };
 export const cartContext = createContext();
@@ -87,8 +81,6 @@ export function CartProvider({ children }) {
     };
 
     const reducer = (state, action) => {
-        const { itemsInCart, wishlist } = state;
-
         switch (action.type) {
             case "GET":
                 return { ...state, itemsInCart: action.payload };

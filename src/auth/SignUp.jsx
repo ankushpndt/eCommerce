@@ -1,96 +1,94 @@
-import { useNavigate } from "react-router-dom";
-import { useAuth } from "./authContext";
+import { useAuth } from "../Context/authContext";
 import React, { useState } from "react";
-import { Routes, Route, NavLink } from "react-router-dom";
-export default function SignUp() {
-    // const { state } = useLocation();
-    const navigate = useNavigate();
+import { NavLink } from "react-router-dom";
+import { TextField } from "@mui/material";
+import "./Account.css";
+import { validateForm } from "../components/ValidateForm";
+export const SignUp = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [name, setName] = useState("");
-    const { signUpWithCredentials, error } = useAuth();
-    function nameHandler(e) {
-        let name = e.target.value;
-        setName(name);
-    }
-    function emailHandler(e) {
-        let email = e.target.value;
-        setEmail(email);
-    }
-
-    const passwordHandler = (e) => {
-        let password = e.target.value;
-        setPassword(password);
-    };
-    async function submitHandler(e) {
+    const { signUpWithCredentials, error, setError } = useAuth();
+    const [errorMessage, setErrorMessage] = useState("");
+    const submitHandler = async (e) => {
         e.preventDefault();
 
-        signUpWithCredentials(name, email, password);
-        // setTimeout(() => navigate('/cart'), 3000);
-    }
-
+        validateForm({ name, email, password, setErrorMessage }) &&
+            signUpWithCredentials(name, email, password);
+        setError("");
+    };
+    console.log(errorMessage);
     return (
-        <>
-            <h1> This is signup page </h1>
+        <div className="signup">
             <form
-                onSubmit={submitHandler}
                 style={{
                     display: "flex",
                     justifyContent: "center",
                     alignItems: "center",
                     flexDirection: "column",
-                    margin: "6rem auto",
+                    margin: "1rem auto",
                     padding: "4rem",
-                    border: "2px solid #f0f0f0"
+                    border: "2px solid #f0f0f0",
+                    width: "20rem"
                 }}
+                onSubmit={submitHandler}
             >
-                <label htmlFor="">Name:</label>
-                <input
+                <h2>Sign Up</h2>
+                <br />
+                <TextField
                     type="text"
+                    label="Name"
                     name="fullName"
-                    placeholder="Enter your name here"
-                    onChange={nameHandler}
+                    helperText="Enter your name here"
+                    onChange={(e) => setName(e.target.value)}
                     required
+                    value={name}
                 />
-                <label>
-                    Email:{" "}
-                    <input
-                        type="text"
-                        name="email"
-                        placeholder="Enter your email here"
-                        onChange={emailHandler}
-                        required
-                    />
-                </label>
-                <div className="email__error">{error && error.email}</div>
+
                 <br />
+                <TextField
+                    type="text"
+                    label="Email"
+                    name="email"
+                    helperText="Enter your email here"
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                    value={email}
+                />
                 <br />
-                <label>
-                    Password:{" "}
-                    <input
-                        type="password"
-                        name="password"
-                        placeholder="Enter your password here"
-                        onChange={passwordHandler}
-                        required
-                    />
-                </label>
-                <div className="password__error">{error && error.password}</div>
+                <TextField
+                    type="password"
+                    label="Password"
+                    name="password"
+                    helperText="Enter your password here"
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                    value={password}
+                />
                 <br />
-                <input type="submit" value="Sign Up" />
+                <div className="name__error">
+                    {errorMessage !== "" && errorMessage}
+                </div>
+                <div>{error?.message}</div>
+                <br />
+                <input
+                    type="submit"
+                    value="SIGN UP"
+                    id="login__btn__outlined"
+                />
+                <br />
                 <p>
                     <NavLink
                         style={{
                             textDecoration: "none",
-                            color: "#3B82F6"
+                            color: "black"
                         }}
-                        activeStyle={{ fontWeight: "bold" }}
                         to="/login"
                     >
                         Login instead
                     </NavLink>
                 </p>
             </form>
-        </>
+        </div>
     );
-}
+};

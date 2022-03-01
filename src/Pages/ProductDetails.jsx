@@ -1,16 +1,16 @@
 import React from "react";
-import { useProduct } from "./productContext";
+import { useProduct } from "../Context/productContext";
 import { useParams, useNavigate } from "react-router-dom";
-import "./styles.css";
-import { useCart } from "./cart-context";
-import { checkItem } from "./checkItem";
+import "../styles.css";
+import { useCart } from "../Context/cart-context";
+import { checkItem } from "../checkItem";
 import axios from "axios";
-import { useAuth } from "./auth/authContext";
+import { useAuth } from "../Context/authContext";
 import {
     errorToastWishlist,
     successToast,
     successToastWishlist
-} from "./components/toasts";
+} from "../components/toasts";
 // import { ToastContainer } from "react-toastify";
 export const ProductDetails = () => {
     const { products } = useProduct();

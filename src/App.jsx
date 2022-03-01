@@ -6,30 +6,35 @@ import {
     useStripe,
     useElements
 } from "@stripe/react-stripe-js";
-import Wishlist from "./Wishlist";
-import Cart from "./Cart";
-import Product from "./Product";
-import Login from "./auth/Login";
-import SignUp from "./auth/SignUp";
-import { Routes, Route, NavLink } from "react-router-dom";
+import Wishlist from "./Pages/Wishlist";
+import Cart from "./Pages/Cart";
+import Product from "./Pages/Product";
+import { Login } from "./auth/Login";
+import { SignUp } from "./auth/SignUp";
+import { Routes, Route, NavLink, Link } from "react-router-dom";
 import { PrivateRoute } from "./PrivateRoute";
-import { useAuth } from "./auth/authContext";
-import { ProductDetails } from "./ProductDetails";
-import { LandingPage } from "./LandingPage";
+import { useAuth } from "./Context/authContext";
+import { ProductDetails } from "./Pages/ProductDetails";
+import { LandingPage } from "./Pages/LandingPage";
 import { Checkout } from "./Checkout";
-import { PageNotFound } from "./PageNotFound";
-import { MyProfile } from "./MyProfile";
-import { useProduct } from "./productContext";
-
+import { PageNotFound } from "./Pages/PageNotFound";
+import { MyProfile } from "./Pages/MyProfile";
+import { useState } from "react";
+import { Searchbar } from "./components/Searchbar";
+import MenuIcon from "@mui/icons-material/Menu";
+import HomeIcon from "@mui/icons-material/Home";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import LoginIcon from "@mui/icons-material/Login";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 export default function App() {
     const stripePromise = loadStripe("pk_test_6pRNASCoBOKtIshFeQd4XMUh");
     const { userLogout, user } = useAuth();
-    const { search, setSearch } = useProduct();
+
+    const [open, setOpen] = useState(false);
     return (
         <div className="App">
             <nav className="hamnav">
-                <label for="hamburger">&#9776;</label>
-                <input type="checkbox" id="hamburger" />
                 <div className="hamitems">
                     <div className="logo">
                         <NavLink
@@ -39,16 +44,9 @@ export default function App() {
                             eCommerce
                         </NavLink>
                     </div>
-                    <div className="searchbar">
-                        <input
-                            type="text"
-                            value={search}
-                            className="input__outline"
-                            placeholder="Search"
-                            onChange={(e) => setSearch(e.target.value)}
-                            autoFocus
-                        />
-                    </div>
+                    <header className="header">
+                        <Searchbar />
+                    </header>
                     {user && (
                         <NavLink style={{ color: "white" }} to="/MyProfile">
                             Welcome, {user}
@@ -60,9 +58,7 @@ export default function App() {
                             color: "white"
                             // marginRight: "0.5rem"
                         }}
-                        activeStyle={{ fontWeight: "bold" }}
                         to="/product"
-                        end
                     >
                         {" "}
                         Products{" "}
@@ -73,20 +69,18 @@ export default function App() {
                             color: "white"
                             // marginRight: "0.5rem"
                         }}
-                        activeStyle={{ fontWeight: "bold" }}
                         to="/cart"
                     >
-                        <i className="fas fa-shopping-cart"></i> Cart
+                        <ShoppingCartIcon />
                     </NavLink>{" "}
                     <NavLink
                         style={{
                             textDecoration: "none",
                             color: "white"
                         }}
-                        activeStyle={{ fontWeight: "bold" }}
                         to="/wishlist"
                     >
-                        <i className="fas fa-heart"></i> Wishlist
+                        <FavoriteIcon />
                     </NavLink>
                     {!user && (
                         <NavLink
@@ -94,10 +88,9 @@ export default function App() {
                                 textDecoration: "none",
                                 color: "white"
                             }}
-                            activeStyle={{ fontWeight: "bold" }}
                             to="/login"
                         >
-                            Login
+                            <LoginIcon />
                         </NavLink>
                     )}
                     {!user && (
@@ -106,10 +99,9 @@ export default function App() {
                                 textDecoration: "none",
                                 color: "white"
                             }}
-                            activeStyle={{ fontWeight: "bold" }}
                             to="/signup"
                         >
-                            Sign Up
+                            <AccountCircleIcon />
                         </NavLink>
                     )}
                     {user && (
@@ -128,6 +120,186 @@ export default function App() {
                     )}
                 </div>
             </nav>
+            <div className="mobile__menu">
+                <div className="m__menu">
+                    <Link to="/" className="logo">
+                        eCommerce
+                    </Link>
+                    <div>
+                        <Searchbar />
+                    </div>
+                    <button
+                        className="open__menu"
+                        onClick={() => setOpen((open) => !open)}
+                    >
+                        <MenuIcon />
+                    </button>{" "}
+                </div>
+                <div
+                    className={open ? "menu__drawer__active" : "menu__drawer"}
+                    onClick={() => setOpen(false)}
+                >
+                    <ul className="menu">
+                        <li>
+                            {" "}
+                            <NavLink
+                                style={({ isActive }) => {
+                                    return {
+                                        color: isActive ? "red" : "black"
+                                    };
+                                }}
+                                className="menu__link"
+                                to="/"
+                            >
+                                <HomeIcon />
+                                <span
+                                    style={{
+                                        fontSize: "1.2rem",
+                                        paddingLeft: "0.5rem"
+                                    }}
+                                >
+                                    Home
+                                </span>
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink
+                                style={({ isActive }) => {
+                                    return {
+                                        color: isActive ? "red" : "black"
+                                    };
+                                }}
+                                className="menu__link"
+                                to="/products"
+                            >
+                                <span
+                                    style={{
+                                        fontSize: "1.2rem",
+                                        paddingLeft: "0.5rem"
+                                    }}
+                                >
+                                    Products
+                                </span>
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink
+                                style={({ isActive }) => {
+                                    return {
+                                        color: isActive ? "red" : "black"
+                                    };
+                                }}
+                                className="menu__link"
+                                to="/cart"
+                            >
+                                <ShoppingCartIcon />
+                                <span
+                                    style={{
+                                        fontSize: "1.2rem",
+                                        paddingLeft: "0.5rem"
+                                    }}
+                                >
+                                    Cart
+                                </span>
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink
+                                style={({ isActive }) => {
+                                    return {
+                                        color: isActive ? "red" : "black"
+                                    };
+                                }}
+                                className="menu__link"
+                                to="/wishlist"
+                            >
+                                <FavoriteIcon />
+                                <span
+                                    style={{
+                                        fontSize: "1.2rem",
+                                        paddingLeft: "0.5rem"
+                                    }}
+                                >
+                                    Wishlist
+                                </span>
+                            </NavLink>
+                        </li>
+
+                        {!user && (
+                            <li>
+                                <NavLink
+                                    style={({ isActive }) => {
+                                        return {
+                                            color: isActive ? "red" : "black"
+                                        };
+                                    }}
+                                    className="menu__link"
+                                    to="/login"
+                                >
+                                    <LoginIcon />
+                                    <span
+                                        style={{
+                                            fontSize: "1.2rem",
+                                            paddingLeft: "0.5rem"
+                                        }}
+                                    >
+                                        Login
+                                    </span>
+                                </NavLink>
+                            </li>
+                        )}
+                        {!user && (
+                            <li>
+                                <NavLink
+                                    style={({ isActive }) => {
+                                        return {
+                                            color: isActive ? "red" : "black"
+                                        };
+                                    }}
+                                    className="menu__link"
+                                    to="/signup"
+                                >
+                                    <AccountCircleIcon />
+                                    <span
+                                        style={{
+                                            fontSize: "1.2rem",
+                                            paddingLeft: "0.5rem"
+                                        }}
+                                    >
+                                        SignUp
+                                    </span>
+                                </NavLink>
+                            </li>
+                        )}
+                        <li>
+                            {user ? (
+                                <NavLink
+                                    className="menu__link"
+                                    style={({ isActive }) => {
+                                        return {
+                                            color: isActive ? "red" : "black"
+                                        };
+                                    }}
+                                    to="/login"
+                                    onClick={userLogout}
+                                >
+                                    <LogoutIcon />
+                                    <span
+                                        style={{
+                                            fontSize: "1.2rem",
+                                            paddingLeft: "0.5rem"
+                                        }}
+                                    >
+                                        Logout
+                                    </span>
+                                </NavLink>
+                            ) : (
+                                ""
+                            )}
+                        </li>
+                    </ul>
+                </div>
+            </div>
 
             <div>
                 <Routes>
@@ -137,8 +309,22 @@ export default function App() {
                         path="/product/:productId"
                         element={<ProductDetails />}
                     />
-                    <PrivateRoute path="/cart" element={<Cart />} />
-                    <PrivateRoute path="/wishlist" element={<Wishlist />} />
+                    <Route
+                        path="/cart"
+                        element={
+                            <PrivateRoute>
+                                <Cart />
+                            </PrivateRoute>
+                        }
+                    />
+                    <Route
+                        path="/wishlist"
+                        element={
+                            <PrivateRoute>
+                                <Wishlist />
+                            </PrivateRoute>
+                        }
+                    />
                     <Route path="/login" element={<Login />} />
                     <Route path="/signup" element={<SignUp />} />
                     <Route path="/myprofile" element={<MyProfile />} />

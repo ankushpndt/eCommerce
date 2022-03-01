@@ -1,87 +1,28 @@
 import React, { useState } from "react";
-import { useProduct } from "./productContext";
-import { useCart } from "./cart-context";
+import { useProduct } from "../Context/productContext";
+import { useCart } from "../Context/cart-context";
 import { Link } from "react-router-dom";
-import axios from "axios";
+
 import "./Product.css";
 import { useNavigate } from "react-router-dom";
-import {
-    errorToastWishlist,
-    successToast,
-    successToastWishlist
-} from "./components/toasts";
+
 import { ToastContainer } from "react-toastify";
-import { useAuth } from "./auth/authContext";
-import { checkItem } from "./checkItem";
-import ScrollToTop from "./components/ScrollToTop";
+import { useAuth } from "../Context/authContext";
+import { checkItem } from "../checkItem";
+import ScrollToTop from "../components/ScrollToTop";
 import { PacmanLoader } from "react-spinners";
 import { css } from "@emotion/react";
+import {
+    addItemsToCart,
+    addItemsToWishlist,
+    removeItemFromWishlist
+} from "../utils/ApiCalls";
 export default function Product() {
     const { token } = useAuth();
     const { itemsInCart } = useCart();
     const { search } = useProduct();
     const navigate = useNavigate();
-    const addItemsToCart = async (action) => {
-        try {
-            const res = await axios.post(
-                `https://backend.ankushpndt.repl.co/cart/${action._id}`,
-                {
-                    _id: action._id
-                },
 
-                { headers: { "auth-token": token } }
-            );
-
-            dataDispatch({
-                type: "ADD_ITEM",
-                payload: res.data.Updatedcart
-            });
-        } catch (error) {
-            console.log(error);
-        } finally {
-            successToast();
-        }
-    };
-    const addItemsToWishlist = async (action) => {
-        try {
-            const response = await axios.post(
-                `https://backend.ankushpndt.repl.co/wishlist/${action._id}`,
-                {
-                    _id: action._id
-                },
-
-                { headers: { "auth-token": token } }
-            );
-            if (response.status === 200) {
-                dataDispatch({
-                    type: "ADD_WISHLIST_ITEM",
-                    payload: response.data.Updatedwishlist
-                });
-                successToastWishlist();
-            }
-        } catch (error) {
-            console.log(error.response);
-        }
-    };
-    const removeItemFromWishlist = async (action) => {
-        try {
-            const response = await axios.delete(
-                `https://backend.ankushpndt.repl.co/wishlist/${action._id}`,
-                { headers: { "auth-token": token } }
-            );
-
-            if (response.status === 200) {
-                dataDispatch({
-                    type: "REMOVE_WISHLIST_ITEM",
-                    payload: response.data.Updatedwishlist
-                });
-            }
-        } catch (error) {
-            console.log(error);
-        } finally {
-            errorToastWishlist();
-        }
-    };
     const { wishlist, dataDispatch } = useCart();
     const {
         products,
@@ -299,7 +240,7 @@ export default function Product() {
                                                     addItemsToCart({
                                                         _id
                                                     })
-                                                        ? itemsInCart.find(
+                                                        ? itemsInCart?.find(
                                                               (product) =>
                                                                   product
                                                                       .productId
@@ -313,7 +254,7 @@ export default function Product() {
                                             >
                                                 <span>
                                                     <i className="fas fa-shopping-cart"></i>{" "}
-                                                    {itemsInCart.find(
+                                                    {itemsInCart?.find(
                                                         (product) =>
                                                             product.productId
                                                                 ?._id === _id
