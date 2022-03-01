@@ -49,11 +49,8 @@ body {
 }
 .logo {
     padding: 2rem 0;
-    float: left;
 }
-.hamitems {
-    float: right;
-}
+
 /* .hamnav {
     position: sticky;
     top: 0;
