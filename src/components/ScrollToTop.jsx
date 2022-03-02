@@ -29,7 +29,7 @@ export default function ScrollToTop() {
         <div className="scroll-to-top">
             {isVisible && (
                 <div onClick={scrollToTop}>
-                    <i class="fas fa-arrow-up"></i>
+                    <i className="fas fa-arrow-up"></i>
                 </div>
             )}
         </div>

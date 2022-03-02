@@ -6,8 +6,8 @@ import {
     useStripe,
     useElements
 } from "@stripe/react-stripe-js";
-import Wishlist from "./Pages/Wishlist";
-import Cart from "./Pages/Cart";
+import { Wishlist } from "./Pages/Wishlist";
+import { Cart } from "./Pages/Cart";
 import Product from "./Pages/Product";
 import { Login } from "./auth/Login";
 import { SignUp } from "./auth/SignUp";
@@ -27,7 +27,8 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import LoginIcon from "@mui/icons-material/Login";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-export default function App() {
+import LogoutIcon from "@mui/icons-material/Logout";
+export const App = () => {
     const stripePromise = loadStripe("pk_test_6pRNASCoBOKtIshFeQd4XMUh");
     const { userLogout, user } = useAuth();
 
@@ -47,77 +48,79 @@ export default function App() {
                     <header className="header">
                         <Searchbar />
                     </header>
-                    {user && (
-                        <NavLink style={{ color: "white" }} to="/MyProfile">
-                            Welcome, {user}
-                        </NavLink>
-                    )}{" "}
-                    <NavLink
-                        style={{
-                            textDecoration: "none",
-                            color: "white"
-                            // marginRight: "0.5rem"
-                        }}
-                        to="/product"
-                    >
-                        {" "}
-                        Products{" "}
-                    </NavLink>{" "}
-                    <NavLink
-                        style={{
-                            textDecoration: "none",
-                            color: "white"
-                            // marginRight: "0.5rem"
-                        }}
-                        to="/cart"
-                    >
-                        <ShoppingCartIcon />
-                    </NavLink>{" "}
-                    <NavLink
-                        style={{
-                            textDecoration: "none",
-                            color: "white"
-                        }}
-                        to="/wishlist"
-                    >
-                        <FavoriteIcon />
-                    </NavLink>
-                    {!user && (
+                    <div className="icons">
+                        {user && (
+                            <NavLink style={{ color: "white" }} to="/MyProfile">
+                                Welcome, {user}
+                            </NavLink>
+                        )}{" "}
+                        <NavLink
+                            style={{
+                                textDecoration: "none",
+                                color: "white"
+                                // marginRight: "0.5rem"
+                            }}
+                            to="/product"
+                        >
+                            {" "}
+                            Products{" "}
+                        </NavLink>{" "}
+                        <NavLink
+                            style={{
+                                textDecoration: "none",
+                                color: "white"
+                                // marginRight: "0.5rem"
+                            }}
+                            to="/cart"
+                        >
+                            <ShoppingCartIcon />
+                        </NavLink>{" "}
                         <NavLink
                             style={{
                                 textDecoration: "none",
                                 color: "white"
                             }}
-                            to="/login"
+                            to="/wishlist"
                         >
-                            <LoginIcon />
+                            <FavoriteIcon />
                         </NavLink>
-                    )}
-                    {!user && (
-                        <NavLink
-                            style={{
-                                textDecoration: "none",
-                                color: "white"
-                            }}
-                            to="/signup"
-                        >
-                            <AccountCircleIcon />
-                        </NavLink>
-                    )}
-                    {user && (
-                        <NavLink
-                            style={{
-                                border: "none",
-                                fontWeight: "bold",
-                                color: "white",
-                                cursor: "pointer"
-                            }}
-                            onClick={() => userLogout()}
-                            to="/"
-                        >
-                            Logout
-                        </NavLink>
-                    )}
+                        {!user && (
+                            <NavLink
+                                style={{
+                                    textDecoration: "none",
+                                    color: "white"
+                                }}
+                                to="/login"
+                            >
+                                <LoginIcon />
+                            </NavLink>
+                        )}
+                        {!user && (
+                            <NavLink
+                                style={{
+                                    textDecoration: "none",
+                                    color: "white"
+                                }}
+                                to="/signup"
+                            >
+                                <AccountCircleIcon />
+                            </NavLink>
+                        )}
+                        {user && (
+                            <NavLink
+                                style={{
+                                    border: "none",
+                                    fontWeight: "bold",
+                                    color: "white",
+                                    cursor: "pointer"
+                                }}
+                                onClick={() => userLogout()}
+                                to="/"
+                            >
+                                Logout
+                            </NavLink>
+                        )}
+                    </div>
                 </div>
             </nav>
             <div className="mobile__menu">
@@ -336,4 +339,4 @@ export default function App() {
             </div>
         </div>
     );
-}
+};

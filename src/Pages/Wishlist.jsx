@@ -5,7 +5,8 @@ import { successToast, errorToastWishlist } from "../components/toasts";
 import { ToastContainer } from "react-toastify";
 import "./Cart.css";
 import { useAuth } from "../Context/authContext";
-export default function Wishlist() {
+import DeleteIcon from "@mui/icons-material/Delete";
+export const Wishlist = () => {
     const { token } = useAuth();
 
     const { wishlist, dataDispatch } = useCart();
@@ -86,10 +87,11 @@ export default function Wishlist() {
                                                         );
                                                     }}
                                                 >
-                                                    <i className="fas fa-trash"></i>
+                                                    {/* <i className="fas fa-trash"></i> */}
+                                                    <DeleteIcon />
                                                 </button>
                                                 <button
-                                                    className="card__btn btn__hollow"
+                                                    className="card__btn btn__hollow card__btn__wishlist"
                                                     onClick={() => {
                                                         addItemsToCart(item);
                                                         removeItemFromWishlist(
@@ -113,4 +115,4 @@ export default function Wishlist() {
             <ToastContainer />
         </div>
     );
-}
+};

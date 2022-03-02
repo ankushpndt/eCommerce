@@ -15,7 +15,7 @@ export const Login = () => {
 
         validateForm({ email, password, setErrorMessage }) &&
             loginWithCredentials(email, password);
-        setError("");
+        // setError("");
     };
 
     return (
@@ -44,6 +44,7 @@ export const Login = () => {
                     onChange={(e) => setEmail(e.target.value)}
                     required
                     value={email}
+                    variant="standard"
                 />
 
                 <br />
@@ -58,6 +59,7 @@ export const Login = () => {
                     onChange={(e) => setPassword(e.target.value)}
                     required
                     value={password}
+                    variant="standard"
                 />
                 <br />
                 <div className="name__error">

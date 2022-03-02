@@ -159,9 +159,9 @@ export default function Product() {
                                 <div
                                     key={i}
                                     style={{
-                                        textAlign: "center",
-                                        maxWidth: "650px",
-                                        margin: "1rem auto"
+                                        // textAlign: "center",
+                                        // maxWidth: "650px",
+                                        marginTop: "1rem"
                                     }}
                                 >
                                     <div className="card__border">
@@ -175,6 +175,7 @@ export default function Product() {
                                             style={{
                                                 width: "4rem",
                                                 marginLeft: "1rem",
+                                                marginTop: "1rem",
                                                 paddingLeft: "0"
                                             }}
                                         >

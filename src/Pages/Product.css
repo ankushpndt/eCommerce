@@ -1,25 +1,15 @@
 @import url("https://metal-ui.netlify.app/components/components.css");
 .main {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
 
-    grid-auto-rows: minmax(100px, auto);
-    grid-gap: 2rem;
-    grid-template-areas:
-        "main main main"
-        "main main main"
-        "main main main"
-        "main main main"
-        "main main main";
-}
-.main {
-    grid-area: main;
-}
 .container {
     display: flex;
     flex-direction: row;
     align-items: flex-start;
-    max-width: 1080px;
+    max-width: 100%;
     margin-left: 4rem;
 }
 .container button {
@@ -47,10 +37,7 @@ fieldset {
     flex-direction: column;
     padding: 2rem;
 }
-h1 {
-    margin: 1rem 0;
-    text-align: center;
-}
+
 input {
     margin: 0.5rem 0.5rem;
 }
@@ -72,4 +59,30 @@ input {
 }
 .card__btn {
     margin-left: 1rem;
+}
+@media all and (max-width: 648px) {
+    .main {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    .container {
+        flex-wrap: wrap;
+        margin-left: 0;
+    }
+
+    .filters {
+        display: flex;
+        gap: 1rem;
+        margin: 0 auto;
+        min-width: 0;
+    }
+    fieldset {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        padding: 1rem;
+    }
 }

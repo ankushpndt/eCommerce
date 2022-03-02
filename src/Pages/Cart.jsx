@@ -6,7 +6,7 @@ import { ToastContainer } from "react-toastify";
 import "./Cart.css";
 import { useAuth } from "../Context/authContext";
 import { useNavigate } from "react-router-dom";
-export default function Cart() {
+export const Cart = () => {
     const { token } = useAuth();
     const navigate = useNavigate();
     const { itemsInCart, dataDispatch } = useCart();
@@ -86,7 +86,7 @@ export default function Cart() {
 
     return (
         <div className="Cart">
-            <main>
+            <main className="cart__main">
                 <ul key={Date.now()}>
                     {itemsInCart?.length > 0 ? (
                         itemsInCart.map((item, index) => {
@@ -184,7 +184,7 @@ export default function Cart() {
                                                     <i className="fas fa-trash"></i>
                                                 </button>
                                                 <button
-                                                    className="card__btn btn__hollow"
+                                                    className="card__btn btn__hollow card__btn__cart"
                                                     onClick={() => {
                                                         addItemsToWishlist(
                                                             item
@@ -260,4 +260,4 @@ export default function Cart() {
             <ToastContainer />
         </div>
     );
-}
+};

@@ -1,11 +1,12 @@
 import axios from "axios";
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 
 const AuthContext = createContext();
 
-export function AuthProvider({ children }) {
+export const AuthProvider = ({ children }) => {
     const { state } = useLocation();
+    console.log(state);
     const {
         isUserLoggedIn,
         token: savedToken,
@@ -34,21 +35,21 @@ export function AuthProvider({ children }) {
             if (response.status === 201) {
                 signUpUser(response.data);
             }
-            if (response.data.user) navigate("/");
+            if (response.data.success === true) navigate("/");
         } catch (error) {
             setError(error.response.data?.errors);
             // console.log(error);
         }
     };
-    // const signUpUser = ({ token }) => {
-    //     setToken(token);
-    //     setLogin(true);
-    //     localStorage.setItem(
-    //         "login",
-    //         JSON.stringify({ isUserLoggedIn: true, token })
-    //     );
-    // };
-    // login;
+    const signUpUser = ({ token }) => {
+        setToken(token);
+        setLogin(true);
+        localStorage.setItem(
+            "login",
+            JSON.stringify({ isUserLoggedIn: true, token })
+        );
+    };
+    // login
     const loginWithCredentials = async (email, password) => {
         try {
             const response = await axios.post(
@@ -62,7 +63,7 @@ export function AuthProvider({ children }) {
             if (response.status === 200) {
                 loginUser(response.data);
             }
-            if (response.data.user) navigate(state?.from ? state.from : "/");
+            if (response.data.success === true) navigate("/");
         } catch (error) {
             setError(error.response.data.errors);
         }
@@ -100,7 +101,7 @@ export function AuthProvider({ children }) {
             {children}
         </AuthContext.Provider>
     );
-}
+};
 export function useAuth() {
     return useContext(AuthContext);
 }
