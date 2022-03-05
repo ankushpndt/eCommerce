@@ -234,7 +234,7 @@ export default function Product() {
                                         </Link>
                                         <div>
                                             <button
-                                                className="card__btn btn__hollow product__btn"
+                                                className="card__btn btn__hollow card__product__btn"
                                                 disabled={
                                                     inStock ? false : true
                                                 }

@@ -59,10 +59,10 @@ input {
 .card__body {
     padding: 1rem;
 }
-/* .product__btn {
+.card__product__btn {
     margin-left: 1rem;
     margin-bottom: 1rem;
-} */
+}
 @media all and (max-width: 648px) {
     .main {
         max-width: 1200px;
