@@ -1,88 +1,20 @@
 import axios from "axios";
-import React from "react";
+import React, { useEffect } from "react";
 import { useCart } from "../Context/cart-context";
 import { errorToast, successToastWishlist } from "../components/toasts";
 import { ToastContainer } from "react-toastify";
 import "./Cart.css";
 import { useAuth } from "../Context/authContext";
 import { useNavigate } from "react-router-dom";
+import {
+    addItemsToWishlist,
+    deleteItemFromCart,
+    updateQuantity
+} from "../utils/ApiCalls";
 export const Cart = () => {
     const { token } = useAuth();
     const navigate = useNavigate();
     const { itemsInCart, dataDispatch } = useCart();
-    const updateQuantity = async (action, text) => {
-        // console.log(action);
-        try {
-            let quantity = action.quantity;
-            if (text === "ADD") {
-                quantity += 1;
-            } else if (text === "SUB") {
-                if (quantity > 1) {
-                    quantity -= 1;
-                } else {
-                    deleteItemFromCart(action);
-                }
-            }
-
-            const response = await axios.post(
-                `https://backend.ankushpndt.repl.co/cart/${action.productId._id}/${quantity}`,
-                { _id: action.productId._id },
-                { headers: { "auth-token": token } }
-            );
-
-            if (response.status === 200) {
-                dataDispatch({
-                    type: "UPDATE_CART",
-                    payload: response.data.Updatedcart
-                });
-            }
-        } catch (err) {
-            console.log(err);
-        }
-    };
-    const deleteItemFromCart = async (action) => {
-        try {
-            const response = await axios.delete(
-                `https://backend.ankushpndt.repl.co/cart/${action.productId._id}`,
-
-                { headers: { "auth-token": token } }
-            );
-            console.log(response);
-            if (response.status === 200) {
-                dataDispatch({
-                    type: "UPDATE_CART",
-                    payload: response.data.Updatedcart
-                });
-            }
-        } catch (err) {
-            console.log(err.response);
-        } finally {
-            errorToast();
-        }
-    };
-    const addItemsToWishlist = async (action) => {
-        console.log(action);
-        try {
-            const response = await axios.post(
-                `https://backend.ankushpndt.repl.co/wishlist/${action.productId._id}`,
-                {
-                    _id: action.productId._id
-
-                    // quantity: action.item.quantity,
-                },
-                { headers: { "auth-token": token } }
-            );
-            // console.log(response);
-            dataDispatch({
-                type: "ADD_WISHLIST_ITEM",
-                payload: response.data.Updatedwishlist
-            });
-        } catch (error) {
-            console.log(error.response);
-        } finally {
-            successToastWishlist();
-        }
-    };
 
     return (
         <div className="Cart">
@@ -90,6 +22,7 @@ export const Cart = () => {
                 <ul key={Date.now()}>
                     {itemsInCart?.length > 0 ? (
                         itemsInCart.map((item, index) => {
+                            console.log(item);
                             return (
                                 <div key={Math.random()} className="product">
                                     <div className="product__wrapper">
@@ -112,7 +45,8 @@ export const Cart = () => {
                                                 {item?.productId?.name}
                                             </h2>
                                             <small>
-                                                Seller: {item?.seller}
+                                                Seller:{" "}
+                                                {item?.productId?.seller}
                                             </small>
                                             <div
                                                 style={{ padding: "0.2rem 0" }}
@@ -121,76 +55,93 @@ export const Cart = () => {
                                             </div>
 
                                             <div className="product__btn">
-                                                <button
-                                                    style={{
-                                                        backgroundColor:
-                                                            "transparent",
-                                                        border: "none",
+                                                <div className="icon__btn">
+                                                    <button
+                                                        style={{
+                                                            backgroundColor:
+                                                                "transparent",
+                                                            border: "none",
 
-                                                        paddingRight: "1rem",
-                                                        cursor: "pointer",
-                                                        paddingTop: "0.2rem"
-                                                    }}
-                                                    onClick={() =>
-                                                        updateQuantity(
-                                                            item,
-                                                            "ADD"
-                                                        )
-                                                    }
-                                                >
-                                                    <i
-                                                        className="fa fa-plus"
-                                                        aria-hidden="true"
-                                                    ></i>
-                                                </button>
+                                                            paddingRight:
+                                                                "1rem",
+                                                            cursor: "pointer",
+                                                            paddingTop: "0.2rem"
+                                                        }}
+                                                        onClick={() =>
+                                                            updateQuantity(
+                                                                item,
+                                                                "ADD",
+                                                                token,
+                                                                dataDispatch
+                                                            )
+                                                        }
+                                                    >
+                                                        <i
+                                                            className="fa fa-plus"
+                                                            aria-hidden="true"
+                                                        ></i>
+                                                    </button>
+                                                    <span>
+                                                        {item?.quantity}
+                                                    </span>
 
-                                                {item?.quantity}
+                                                    <button
+                                                        style={{
+                                                            backgroundColor:
+                                                                "transparent",
+                                                            border: "none",
+                                                            paddingLeft: "1rem",
+                                                            cursor: "pointer",
+                                                            paddingTop: "0.2rem"
+                                                        }}
+                                                        onClick={() =>
+                                                            updateQuantity(
+                                                                item,
+                                                                "SUB",
+                                                                token,
+                                                                dataDispatch
+                                                            )
+                                                        }
+                                                    >
+                                                        <i
+                                                            className="fa fa-minus"
+                                                            aria-hidden="true"
+                                                        ></i>
+                                                    </button>
 
-                                                <button
-                                                    style={{
-                                                        backgroundColor:
-                                                            "transparent",
-                                                        border: "none",
-                                                        paddingLeft: "1rem",
-                                                        cursor: "pointer",
-                                                        paddingTop: "0.2rem"
-                                                    }}
-                                                    onClick={() =>
-                                                        updateQuantity(
-                                                            item,
-                                                            "SUB"
-                                                        )
-                                                    }
-                                                >
-                                                    <i
-                                                        className="fa fa-minus"
-                                                        aria-hidden="true"
-                                                    ></i>
-                                                </button>
-
-                                                <button
-                                                    style={{
-                                                        backgroundColor:
-                                                            "transparent",
-                                                        border: "none",
-                                                        paddingLeft: "1rem",
-                                                        paddingTop: "0.2rem",
-                                                        cursor: "pointer"
-                                                    }}
-                                                    onClick={() =>
-                                                        deleteItemFromCart(item)
-                                                    }
-                                                >
-                                                    <i className="fas fa-trash"></i>
-                                                </button>
+                                                    <button
+                                                        style={{
+                                                            backgroundColor:
+                                                                "transparent",
+                                                            border: "none",
+                                                            paddingLeft: "1rem",
+                                                            paddingTop:
+                                                                "0.2rem",
+                                                            cursor: "pointer"
+                                                        }}
+                                                        onClick={() =>
+                                                            deleteItemFromCart(
+                                                                item,
+                                                                token,
+                                                                dataDispatch
+                                                            )
+                                                        }
+                                                    >
+                                                        <i className="fas fa-trash"></i>
+                                                    </button>
+                                                </div>
                                                 <button
                                                     className="card__btn btn__hollow card__btn__cart"
                                                     onClick={() => {
                                                         addItemsToWishlist(
-                                                            item
+                                                            item,
+                                                            token,
+                                                            dataDispatch
                                                         );
                                                         deleteItemFromCart(
-                                                            item
+                                                            item,
+                                                            token,
+                                                            dataDispatch
                                                         );
                                                     }}
                                                 >

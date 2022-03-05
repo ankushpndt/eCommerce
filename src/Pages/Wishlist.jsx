@@ -6,51 +6,52 @@ import { ToastContainer } from "react-toastify";
 import "./Cart.css";
 import { useAuth } from "../Context/authContext";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { removeItemFromWishlist, addItemsToCart } from "../utils/ApiCalls";
 export const Wishlist = () => {
     const { token } = useAuth();
 
     const { wishlist, dataDispatch } = useCart();
-    const removeItemFromWishlist = async (action) => {
-        try {
-            const response = await axios.delete(
-                `https://backend.ankushpndt.repl.co/wishlist/${action.productId._id}`,
-                { headers: { "auth-token": token } }
-            );
+    // const removeItemFromWishlist = async (action) => {
+    //     try {
+    //         const response = await axios.delete(
+    //             `https://backend.ankushpndt.repl.co/wishlist/${action.productId._id}`,
+    //             { headers: { "auth-token": token } }
+    //         );
 
-            if (response.status === 200) {
-                dataDispatch({
-                    type: "REMOVE_WISHLIST_ITEM",
-                    payload: response.data.Updatedwishlist
-                });
-            }
-        } catch (error) {
-            console.log(error);
-        } finally {
-            errorToastWishlist();
-        }
-    };
-    const addItemsToCart = async (action) => {
-        try {
-            const res = await axios.post(
-                `https://backend.ankushpndt.repl.co/cart/${action.productId._id}`,
-                {
-                    _id: action.productId._id
-                },
-                { headers: { "auth-token": token } }
-            );
+    //         if (response.status === 200) {
+    //             dataDispatch({
+    //                 type: "REMOVE_WISHLIST_ITEM",
+    //                 payload: response.data.Updatedwishlist
+    //             });
+    //         }
+    //     } catch (error) {
+    //         console.log(error);
+    //     } finally {
+    //         errorToastWishlist();
+    //     }
+    // };
+    // const addItemsToCart = async (action) => {
+    //     try {
+    //         const res = await axios.post(
+    //             `https://backend.ankushpndt.repl.co/cart/${action.productId._id}`,
+    //             {
+    //                 _id: action.productId._id
+    //             },
+    //             { headers: { "auth-token": token } }
+    //         );
 
-            if (res.status === 200) {
-                dataDispatch({
-                    type: "ADD_ITEM",
-                    payload: res.data.Updatedcart
-                });
-            }
-        } catch (error) {
-            console.log(error.res);
-        } finally {
-            successToast();
-        }
-    };
+    //         if (res.status === 200) {
+    //             dataDispatch({
+    //                 type: "ADD_ITEM",
+    //                 payload: res.data.Updatedcart
+    //             });
+    //         }
+    //     } catch (error) {
+    //         console.log(error.res);
+    //     } finally {
+    //         successToast();
+    //     }
+    // };
     return (
         <div
             className="Cart"
@@ -58,8 +59,8 @@ export const Wishlist = () => {
         >
             <main>
                 <ul key={Date.now()}>
-                    {wishlist.length > 0 ? (
-                        wishlist.map((item, i) => {
+                    {wishlist?.length > 0 ? (
+                        wishlist?.map((item, i) => {
                             console.log(`wishlist item =>${i}`, { item });
                             return (
                                 <div key={Math.random()} className="product">
@@ -83,19 +84,26 @@ export const Wishlist = () => {
                                                     className="close"
                                                     onClick={() => {
                                                         removeItemFromWishlist(
-                                                            item
+                                                            item,
+                                                            token,
+                                                            dataDispatch
                                                         );
                                                     }}
                                                 >
-                                                    {/* <i className="fas fa-trash"></i> */}
                                                     <DeleteIcon />
                                                 </button>
                                                 <button
                                                     className="card__btn btn__hollow card__btn__wishlist"
                                                     onClick={() => {
-                                                        addItemsToCart(item);
+                                                        addItemsToCart({
+                                                            _id: item?._id,
+                                                            token,
+                                                            dataDispatch
+                                                        });
                                                         removeItemFromWishlist(
-                                                            item
+                                                            item,
+                                                            token,
+                                                            dataDispatch
                                                         );
                                                     }}
                                                 >

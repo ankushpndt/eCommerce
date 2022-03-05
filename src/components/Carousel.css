@@ -4,6 +4,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 0 3rem;
 }
 
 .image {
@@ -38,7 +39,7 @@
 
 .slide {
     opacity: 0;
-    transition-duration: 1s ease;
+    transition-duration: 1000ms;
 }
 
 .slide.active {
@@ -46,9 +47,10 @@
     transition-duration: 1s;
     transform: scale(1.08);
 }
-@media all and (max-width: 648px) {
+@media all and (max-width: 740px) {
     .slider {
         height: 100%;
+        padding: 0 2rem;
     }
     .right__arrow {
         top: 45%;

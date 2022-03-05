@@ -169,6 +169,7 @@ export default function Product() {
                                             src={image}
                                             width="100%"
                                             alt={name}
+                                            style={{ padding: "1rem" }}
                                         />
                                         <div
                                             className="badge__success"
@@ -233,13 +234,15 @@ export default function Product() {
                                         </Link>
                                         <div>
                                             <button
-                                                className="card__btn btn__hollow"
+                                                className="card__btn btn__hollow product__btn"
                                                 disabled={
                                                     inStock ? false : true
                                                 }
                                                 onClick={() =>
                                                     addItemsToCart({
-                                                        _id
+                                                        _id,
+                                                        token,
+                                                        dataDispatch
                                                     })
                                                         ? itemsInCart?.find(
                                                               (product) =>

@@ -173,7 +173,7 @@ export const App = () => {
                                     };
                                 }}
                                 className="menu__link"
-                                to="/products"
+                                to="/product"
                             >
                                 <span
                                     style={{
@@ -304,39 +304,37 @@ export const App = () => {
                 </div>
             </div>
 
-            <div>
-                <Routes>
-                    <Route path="/" element={<LandingPage />} />
-                    <Route path="/product" element={<Product />} />
-                    <Route
-                        path="/product/:productId"
-                        element={<ProductDetails />}
-                    />
-                    <Route
-                        path="/cart"
-                        element={
-                            <PrivateRoute>
-                                <Cart />
-                            </PrivateRoute>
-                        }
-                    />
-                    <Route
-                        path="/wishlist"
-                        element={
-                            <PrivateRoute>
-                                <Wishlist />
-                            </PrivateRoute>
-                        }
-                    />
-                    <Route path="/login" element={<Login />} />
-                    <Route path="/signup" element={<SignUp />} />
-                    <Route path="/myprofile" element={<MyProfile />} />
-                    <Route path="/*" element={<PageNotFound />} />
-                    <Elements stripe={stripePromise}>
-                        <Route path="/cart/checkout/" element={<Checkout />} />
-                    </Elements>
-                </Routes>
-            </div>
+            <Routes>
+                <Route path="/" element={<LandingPage />} />
+                <Route path="/product" element={<Product />} />
+                <Route
+                    path="/product/:productId"
+                    element={<ProductDetails />}
+                />
+                <Route
+                    path="/cart"
+                    element={
+                        <PrivateRoute>
+                            <Cart />
+                        </PrivateRoute>
+                    }
+                />
+                <Route
+                    path="/wishlist"
+                    element={
+                        <PrivateRoute>
+                            <Wishlist />
+                        </PrivateRoute>
+                    }
+                />
+                <Route path="/login" element={<Login />} />
+                <Route path="/signup" element={<SignUp />} />
+                <Route path="/myprofile" element={<MyProfile />} />
+                <Route path="/*" element={<PageNotFound />} />
+                <Elements stripe={stripePromise}>
+                    <Route path="/cart/checkout/" element={<Checkout />} />
+                </Elements>
+            </Routes>
         </div>
     );
 };
