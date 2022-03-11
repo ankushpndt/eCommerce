@@ -43,6 +43,7 @@ export const SignUp = () => {
                     onChange={(e) => setName(e.target.value)}
                     required
                     value={name}
+                    variant="standard"
                 />
 
                 <br />
@@ -54,6 +55,7 @@ export const SignUp = () => {
                     onChange={(e) => setEmail(e.target.value)}
                     required
                     value={email}
+                    variant="standard"
                 />
                 <br />
                 <TextField
@@ -64,6 +66,7 @@ export const SignUp = () => {
                     onChange={(e) => setPassword(e.target.value)}
                     required
                     value={password}
+                    variant="standard"
                 />
                 <br />
                 <div className="name__error">

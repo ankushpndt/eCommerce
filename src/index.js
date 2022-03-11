@@ -5,6 +5,7 @@ import { ProductProvider } from "./Context/productContext";
 import { App } from "./App";
 import { BrowserRouter as Router } from "react-router-dom";
 import { AuthProvider } from "./Context/authContext";
+import { AddressProvider } from "./Context/addressContext";
 const rootElement = document.getElementById("root");
 ReactDOM.render(
     <StrictMode>
@@ -12,7 +13,9 @@ ReactDOM.render(
             <AuthProvider>
                 <ProductProvider>
                     <CartProvider>
-                        <App />
+                        <AddressProvider>
+                            <App />
+                        </AddressProvider>
                     </CartProvider>
                 </ProductProvider>
             </AuthProvider>

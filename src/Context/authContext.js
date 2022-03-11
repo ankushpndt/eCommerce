@@ -5,22 +5,25 @@ import { useNavigate, useLocation } from "react-router-dom";
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-    const { state } = useLocation();
-    console.log(state);
+    // const { state } = useLocation();
+    // console.log(state);
     const {
         isUserLoggedIn,
         token: savedToken,
-        user: userName
+        user: userName,
+        userId: userid
     } = JSON.parse(localStorage?.getItem("login")) || {
         isUserLoggedIn: false,
         token: null,
-        user: ""
+        user: "",
+        userId: ""
     };
 
     const [login, setLogin] = useState(isUserLoggedIn);
     const [token, setToken] = useState(savedToken);
     const [error, setError] = useState("");
     const [user, setUser] = useState(userName);
+    const [userId, setUserId] = useState(userid);
     const navigate = useNavigate();
 
     //signup
@@ -41,12 +44,19 @@ export const AuthProvider = ({ children }) => {
             // console.log(error);
         }
     };
-    const signUpUser = ({ token }) => {
+    const signUpUser = ({ token, userName, userid }) => {
         setToken(token);
         setLogin(true);
+        setUser(userName);
+        setUserId(userid);
         localStorage.setItem(
             "login",
-            JSON.stringify({ isUserLoggedIn: true, token })
+            JSON.stringify({
+                isUserLoggedIn: true,
+                token,
+                user: userName,
+                userId: userid
+            })
         );
     };
     // login
@@ -68,13 +78,20 @@ export const AuthProvider = ({ children }) => {
             setError(error.response.data.errors);
         }
     };
-    const loginUser = ({ token, userName }) => {
+    const loginUser = ({ token, userName, userid }) => {
+        console.log(userid);
         setToken(token);
         setLogin(true);
         setUser(userName);
+        setUserId(userid);
         localStorage.setItem(
             "login",
-            JSON.stringify({ isUserLoggedIn: true, token, user: userName })
+            JSON.stringify({
+                isUserLoggedIn: true,
+                token,
+                user: userName,
+                userId: userid
+            })
         );
     };
     const userLogout = async () => {
@@ -82,9 +99,10 @@ export const AuthProvider = ({ children }) => {
         setLogin(false);
         setToken("");
         setUser("");
+        setUserId("");
         navigate("/login");
     };
-    console.log(user);
+    console.log(userId);
     return (
         <AuthContext.Provider
             value={{
@@ -94,14 +112,12 @@ export const AuthProvider = ({ children }) => {
                 error,
                 token,
                 userLogout,
-                user
+                user,
+                userId
             }}
         >
-            {console.log(user)}
             {children}
         </AuthContext.Provider>
     );
 };
-export function useAuth() {
-    return useContext(AuthContext);
-}
+export const useAuth = () => useContext(AuthContext);

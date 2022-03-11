@@ -10,7 +10,7 @@
 }
 .Cart {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: center;
     margin: 5rem 1rem;
 }
 
@@ -78,7 +78,8 @@ h1 {
 } */
 @media (max-width: 700px) {
     .Cart {
-        flex-direction: column;
+        /* display: block; */
+        flex-wrap: wrap;
         margin: 0;
         padding: 0 1rem;
     }

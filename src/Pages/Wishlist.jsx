@@ -10,48 +10,8 @@ import { removeItemFromWishlist, addItemsToCart } from "../utils/ApiCalls";
 export const Wishlist = () => {
     const { token } = useAuth();
 
-    const { wishlist, dataDispatch } = useCart();
-    // const removeItemFromWishlist = async (action) => {
-    //     try {
-    //         const response = await axios.delete(
-    //             `https://backend.ankushpndt.repl.co/wishlist/${action.productId._id}`,
-    //             { headers: { "auth-token": token } }
-    //         );
-
-    //         if (response.status === 200) {
-    //             dataDispatch({
-    //                 type: "REMOVE_WISHLIST_ITEM",
-    //                 payload: response.data.Updatedwishlist
-    //             });
-    //         }
-    //     } catch (error) {
-    //         console.log(error);
-    //     } finally {
-    //         errorToastWishlist();
-    //     }
-    // };
-    // const addItemsToCart = async (action) => {
-    //     try {
-    //         const res = await axios.post(
-    //             `https://backend.ankushpndt.repl.co/cart/${action.productId._id}`,
-    //             {
-    //                 _id: action.productId._id
-    //             },
-    //             { headers: { "auth-token": token } }
-    //         );
-
-    //         if (res.status === 200) {
-    //             dataDispatch({
-    //                 type: "ADD_ITEM",
-    //                 payload: res.data.Updatedcart
-    //             });
-    //         }
-    //     } catch (error) {
-    //         console.log(error.res);
-    //     } finally {
-    //         successToast();
-    //     }
-    // };
+    const { wishlist, dispatch } = useCart();
+    console.log(wishlist);
     return (
         <div
             className="Cart"
@@ -83,11 +43,12 @@ export const Wishlist = () => {
                                                 <button
                                                     className="close"
                                                     onClick={() => {
-                                                        removeItemFromWishlist(
-                                                            item,
+                                                        removeItemFromWishlist({
+                                                            _id: item?.productId
+                                                                ?._id,
                                                             token,
-                                                            dataDispatch
-                                                        );
+                                                            dispatch
+                                                        });
                                                     }}
                                                 >
                                                     <DeleteIcon />
@@ -96,15 +57,17 @@ export const Wishlist = () => {
                                                     className="card__btn btn__hollow card__btn__wishlist"
                                                     onClick={() => {
                                                         addItemsToCart({
-                                                            _id: item?._id,
+                                                            _id: item?.productId
+                                                                ?._id,
                                                             token,
-                                                            dataDispatch
+                                                            dispatch
                                                         });
-                                                        removeItemFromWishlist(
-                                                            item,
+                                                        removeItemFromWishlist({
+                                                            _id: item?.productId
+                                                                ?._id,
                                                             token,
-                                                            dataDispatch
-                                                        );
+                                                            dispatch
+                                                        });
                                                     }}
                                                 >
                                                     Move to Cart

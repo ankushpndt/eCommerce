@@ -8,7 +8,7 @@ import {
 } from "@stripe/react-stripe-js";
 import { Wishlist } from "./Pages/Wishlist";
 import { Cart } from "./Pages/Cart";
-import Product from "./Pages/Product";
+import { Product } from "./Pages/Product";
 import { Login } from "./auth/Login";
 import { SignUp } from "./auth/SignUp";
 import { Routes, Route, NavLink, Link } from "react-router-dom";
@@ -28,6 +28,8 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import LoginIcon from "@mui/icons-material/Login";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import LogoutIcon from "@mui/icons-material/Logout";
+import { SavedAddress } from "./Pages/SavedAddress";
+import { NewAddress } from "./Pages/NewAddress";
 export const App = () => {
     const stripePromise = loadStripe("pk_test_6pRNASCoBOKtIshFeQd4XMUh");
     const { userLogout, user } = useAuth();
@@ -55,11 +57,7 @@ export const App = () => {
                             </NavLink>
                         )}{" "}
                         <NavLink
-                            style={{
-                                textDecoration: "none",
-                                color: "white"
-                                // marginRight: "0.5rem"
-                            }}
+                            style={{ color: "white", color: "white" }}
                             to="/product"
                         >
                             {" "}
@@ -146,11 +144,10 @@ export const App = () => {
                         <li>
                             {" "}
                             <NavLink
-                                style={({ isActive }) => {
-                                    return {
-                                        color: isActive ? "red" : "black"
-                                    };
-                                }}
+                                // style={({ isActive }) => ({
+                                //     color: isActive ? "red" : "black"
+                                // })}
+
                                 className="menu__link"
                                 to="/"
                             >
@@ -330,10 +327,13 @@ export const App = () => {
                 <Route path="/login" element={<Login />} />
                 <Route path="/signup" element={<SignUp />} />
                 <Route path="/myprofile" element={<MyProfile />} />
+
+                <Route path="/cart/savedaddress" element={<SavedAddress />} />
+                <Route path="/cart/newaddress" element={<NewAddress />} />
                 <Route path="/*" element={<PageNotFound />} />
-                <Elements stripe={stripePromise}>
+                {/* <Elements stripe={stripePromise}>
                     <Route path="/cart/checkout/" element={<Checkout />} />
-                </Elements>
+                </Elements> */}
             </Routes>
         </div>
     );

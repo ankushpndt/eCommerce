@@ -1,4 +1,4 @@
-export function ProductReducer(state, action) {
+export const productReducer = (state, action) => {
     switch (action.type) {
         case "GET":
             return { ...state, products: action.payload };
@@ -22,4 +22,4 @@ export function ProductReducer(state, action) {
         default:
             return state;
     }
-}
+};

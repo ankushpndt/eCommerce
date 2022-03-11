@@ -9,13 +9,13 @@ body {
     width: 100%;
 }
 
-.app-header {
+/* .app-header {
     text-align: center;
-}
+} */
 
-.app-body {
+/* .app-body {
     margin: 0rem 2rem 0rem 2rem;
-}
+} */
 
 .hamnav {
     width: 100%;
@@ -72,6 +72,11 @@ body {
 .mobile__menu {
     display: none;
 }
+@media (max-width: 800px) {
+    .hamitems a {
+        padding-right: 0.5rem;
+    }
+}
 @media screen and (max-width: 700px) {
     .menu li {
         list-style: none;
@@ -87,7 +92,7 @@ body {
     .m__menu {
         display: flex;
         align-items: center;
-        justify-content: space-evenly;
+        justify-content: space-between;
     }
     .mobile__menu {
         display: flex;
@@ -119,7 +124,7 @@ body {
     .menu__link {
         display: flex;
         width: 100%;
-        padding: 1rem 0;
+        padding: 1rem 0.5rem;
         text-decoration: none;
         color: black;
     }

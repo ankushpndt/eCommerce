@@ -5,7 +5,49 @@ import {
     successToastWishlist,
     errorToast
 } from "../components/toasts";
-export const addItemsToCart = async ({ _id, token, dataDispatch }) => {
+export const getProducts = async (setLoader, dispatch) => {
+    try {
+        setLoader(true);
+        const response = await axios.get(
+            "https://backend.ankushpndt.repl.co/products"
+        );
+        console.log(response.data);
+        setLoader(false);
+        dispatch({ type: "GET", payload: response.data.products });
+    } catch (error) {
+        dispatch({ type: "ERROR" });
+    }
+};
+export const getWishlistItems = async (token, dispatch) => {
+    try {
+        const response = await axios.get(
+            "https://backend.ankushpndt.repl.co/wishlist",
+
+            { headers: { "auth-token": token } }
+        );
+        dispatch({
+            type: "GET_FROM_WISHLIST",
+            payload: response.data.wishlist
+        });
+    } catch (error) {
+        console.log(error);
+    }
+};
+export const getCartItems = async (token, dispatch) => {
+    try {
+        const response = await axios.get(
+            "https://backend.ankushpndt.repl.co/cart",
+
+            { headers: { "auth-token": token } }
+        );
+
+        dispatch({ type: "GET", payload: response.data.cart });
+    } catch (error) {
+        console.log(error);
+    }
+};
+export const addItemsToCart = async ({ _id, token, dispatch }) => {
+    console.log(_id);
     try {
         const res = await axios.post(
             `https://backend.ankushpndt.repl.co/cart/${_id}`,
@@ -15,27 +57,29 @@ export const addItemsToCart = async ({ _id, token, dataDispatch }) => {
 
             { headers: { "auth-token": token } }
         );
-
-        dataDispatch({
+        console.log(res.data);
+        dispatch({
             type: "ADD_ITEM",
             payload: res.data.Updatedcart
         });
     } catch (error) {
-        console.log(error);
+        // errorToast(res.message);
+        alert(error);
     } finally {
         successToast();
     }
 };
-export const deleteItemFromCart = async (action, token, dataDispatch) => {
+export const deleteItemFromCart = async ({ _id, token, dispatch }) => {
+    console.log(_id);
     try {
         const response = await axios.delete(
-            `https://backend.ankushpndt.repl.co/cart/${action.productId._id}`,
+            `https://backend.ankushpndt.repl.co/cart/${_id}`,
 
             { headers: { "auth-token": token } }
         );
         console.log(response);
         if (response.status === 200) {
-            dataDispatch({
+            dispatch({
                 type: "UPDATE_CART",
                 payload: response.data.Updatedcart
             });
@@ -46,7 +90,7 @@ export const deleteItemFromCart = async (action, token, dataDispatch) => {
         errorToast();
     }
 };
-export const updateQuantity = async (action, text, token, dataDispatch) => {
+export const updateQuantity = async (action, text, token, dispatch) => {
     // console.log(action);
     try {
         let quantity = action.quantity;
@@ -67,7 +111,7 @@ export const updateQuantity = async (action, text, token, dataDispatch) => {
         );
 
         if (response.status === 200) {
-            dataDispatch({
+            dispatch({
                 type: "UPDATE_CART",
                 payload: response.data.Updatedcart
             });
@@ -76,36 +120,38 @@ export const updateQuantity = async (action, text, token, dataDispatch) => {
         console.log(err);
     }
 };
-export const addItemsToWishlist = async (action, dataDispatch) => {
+export const addItemsToWishlist = async ({ _id, token, dispatch }) => {
+    console.log(_id);
     try {
         const response = await axios.post(
-            `https://backend.ankushpndt.repl.co/wishlist/${action._id}`,
+            `https://backend.ankushpndt.repl.co/wishlist/${_id}`,
             {
-                _id: action._id
+                _id
             },
 
             { headers: { "auth-token": token } }
         );
         if (response.status === 200) {
-            dataDispatch({
+            dispatch({
                 type: "ADD_WISHLIST_ITEM",
                 payload: response.data.Updatedwishlist
             });
             successToastWishlist();
         }
     } catch (error) {
-        console.log(error.response);
+        console.log(error);
     }
 };
-export const removeItemFromWishlist = async (action, token) => {
+export const removeItemFromWishlist = async ({ _id, token, dispatch }) => {
+    console.log(_id);
     try {
         const response = await axios.delete(
-            `https://backend.ankushpndt.repl.co/wishlist/${action._id}`,
+            `https://backend.ankushpndt.repl.co/wishlist/${_id}`,
             { headers: { "auth-token": token } }
         );
-
+        console.log(response);
         if (response.status === 200) {
-            dataDispatch({
+            dispatch({
                 type: "REMOVE_WISHLIST_ITEM",
                 payload: response.data.Updatedwishlist
             });
@@ -114,5 +160,87 @@ export const removeItemFromWishlist = async (action, token) => {
         console.log(error);
     } finally {
         errorToastWishlist();
+    }
+};
+export const getAddress = async (dispatch, userId) => {
+    try {
+        const response = await axios.get(
+            `https://backend.ankushpndt.repl.co/address/get/${userId}`
+        );
+        if (response.status === 200) {
+            dispatch({
+                type: "GET_ADDRESS",
+                payload: response.data.getAllAddress
+            });
+        }
+    } catch (error) {
+        console.log(error);
+    }
+};
+export const addAddress = async ({
+    _id,
+    name,
+    mobileno,
+    pincode,
+    address,
+    dispatch
+}) => {
+    console.log(_id);
+    try {
+        const response = await axios.post(
+            `https://backend.ankushpndt.repl.co/address/add`,
+            {
+                userId: _id,
+                name,
+                mobileno,
+                pincode,
+                address
+            }
+        );
+        if (response.status === 200) {
+            dispatch({
+                type: "ADD_ADDRESS",
+                payload: response.data.savedAddress
+            });
+        }
+    } catch (error) {
+        console.log(error);
+    }
+};
+export const updateAddress = async (dispatch, addressId) => {
+    try {
+        const response = await axios.put(
+            `https://backend.ankushpndt.repl.co/address/update/${addressId}`,
+            {
+                userId: _id,
+                name: customerName,
+                mobileno: mobNo,
+                pincode: pincode,
+                address: customerAddress
+            }
+        );
+        if (response.status === 200) {
+            dispatch({
+                type: "UPDATE_ADDRESS",
+                payload: response.data.updateAddress
+            });
+        }
+    } catch (error) {
+        console.log(error);
+    }
+};
+export const deleteAddress = async (dispatch) => {
+    try {
+        const response = await axios.delete(
+            `https://backend.ankushpndt.repl.co/address/delete`
+        );
+        if (response.status === 200) {
+            dispatch({
+                type: "DELETE_ADDRESS",
+                payload: response.data.deleteAddress
+            });
+        }
+    } catch (error) {
+        console.log(error);
     }
 };

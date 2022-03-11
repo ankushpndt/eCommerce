@@ -1,0 +1,15 @@
+.address {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    /* max-height: 50vh; */
+}
+.address__form {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    width: 20rem;
+    justify-content: center;
+    align-items: center;
+}

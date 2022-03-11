@@ -1,7 +1,5 @@
-import axios from "axios";
 import React, { useEffect } from "react";
 import { useCart } from "../Context/cart-context";
-import { errorToast, successToastWishlist } from "../components/toasts";
 import { ToastContainer } from "react-toastify";
 import "./Cart.css";
 import { useAuth } from "../Context/authContext";
@@ -9,20 +7,24 @@ import { useNavigate } from "react-router-dom";
 import {
     addItemsToWishlist,
     deleteItemFromCart,
-    updateQuantity
+    updateQuantity,
+    getCartItems
 } from "../utils/ApiCalls";
 export const Cart = () => {
     const { token } = useAuth();
     const navigate = useNavigate();
-    const { itemsInCart, dataDispatch } = useCart();
-
+    const { itemsInCart, dispatch } = useCart();
+    // useEffect(() => {
+    //     getCartItems(token, dispatch);
+    // }, [token, dispatch]);
+    console.log(itemsInCart);
     return (
         <div className="Cart">
             <main className="cart__main">
                 <ul key={Date.now()}>
                     {itemsInCart?.length > 0 ? (
-                        itemsInCart.map((item, index) => {
-                            console.log(item);
+                        itemsInCart.map((item) => {
+                            console.log("item=>", item);
                             return (
                                 <div key={Math.random()} className="product">
                                     <div className="product__wrapper">
@@ -72,7 +74,7 @@ export const Cart = () => {
                                                                 item,
                                                                 "ADD",
                                                                 token,
-                                                                dataDispatch
+                                                                dispatch
                                                             )
                                                         }
                                                     >
@@ -99,7 +101,7 @@ export const Cart = () => {
                                                                 item,
                                                                 "SUB",
                                                                 token,
-                                                                dataDispatch
+                                                                dispatch
                                                             )
                                                         }
                                                     >
@@ -120,11 +122,13 @@ export const Cart = () => {
                                                             cursor: "pointer"
                                                         }}
                                                         onClick={() =>
-                                                            deleteItemFromCart(
-                                                                item,
+                                                            deleteItemFromCart({
+                                                                _id: item
+                                                                    ?.productId
+                                                                    ?._id,
                                                                 token,
-                                                                dataDispatch
-                                                            )
+                                                                dispatch
+                                                            })
                                                         }
                                                     >
                                                         <i className="fas fa-trash"></i>
@@ -133,16 +137,18 @@ export const Cart = () => {
                                                 <button
                                                     className="card__btn btn__hollow card__btn__cart"
                                                     onClick={() => {
-                                                        addItemsToWishlist(
-                                                            item,
+                                                        addItemsToWishlist({
+                                                            _id: item?.productId
+                                                                ?._id,
                                                             token,
-                                                            dataDispatch
-                                                        );
-                                                        deleteItemFromCart(
-                                                            item,
+                                                            dispatch
+                                                        });
+                                                        deleteItemFromCart({
+                                                            _id: item?.productId
+                                                                ?._id,
                                                             token,
-                                                            dataDispatch
-                                                        );
+                                                            dispatch
+                                                        });
                                                     }}
                                                 >
                                                     Save For Later
@@ -154,7 +160,13 @@ export const Cart = () => {
                             );
                         })
                     ) : (
-                        <p style={{ textAlign: "center" }}>
+                        <p
+                            style={{
+                                display: "flex",
+                                justifyContent: "center",
+                                alignItems: "center"
+                            }}
+                        >
                             Your cart is empty
                         </p>
                     )}
@@ -203,7 +215,7 @@ export const Cart = () => {
                             )}
                         </h3>
                     </div>
-                    <button onClick={() => navigate("/cart/checkout")}>
+                    <button onClick={() => navigate("/cart/savedaddress")}>
                         Proceed to checkout
                     </button>
                 </div>

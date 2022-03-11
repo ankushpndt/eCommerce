@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import { useProduct } from "../Context/productContext";
 import { useCart } from "../Context/cart-context";
 import { Link } from "react-router-dom";
@@ -15,15 +15,18 @@ import { css } from "@emotion/react";
 import {
     addItemsToCart,
     addItemsToWishlist,
+    getWishlistItems,
+    getCartItems,
     removeItemFromWishlist
 } from "../utils/ApiCalls";
-export default function Product() {
+import { v4 } from "uuid";
+export const Product = () => {
     const { token } = useAuth();
     const { itemsInCart } = useCart();
     const { search } = useProduct();
     const navigate = useNavigate();
 
-    const { wishlist, dataDispatch } = useCart();
+    const { wishlist, dispatch } = useCart();
     const {
         products,
         loader,
@@ -32,7 +35,7 @@ export default function Product() {
         showInventoryAll,
         productDispatch
     } = useProduct();
-    function getSortedData(productList, sortBy) {
+    const getSortedData = (productList, sortBy) => {
         if (sortBy === "HIGH_TO_LOW") {
             return productList.sort((a, b) => b["price"] - a["price"]);
         }
@@ -40,31 +43,35 @@ export default function Product() {
             return productList.sort((a, b) => a["price"] - b["price"]);
         }
         return productList;
-    }
-    function getFilteredData(
+    };
+    const getFilteredData = (
         productList,
         { showFastDeliveryOnly, showInventoryAll }
-    ) {
-        return productList
+    ) =>
+        productList
             .filter(({ fastDelivery }) =>
                 showFastDeliveryOnly ? fastDelivery : true
             )
             .filter(({ inStock }) => (showInventoryAll ? true : inStock));
-    }
-    function getSearchData(productList, search) {
-        return productList.filter((item) =>
+    const getSearchData = (productList, search) =>
+        productList.filter((item) =>
             item.name.toLowerCase().includes(search.toLowerCase())
                 ? item
                 : !item
         );
-    }
     const sortedList = getSortedData(products, sortBy);
     const filteredData = getFilteredData(sortedList, {
         showFastDeliveryOnly,
         showInventoryAll
     });
     const searchedData = getSearchData(filteredData, search);
-    console.log(searchedData);
+    useEffect(() => {
+        if (token) {
+            getCartItems(token, dispatch);
+            getWishlistItems(token, dispatch);
+        }
+    }, [token, dispatch]);
+
     return (
         <main>
             <h1>Products</h1>
@@ -157,10 +164,8 @@ export default function Product() {
                                 i
                             ) => (
                                 <div
-                                    key={i}
+                                    key={v4()}
                                     style={{
-                                        // textAlign: "center",
-                                        // maxWidth: "650px",
                                         marginTop: "1rem"
                                     }}
                                 >
@@ -234,33 +239,29 @@ export default function Product() {
                                         </Link>
                                         <div>
                                             <button
-                                                className="card__btn btn__hollow card__product__btn"
+                                                className="card__btn  card__product__btn"
                                                 disabled={
                                                     inStock ? false : true
                                                 }
-                                                onClick={() =>
-                                                    addItemsToCart({
-                                                        _id,
-                                                        token,
-                                                        dataDispatch
-                                                    })
-                                                        ? itemsInCart?.find(
-                                                              (product) =>
-                                                                  product
-                                                                      .productId
-                                                                      ?._id ===
-                                                                  _id
-                                                          )
-                                                            ? navigate("/cart")
-                                                            : ""
-                                                        : ""
-                                                }
+                                                onClick={() => {
+                                                    itemsInCart?.find(
+                                                        (product) =>
+                                                            product.productId
+                                                                ?._id === _id
+                                                    )
+                                                        ? navigate("/cart")
+                                                        : addItemsToCart({
+                                                              _id,
+                                                              token,
+                                                              dispatch
+                                                          });
+                                                }}
                                             >
                                                 <span>
                                                     <i className="fas fa-shopping-cart"></i>{" "}
                                                     {itemsInCart?.find(
                                                         (product) =>
-                                                            product.productId
+                                                            product?.productId
                                                                 ?._id === _id
                                                     )
                                                         ? "Go To Cart"
@@ -269,7 +270,7 @@ export default function Product() {
                                             </button>
 
                                             <button
-                                                className="product__wishlist card__btn btn__hollow"
+                                                className="product__wishlist card__btn"
                                                 style={{
                                                     color: `${
                                                         checkItem(wishlist, _id)
@@ -282,17 +283,15 @@ export default function Product() {
                                                         ? removeItemFromWishlist(
                                                               {
                                                                   _id,
-                                                                  name,
-                                                                  image,
-                                                                  discount,
-                                                                  seller,
-                                                                  ratings,
-                                                                  inStock,
-                                                                  fastDelivery
+
+                                                                  token,
+                                                                  dispatch
                                                               }
                                                           )
                                                         : addItemsToWishlist({
-                                                              _id
+                                                              _id,
+                                                              token,
+                                                              dispatch
                                                           });
 
                                                     // errorToastWishlist();
@@ -312,4 +311,4 @@ export default function Product() {
             </div>
         </main>
     );
-}
+};
