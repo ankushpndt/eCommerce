@@ -29,7 +29,6 @@ const addItem = (state, action) => {
 //     return [...action.payload];
 // };
 export const CartWishlistReducer = (state, action) => {
-    console.log(action.payload);
     switch (action.type) {
         case "GET":
             return { ...state, itemsInCart: action.payload };

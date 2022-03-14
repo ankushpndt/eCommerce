@@ -1,17 +1,30 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useAddress } from "../Context/addressContext";
 import { v4 } from "uuid";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { NewAddress } from "./NewAddress";
+import { deleteAddress } from "../utils/ApiCalls";
+
 export const SavedAddress = () => {
-    const { address } = useAddress();
+    const { address, dispatch } = useAddress();
     const [isEdit, setIsEdit] = useState(false);
+    const [update, setUpdate] = useState(false);
+    const [isAdd, setAdd] = useState(false);
+    const [addressId, setAddressId] = useState("");
+
     return (
         <div>
-            <h4>Saved Addresses</h4>
-            <Link to="/cart/newaddress">Add new address</Link>
+            <button
+                onClick={() => {
+                    setIsEdit((isEdit) => !isEdit);
+                    setAdd((isAdd) => !isAdd);
+                }}
+            >
+                {!isEdit ? "Add new address" : "Go back"}
+            </button>
+
             <div className="saved__addresses">
                 {!isEdit && (
                     <ul style={{ listStyle: "none" }}>
@@ -27,15 +40,26 @@ export const SavedAddress = () => {
                                     <div className="address__btn">
                                         <div className="address__btn__edit">
                                             <EditIcon
-                                                onClick={() =>
+                                                onClick={() => {
                                                     setIsEdit(
                                                         (isEdit) => !isEdit
-                                                    )
-                                                }
+                                                    );
+                                                    setAdd(false);
+                                                    setUpdate(true);
+                                                    setAddressId(item?._id);
+                                                }}
                                             />
                                         </div>
                                         <div className="address__btn__delete">
-                                            <DeleteIcon />
+                                            {console.log(item?._id)}
+                                            <DeleteIcon
+                                                onClick={() =>
+                                                    deleteAddress({
+                                                        dispatch,
+                                                        addressId: item?._id
+                                                    })
+                                                }
+                                            />
                                         </div>
                                     </div>
                                     <div className="address__content">
@@ -48,8 +72,14 @@ export const SavedAddress = () => {
                             ))}
                     </ul>
                 )}
-                {isEdit && <NewAddress setIsEdit={setIsEdit} />}
             </div>
+            {isEdit && (
+                <NewAddress
+                    isAdd={isAdd}
+                    addressId={addressId}
+                    update={update}
+                />
+            )}
         </div>
     );
 };

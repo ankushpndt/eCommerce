@@ -7,24 +7,19 @@ import { useNavigate } from "react-router-dom";
 import {
     addItemsToWishlist,
     deleteItemFromCart,
-    updateQuantity,
-    getCartItems
+    updateQuantity
 } from "../utils/ApiCalls";
 export const Cart = () => {
     const { token } = useAuth();
     const navigate = useNavigate();
     const { itemsInCart, dispatch } = useCart();
-    // useEffect(() => {
-    //     getCartItems(token, dispatch);
-    // }, [token, dispatch]);
-    console.log(itemsInCart);
+
     return (
         <div className="Cart">
             <main className="cart__main">
                 <ul key={Date.now()}>
                     {itemsInCart?.length > 0 ? (
                         itemsInCart.map((item) => {
-                            console.log("item=>", item);
                             return (
                                 <div key={Math.random()} className="product">
                                     <div className="product__wrapper">

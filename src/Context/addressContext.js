@@ -12,7 +12,7 @@ export const AddressProvider = ({ children }) => {
     const [state, dispatch] = useReducer(AddressReducer, { address: [] });
     return (
         <addressContext.Provider value={{ address: state.address, dispatch }}>
-            {console.log(userId)}
+            {console.log(state)}
             <> {children}</>
         </addressContext.Provider>
     );

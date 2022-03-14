@@ -185,7 +185,6 @@ export const addAddress = async ({
     address,
     dispatch
 }) => {
-    console.log(_id);
     try {
         const response = await axios.post(
             `https://backend.ankushpndt.repl.co/address/add`,
@@ -197,6 +196,7 @@ export const addAddress = async ({
                 address
             }
         );
+        console.log(response.data);
         if (response.status === 200) {
             dispatch({
                 type: "ADD_ADDRESS",
@@ -207,33 +207,44 @@ export const addAddress = async ({
         console.log(error);
     }
 };
-export const updateAddress = async (dispatch, addressId) => {
+export const updateAddress = async ({
+    _id,
+    name,
+    mobileno,
+    pincode,
+    address,
+    dispatch,
+    addressId
+}) => {
     try {
         const response = await axios.put(
             `https://backend.ankushpndt.repl.co/address/update/${addressId}`,
             {
                 userId: _id,
-                name: customerName,
-                mobileno: mobNo,
-                pincode: pincode,
-                address: customerAddress
+                name,
+                mobileno,
+                pincode,
+                address
             }
         );
+        console.log(response);
         if (response.status === 200) {
             dispatch({
                 type: "UPDATE_ADDRESS",
-                payload: response.data.updateAddress
+                payload: response.data.updatedAddress
             });
         }
     } catch (error) {
         console.log(error);
     }
 };
-export const deleteAddress = async (dispatch) => {
+export const deleteAddress = async ({ dispatch, addressId }) => {
+    console.log(addressId);
     try {
         const response = await axios.delete(
-            `https://backend.ankushpndt.repl.co/address/delete`
+            `https://backend.ankushpndt.repl.co/address/delete/${addressId}`
         );
+        console.log(response.data);
         if (response.status === 200) {
             dispatch({
                 type: "DELETE_ADDRESS",

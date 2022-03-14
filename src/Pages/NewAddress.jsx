@@ -5,24 +5,41 @@ import { useAddress } from "../Context/addressContext";
 import { useAuth } from "../Context/authContext";
 import { addAddress } from "../utils/ApiCalls";
 import "./Address.css";
+import { updateAddress } from "../utils/ApiCalls";
 
-export const NewAddress = ({ setIsEdit }) => {
-    const [fullName, setFullName] = useState("");
-    const [mobNumber, setMobNumber] = useState("");
-    const [pincode, setPincode] = useState("");
-    const [address, setAddress] = useState("");
+export const NewAddress = ({ addressId, isAdd, update }) => {
+    console.log(isAdd, update);
+    const { address } = useAddress();
+    const userAddress = address?.find((item) => item?._id === addressId);
+
+    const [fullName, setFullName] = useState(userAddress?.name);
+    const [mobNumber, setMobNumber] = useState(userAddress?.mobileno);
+    const [newPincode, setNewPincode] = useState(userAddress?.pincode);
+    const [newAddress, setNewAddress] = useState(userAddress?.address);
     const { dispatch } = useAddress();
     const { userId } = useAuth();
+
     const submitHandler = (e) => {
         e.preventDefault();
-        addAddress({
-            _id: userId,
-            name: fullName,
-            mobileno: mobNumber,
-            pincode: pincode,
-            address: address,
-            dispatch
-        });
+        isAdd &&
+            addAddress({
+                _id: userId,
+                name: fullName,
+                mobileno: mobNumber,
+                pincode: newPincode,
+                address: newAddress,
+                dispatch
+            });
+        update &&
+            updateAddress({
+                dispatch,
+                addressId,
+                _id: userId,
+                name: fullName,
+                mobileno: mobNumber,
+                pincode: newPincode,
+                address: newAddress
+            });
     };
     return (
         <div className="address">
@@ -43,13 +60,13 @@ export const NewAddress = ({ setIsEdit }) => {
                     id="standard-basic"
                     label="PIN code"
                     variant="standard"
-                    onChange={(e) => setPincode(e.target.value)}
+                    onChange={(e) => setNewPincode(e.target.value)}
                 />
                 <TextField
                     id="standard-basic"
                     label="Address"
                     variant="standard"
-                    onChange={(e) => setAddress(e.target.value)}
+                    onChange={(e) => setNewAddress(e.target.value)}
                 />
                 <button
                     type="submit"
@@ -58,11 +75,6 @@ export const NewAddress = ({ setIsEdit }) => {
                 >
                     Save
                 </button>
-                <div className="address__btn__discard">
-                    <button onClick={() => setIsEdit((isEdit) => !isEdit)}>
-                        Cancel
-                    </button>
-                </div>
             </form>
         </div>
     );

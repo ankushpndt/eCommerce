@@ -23,7 +23,6 @@ export const CartProvider = ({ children }) => {
 
     return (
         <cartContext.Provider value={{ itemsInCart, wishlist, dispatch }}>
-            {console.log(itemsInCart)}
             <>{children} </>
         </cartContext.Provider>
     );

@@ -102,7 +102,7 @@ export const AuthProvider = ({ children }) => {
         setUserId("");
         navigate("/login");
     };
-    console.log(userId);
+
     return (
         <AuthContext.Provider
             value={{
