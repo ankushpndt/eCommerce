@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import "../auth/Account.css";
 import { useAddress } from "../Context/addressContext";
 import { v4 } from "uuid";
 import EditIcon from "@mui/icons-material/Edit";
@@ -15,16 +15,18 @@ export const SavedAddress = () => {
     const [addressId, setAddressId] = useState("");
 
     return (
-        <div>
-            <button
-                onClick={() => {
-                    setIsEdit((isEdit) => !isEdit);
-                    setAdd((isAdd) => !isAdd);
-                }}
-            >
-                {!isEdit ? "Add new address" : "Go back"}
-            </button>
-
+        <div className="address__container">
+            <div className="address__nav__btn">
+                <button
+                    onClick={() => {
+                        setIsEdit((isEdit) => !isEdit);
+                        setAdd((isAdd) => !isAdd);
+                    }}
+                    id="login__btn__outlined"
+                >
+                    {!isEdit ? "Add new address" : "Go back"}
+                </button>
+            </div>
             <div className="saved__addresses">
                 {!isEdit && (
                     <ul style={{ listStyle: "none" }}>
@@ -33,8 +35,10 @@ export const SavedAddress = () => {
                                 <div
                                     key={v4()}
                                     style={{
-                                        border: "1px dotted red",
-                                        margin: "1rem"
+                                        margin: "1rem",
+                                        padding: "1rem",
+                                        boxShadow:
+                                            "0 3px 6px rgb(0 0 0 / 16%), 0 3px 6px rgb(0 0 0 / 23%)"
                                     }}
                                 >
                                     <div className="address__btn">
@@ -48,6 +52,7 @@ export const SavedAddress = () => {
                                                     setUpdate(true);
                                                     setAddressId(item?._id);
                                                 }}
+                                                style={{ cursor: "pointer" }}
                                             />
                                         </div>
                                         <div className="address__btn__delete">
@@ -59,11 +64,12 @@ export const SavedAddress = () => {
                                                         addressId: item?._id
                                                     })
                                                 }
+                                                style={{ cursor: "pointer" }}
                                             />
                                         </div>
                                     </div>
                                     <div className="address__content">
-                                        <p>{item?.name}</p>
+                                        <div>{item?.name}</div>
                                         <p>{item?.mobileno}</p>
                                         <p>{item?.pincode}</p>
                                         <p>{item?.address}</p>

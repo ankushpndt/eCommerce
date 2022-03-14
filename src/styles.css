@@ -129,8 +129,7 @@ body {
         color: black;
     }
     .menu__link:hover {
-        background-color: black;
-        color: white;
+        background-color: red;
     }
     .menu__drawer__active {
         max-height: 500px;

@@ -21,7 +21,6 @@ export const Wishlist = () => {
                 <ul key={Date.now()}>
                     {wishlist?.length > 0 ? (
                         wishlist?.map((item, i) => {
-                            console.log(`wishlist item =>${i}`, { item });
                             return (
                                 <div key={Math.random()} className="product">
                                     <div className="product__wrapper">
@@ -39,7 +38,7 @@ export const Wishlist = () => {
                                         <div className="product__details">
                                             <h2>{item.productId?.name}</h2>
                                             <p>₹{item.productId?.price}</p>
-                                            <div className="product__btn">
+                                            <div className="product__btn wishlist__btn">
                                                 <button
                                                     className="close"
                                                     onClick={() => {

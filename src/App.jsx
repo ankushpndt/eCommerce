@@ -28,8 +28,9 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import LoginIcon from "@mui/icons-material/Login";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import LogoutIcon from "@mui/icons-material/Logout";
+import ListIcon from "@mui/icons-material/List";
 import { SavedAddress } from "./Pages/SavedAddress";
-import { NewAddress } from "./Pages/NewAddress";
+
 export const App = () => {
     const stripePromise = loadStripe("pk_test_6pRNASCoBOKtIshFeQd4XMUh");
     const { userLogout, user } = useAuth();
@@ -144,10 +145,9 @@ export const App = () => {
                         <li>
                             {" "}
                             <NavLink
-                                // style={({ isActive }) => ({
-                                //     color: isActive ? "red" : "black"
-                                // })}
-
+                                style={({ isActive }) => ({
+                                    color: isActive ? "#4c1d95" : "black"
+                                })}
                                 className="menu__link"
                                 to="/"
                             >
@@ -166,12 +166,13 @@ export const App = () => {
                             <NavLink
                                 style={({ isActive }) => {
                                     return {
-                                        color: isActive ? "red" : "black"
+                                        color: isActive ? "#4c1d95" : "black"
                                     };
                                 }}
                                 className="menu__link"
                                 to="/product"
                             >
+                                <ListIcon />
                                 <span
                                     style={{
                                         fontSize: "1.2rem",
@@ -186,7 +187,7 @@ export const App = () => {
                             <NavLink
                                 style={({ isActive }) => {
                                     return {
-                                        color: isActive ? "red" : "black"
+                                        color: isActive ? "#4c1d95" : "black"
                                     };
                                 }}
                                 className="menu__link"
@@ -207,7 +208,7 @@ export const App = () => {
                             <NavLink
                                 style={({ isActive }) => {
                                     return {
-                                        color: isActive ? "red" : "black"
+                                        color: isActive ? "#4c1d95" : "black"
                                     };
                                 }}
                                 className="menu__link"
@@ -230,7 +231,9 @@ export const App = () => {
                                 <NavLink
                                     style={({ isActive }) => {
                                         return {
-                                            color: isActive ? "red" : "black"
+                                            color: isActive
+                                                ? "#4c1d95"
+                                                : "black"
                                         };
                                     }}
                                     className="menu__link"
@@ -253,7 +256,9 @@ export const App = () => {
                                 <NavLink
                                     style={({ isActive }) => {
                                         return {
-                                            color: isActive ? "red" : "black"
+                                            color: isActive
+                                                ? "#4c1d95"
+                                                : "black"
                                         };
                                     }}
                                     className="menu__link"
@@ -277,7 +282,9 @@ export const App = () => {
                                     className="menu__link"
                                     style={({ isActive }) => {
                                         return {
-                                            color: isActive ? "red" : "black"
+                                            color: isActive
+                                                ? "#4c1d95"
+                                                : "black"
                                         };
                                     }}
                                     to="/login"
@@ -329,7 +336,7 @@ export const App = () => {
                 <Route path="/myprofile" element={<MyProfile />} />
 
                 <Route path="/cart/savedaddress" element={<SavedAddress />} />
-                <Route path="/cart/newaddress" element={<NewAddress />} />
+
                 <Route path="/*" element={<PageNotFound />} />
                 {/* <Elements stripe={stripePromise}>
                     <Route path="/cart/checkout/" element={<Checkout />} />
