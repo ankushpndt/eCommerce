@@ -9,25 +9,19 @@ body {
     width: 100%;
 }
 
-/* .app-header {
-    text-align: center;
-} */
-
-/* .app-body {
-    margin: 0rem 2rem 0rem 2rem;
-} */
-
 .hamnav {
     width: 100%;
     display: flex;
     flex-direction: row;
-    /* justify-content: space-around; */
     align-items: center;
     background-color: black;
     font-size: 1rem;
     letter-spacing: 1px;
     font-weight: bold;
     margin-bottom: 1rem;
+    position: sticky;
+    top: 0;
+    z-index: 1;
 }
 .hamitems {
     display: flex;
@@ -58,10 +52,6 @@ body {
     padding: 2rem 0;
 }
 
-/* .hamnav {
-    position: sticky;
-    top: 0;
-} */
 .searchbar {
     padding: 0.5rem 0;
 }
@@ -96,8 +86,12 @@ body {
     }
     .mobile__menu {
         display: flex;
-        padding: 1rem;
+        padding: 0 1rem;
         flex-direction: column;
+        background-color: white;
+        z-index: 1;
+        position: sticky;
+        top: 0;
     }
     .open__menu {
         background-color: transparent;

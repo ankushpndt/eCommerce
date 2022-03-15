@@ -76,9 +76,9 @@ export const Product = () => {
         <main>
             <h1>Products</h1>
             <div className="container">
-                <div className="filters">
-                    <fieldset>
-                        <legend>Sort By</legend>
+                <div className="filters__container">
+                    <div className="sortby">
+                        <h5>Sort By</h5>
                         <label htmlFor="highToLow">
                             <input
                                 type="radio"
@@ -107,9 +107,9 @@ export const Product = () => {
                             />
                             Low to high
                         </label>
-                    </fieldset>
-                    <fieldset>
-                        <legend>Filters</legend>
+                    </div>
+                    <div className="filters">
+                        <h5>Filters</h5>
                         <label htmlFor="stock">
                             <input
                                 type="checkbox"
@@ -134,7 +134,7 @@ export const Product = () => {
                             />
                             Fast delivery
                         </label>
-                    </fieldset>
+                    </div>
                 </div>
                 <main className="main">
                     {loader ? (

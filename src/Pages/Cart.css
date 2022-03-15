@@ -1,11 +1,7 @@
-/* .cart__main {
-    width: 50%;
-} */
 .images img {
     width: 100%;
     max-width: 15vw;
     padding-right: 1rem;
-    /* height: 100%; */
     max-height: 20vh;
 }
 .Cart {
@@ -20,7 +16,6 @@
     padding: 1rem;
     margin-bottom: 1rem;
     border-radius: 15px;
-    /* background: #e0e0e0; */
     box-shadow: 0 3px 6px rgb(0 0 0 / 16%), 0 3px 6px rgb(0 0 0 / 23%);
 }
 .product__wrapper {
@@ -36,17 +31,18 @@
     font-size: larger;
     cursor: pointer;
     color: red;
-    padding-top: 0.5rem;
+    padding-top: 0.8rem;
 }
 .product__btn {
     display: flex;
-    align-items: center;
-
+    align-items: flex-end;
     flex-wrap: wrap;
     justify-content: flex-start;
+    height: 50%;
 }
 .wishlist__btn {
     justify-content: space-between;
+    align-items: flex-start;
 }
 .price__details {
     border-radius: 15px;
@@ -61,31 +57,28 @@ h1 {
 }
 .icon__btn {
     margin-right: 1rem;
+    padding-bottom: 0.5rem;
 }
 .card__btn__cart {
     margin-top: 0;
 }
-/* .card__btn__wishlist {
-    position: relative;
-    bottom: 70%;
-} */
+
 .hide__product__details {
     display: none;
 }
-/* @media (max-width: 900px) {
-    .cart__main {
-        width: 50%;
-    }
-    .images img {
-        max-width: 10vw;
-    }
-} */
+
 @media (max-width: 700px) {
     .Cart {
-        /* display: block; */
         flex-wrap: wrap;
         margin: 0;
         padding: 0 1rem;
+    }
+    .cart__main {
+        margin: auto;
+        width: 100%;
+    }
+    .wishlist__main {
+        width: 100%;
     }
     .product {
         margin: auto;
@@ -100,7 +93,6 @@ h1 {
     }
     .images img {
         min-width: 100%;
-        /* height: 100%; */
         max-height: 100vh;
     }
     .product__details {
@@ -110,7 +102,7 @@ h1 {
         font-size: small;
     }
     .price__details {
-        width: 85%;
+        width: 100%;
         margin: auto;
         margin-top: 1rem;
         margin-bottom: 1rem;
@@ -121,9 +113,7 @@ h1 {
     .product__btn {
         flex-wrap: wrap;
     }
-
-    .cart__main {
-        /* max-width: 50%; */
-        margin: auto;
-    }
+    /* .wishlist__btn {
+        min-height: 80%;
+    } */
 }

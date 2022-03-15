@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useCart } from "../Context/cart-context";
 import { ToastContainer } from "react-toastify";
 import "./Cart.css";
@@ -9,6 +9,7 @@ import {
     deleteItemFromCart,
     updateQuantity
 } from "../utils/ApiCalls";
+import { v4 } from "uuid";
 export const Cart = () => {
     const { token } = useAuth();
     const navigate = useNavigate();
@@ -17,17 +18,14 @@ export const Cart = () => {
     return (
         <div className="Cart">
             <main className="cart__main">
-                <ul key={Date.now()}>
+                <ul key={v4()}>
                     {itemsInCart?.length > 0 ? (
                         itemsInCart.map((item) => {
                             return (
-                                <div key={Math.random()} className="product">
+                                <div key={v4()} className="product">
                                     <div className="product__wrapper">
                                         {" "}
-                                        <div
-                                            key={Math.random()}
-                                            className="images"
-                                        >
+                                        <div key={v4()} className="images">
                                             <img
                                                 src={item?.productId?.image}
                                                 alt="error"
@@ -46,7 +44,7 @@ export const Cart = () => {
                                                 {item?.productId?.seller}
                                             </small>
                                             <div
-                                                style={{ padding: "0.2rem 0" }}
+                                                style={{ paddingTop: "0.2rem" }}
                                             >
                                                 ₹{item?.productId?.price}
                                             </div>
@@ -130,7 +128,7 @@ export const Cart = () => {
                                                     </button>
                                                 </div>
                                                 <button
-                                                    className="card__btn btn__hollow card__btn__cart"
+                                                    className="card__btn  card__btn__cart"
                                                     onClick={() => {
                                                         addItemsToWishlist({
                                                             _id: item?.productId
@@ -210,8 +208,11 @@ export const Cart = () => {
                             )}
                         </h3>
                     </div>
-                    <button onClick={() => navigate("/cart/savedaddress")}>
-                        Proceed to checkout
+                    <button
+                        className="card__btn  card__btn__cart"
+                        onClick={() => navigate("/cart/savedaddress")}
+                    >
+                        Checkout
                     </button>
                 </div>
             )}

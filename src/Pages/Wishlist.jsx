@@ -1,5 +1,4 @@
 import React from "react";
-import axios from "axios";
 import { useCart } from "../Context/cart-context";
 import { successToast, errorToastWishlist } from "../components/toasts";
 import { ToastContainer } from "react-toastify";
@@ -7,6 +6,7 @@ import "./Cart.css";
 import { useAuth } from "../Context/authContext";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { removeItemFromWishlist, addItemsToCart } from "../utils/ApiCalls";
+import { v4 } from "uuid";
 export const Wishlist = () => {
     const { token } = useAuth();
 
@@ -17,17 +17,17 @@ export const Wishlist = () => {
             className="Cart"
             style={{ flexWrap: "wrap", justifyContent: "center" }}
         >
-            <main>
-                <ul key={Date.now()}>
+            <main className="wishlist__main">
+                <ul key={v4()}>
                     {wishlist?.length > 0 ? (
                         wishlist?.map((item, i) => {
                             return (
-                                <div key={Math.random()} className="product">
+                                <div
+                                    key={v4()}
+                                    className="product wishlist__product"
+                                >
                                     <div className="product__wrapper">
-                                        <div
-                                            key={Math.random()}
-                                            className="images"
-                                        >
+                                        <div key={v4()} className="images">
                                             <img
                                                 src={item.productId?.image}
                                                 width="100%"
@@ -37,7 +37,9 @@ export const Wishlist = () => {
                                         </div>
                                         <div className="product__details">
                                             <h2>{item.productId?.name}</h2>
-                                            <p>₹{item.productId?.price}</p>
+                                            <p style={{ paddingTop: "0.2rem" }}>
+                                                ₹{item.productId?.price}
+                                            </p>
                                             <div className="product__btn wishlist__btn">
                                                 <button
                                                     className="close"
