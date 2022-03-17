@@ -43,6 +43,7 @@
 .wishlist__btn {
     justify-content: space-between;
     align-items: flex-start;
+    flex-direction: column;
 }
 .price__details {
     border-radius: 15px;
@@ -97,6 +98,9 @@ h1 {
     }
     .product__details {
         width: 50%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
     }
     h2 {
         font-size: small;

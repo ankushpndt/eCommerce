@@ -37,6 +37,10 @@ export const Wishlist = () => {
                                         </div>
                                         <div className="product__details">
                                             <h2>{item.productId?.name}</h2>
+                                            <small>
+                                                Seller:{" "}
+                                                {item?.productId?.seller}
+                                            </small>
                                             <p style={{ paddingTop: "0.2rem" }}>
                                                 ₹{item.productId?.price}
                                             </p>

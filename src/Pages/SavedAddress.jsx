@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "../auth/Account.css";
 import { useAddress } from "../Context/addressContext";
 import { v4 } from "uuid";
@@ -6,6 +6,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { NewAddress } from "./NewAddress";
 import { deleteAddress } from "../utils/ApiCalls";
+import { useNavigate } from "react-router-dom";
 
 export const SavedAddress = () => {
     const { address, dispatch } = useAddress();
@@ -13,6 +14,7 @@ export const SavedAddress = () => {
     const [update, setUpdate] = useState(false);
     const [isAdd, setAdd] = useState(false);
     const [addressId, setAddressId] = useState("");
+    const navigate = useNavigate();
 
     return (
         <div className="address__container">
@@ -68,7 +70,12 @@ export const SavedAddress = () => {
                                             />
                                         </div>
                                     </div>
-                                    <div className="address__content">
+                                    <div
+                                        onClick={() =>
+                                            navigate("/cart/payment")
+                                        }
+                                        className="address__content"
+                                    >
                                         <div>{item?.name}</div>
                                         <p>{item?.mobileno}</p>
                                         <p>{item?.pincode}</p>

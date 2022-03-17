@@ -1,11 +1,6 @@
 import "./styles.css";
 import { loadStripe } from "@stripe/stripe-js";
-import {
-    CardElement,
-    Elements,
-    useStripe,
-    useElements
-} from "@stripe/react-stripe-js";
+import { Elements } from "@stripe/react-stripe-js";
 import { Wishlist } from "./Pages/Wishlist";
 import { Cart } from "./Pages/Cart";
 import { Product } from "./Pages/Product";
@@ -16,7 +11,7 @@ import { PrivateRoute } from "./PrivateRoute";
 import { useAuth } from "./Context/authContext";
 import { ProductDetails } from "./Pages/ProductDetails";
 import { LandingPage } from "./Pages/LandingPage";
-import { Checkout } from "./Checkout";
+
 import { PageNotFound } from "./Pages/PageNotFound";
 import { MyProfile } from "./Pages/MyProfile";
 import { useState } from "react";
@@ -30,6 +25,7 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import LogoutIcon from "@mui/icons-material/Logout";
 import ListIcon from "@mui/icons-material/List";
 import { SavedAddress } from "./Pages/SavedAddress";
+import { Payment } from "./Pages/Payment";
 
 export const App = () => {
     const stripePromise = loadStripe("pk_test_6pRNASCoBOKtIshFeQd4XMUh");
@@ -57,10 +53,7 @@ export const App = () => {
                                 Welcome, {user}
                             </NavLink>
                         )}{" "}
-                        <NavLink
-                            style={{ color: "white", color: "white" }}
-                            to="/product"
-                        >
+                        <NavLink style={{ color: "white" }} to="/product">
                             {" "}
                             Products{" "}
                         </NavLink>{" "}
@@ -68,7 +61,6 @@ export const App = () => {
                             style={{
                                 textDecoration: "none",
                                 color: "white"
-                                // marginRight: "0.5rem"
                             }}
                             to="/cart"
                         >
@@ -338,9 +330,15 @@ export const App = () => {
                 <Route path="/cart/savedaddress" element={<SavedAddress />} />
 
                 <Route path="/*" element={<PageNotFound />} />
-                {/* <Elements stripe={stripePromise}>
-                    <Route path="/cart/checkout/" element={<Checkout />} />
-                </Elements> */}
+
+                <Route
+                    path="/cart/payment/"
+                    element={
+                        <Elements stripe={stripePromise}>
+                            <Payment />
+                        </Elements>
+                    }
+                />
             </Routes>
         </div>
     );
