@@ -11,7 +11,6 @@ import { PrivateRoute } from "./PrivateRoute";
 import { useAuth } from "./Context/authContext";
 import { ProductDetails } from "./Pages/ProductDetails";
 import { LandingPage } from "./Pages/LandingPage";
-
 import { PageNotFound } from "./Pages/PageNotFound";
 import { MyProfile } from "./Pages/MyProfile";
 import { useState } from "react";
@@ -26,6 +25,7 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import ListIcon from "@mui/icons-material/List";
 import { SavedAddress } from "./Pages/SavedAddress";
 import { Payment } from "./Pages/Payment";
+import { OrderSuccessful } from "./Pages/OrderSuccessful";
 
 export const App = () => {
     const stripePromise = loadStripe("pk_test_6pRNASCoBOKtIshFeQd4XMUh");
@@ -328,17 +328,20 @@ export const App = () => {
                 <Route path="/myprofile" element={<MyProfile />} />
 
                 <Route path="/cart/savedaddress" element={<SavedAddress />} />
-
-                <Route path="/*" element={<PageNotFound />} />
-
                 <Route
-                    path="/cart/payment/"
+                    path="/cart/payment"
                     element={
                         <Elements stripe={stripePromise}>
                             <Payment />
                         </Elements>
                     }
                 />
+                <Route
+                    path="/cart/payment/success"
+                    element={<OrderSuccessful />}
+                />
+
+                <Route path="/*" element={<PageNotFound />} />
             </Routes>
         </div>
     );

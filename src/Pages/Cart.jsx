@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useCart } from "../Context/cart-context";
 import { ToastContainer } from "react-toastify";
 import "./Cart.css";
@@ -10,11 +10,17 @@ import {
     updateQuantity
 } from "../utils/ApiCalls";
 import { v4 } from "uuid";
+import { getCartItems } from "../utils/ApiCalls";
 export const Cart = () => {
     const { token } = useAuth();
     const navigate = useNavigate();
     const { itemsInCart, dispatch } = useCart();
 
+    useEffect(() => {
+        if (token) {
+            getCartItems(token, dispatch);
+        }
+    }, [dispatch, token]);
     return (
         <div className="Cart">
             <main className="cart__main">
@@ -212,7 +218,7 @@ export const Cart = () => {
                         className="card__btn  card__btn__cart"
                         onClick={() => navigate("/cart/savedaddress")}
                     >
-                        Checkout
+                        Proceed to buy
                     </button>
                 </div>
             )}

@@ -65,12 +65,6 @@ export const Product = () => {
         showInventoryAll
     });
     const searchedData = getSearchData(filteredData, search);
-    useEffect(() => {
-        if (token) {
-            getCartItems(token, dispatch);
-            getWishlistItems(token, dispatch);
-        }
-    }, [token, dispatch]);
 
     return (
         <main>

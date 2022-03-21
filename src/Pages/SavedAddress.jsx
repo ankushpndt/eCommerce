@@ -1,13 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../auth/Account.css";
 import { useAddress } from "../Context/addressContext";
+import { useAuth } from "../Context/authContext";
 import { v4 } from "uuid";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { NewAddress } from "./NewAddress";
 import { deleteAddress } from "../utils/ApiCalls";
 import { useNavigate } from "react-router-dom";
-
+import { HoriStepper } from "../components/HoriStepper";
+import { getAddress } from "../utils/ApiCalls";
 export const SavedAddress = () => {
     const { address, dispatch } = useAddress();
     const [isEdit, setIsEdit] = useState(false);
@@ -15,9 +17,15 @@ export const SavedAddress = () => {
     const [isAdd, setAdd] = useState(false);
     const [addressId, setAddressId] = useState("");
     const navigate = useNavigate();
+    const { userId } = useAuth();
 
+    useEffect(() => {
+        getAddress(dispatch, userId);
+    }, [dispatch]);
     return (
         <div className="address__container">
+            <HoriStepper activeStep={0} />
+
             <div className="address__nav__btn">
                 <button
                     onClick={() => {
@@ -58,7 +66,6 @@ export const SavedAddress = () => {
                                             />
                                         </div>
                                         <div className="address__btn__delete">
-                                            {console.log(item?._id)}
                                             <DeleteIcon
                                                 onClick={() =>
                                                     deleteAddress({
@@ -74,12 +81,13 @@ export const SavedAddress = () => {
                                         onClick={() =>
                                             navigate("/cart/payment")
                                         }
+                                        style={{ cursor: "pointer" }}
                                         className="address__content"
                                     >
-                                        <div>{item?.name}</div>
-                                        <p>{item?.mobileno}</p>
-                                        <p>{item?.pincode}</p>
-                                        <p>{item?.address}</p>
+                                        <div>Name: {item?.name}</div>
+                                        <p>Mobile number: {item?.mobileno}</p>
+                                        <p>Pincode: {item?.pincode}</p>
+                                        <p>Address: {item?.address}</p>
                                     </div>
                                 </div>
                             ))}

@@ -14,7 +14,7 @@ export const ProductProvider = ({ children }) => {
     const [search, setSearch] = useState("");
     useEffect(() => {
         getProducts(setLoader, dispatch);
-    }, []);
+    }, [setLoader, dispatch]);
     const [state, dispatch] = useReducer(productReducer, {
         products: [],
 

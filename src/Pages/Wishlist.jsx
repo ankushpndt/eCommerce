@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useCart } from "../Context/cart-context";
 import { successToast, errorToastWishlist } from "../components/toasts";
 import { ToastContainer } from "react-toastify";
@@ -7,11 +7,16 @@ import { useAuth } from "../Context/authContext";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { removeItemFromWishlist, addItemsToCart } from "../utils/ApiCalls";
 import { v4 } from "uuid";
+import { getWishlistItems } from "../utils/ApiCalls";
 export const Wishlist = () => {
     const { token } = useAuth();
 
     const { wishlist, dispatch } = useCart();
-    console.log(wishlist);
+    useEffect(() => {
+        if (token) {
+            getWishlistItems(token, dispatch);
+        }
+    }, [dispatch, token]);
     return (
         <div
             className="Cart"

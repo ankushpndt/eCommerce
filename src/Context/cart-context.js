@@ -14,7 +14,7 @@ export const CartProvider = ({ children }) => {
             getCartItems(token, dispatch);
             getWishlistItems(token, dispatch);
         }
-    }, []);
+    }, [dispatch, token]);
 
     const [{ itemsInCart, wishlist }, dispatch] = useReducer(
         CartWishlistReducer,
