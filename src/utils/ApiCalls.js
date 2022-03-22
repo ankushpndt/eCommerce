@@ -12,8 +12,11 @@ export const getProducts = async (setLoader, dispatch) => {
             "https://backend.ankushpndt.repl.co/products"
         );
         console.log(response.data);
-        setLoader(false);
-        dispatch({ type: "GET", payload: response.data.products });
+
+        if (response?.data) {
+            setLoader(false);
+            dispatch({ type: "GET", payload: response.data.products });
+        }
     } catch (error) {
         dispatch({ type: "ERROR" });
     }

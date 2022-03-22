@@ -17,7 +17,6 @@ export const ProductProvider = ({ children }) => {
     }, [setLoader, dispatch]);
     const [state, dispatch] = useReducer(productReducer, {
         products: [],
-
         showInventoryAll: true,
         showFastDeliveryOnly: false,
         sortBy: null

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useProduct } from "../Context/productContext";
 import { useCart } from "../Context/cart-context";
 import { Link } from "react-router-dom";
@@ -15,8 +15,6 @@ import { css } from "@emotion/react";
 import {
     addItemsToCart,
     addItemsToWishlist,
-    getWishlistItems,
-    getCartItems,
     removeItemFromWishlist
 } from "../utils/ApiCalls";
 import { v4 } from "uuid";
@@ -143,20 +141,17 @@ export const Product = () => {
                         />
                     ) : (
                         searchedData.map(
-                            (
-                                {
-                                    _id,
-                                    name,
-                                    image,
-                                    price,
-                                    ratings,
-                                    inStock,
-                                    discount,
-                                    fastDelivery,
-                                    seller
-                                },
-                                i
-                            ) => (
+                            ({
+                                _id,
+                                name,
+                                image,
+                                price,
+                                ratings,
+                                inStock,
+                                discount,
+                                fastDelivery,
+                                seller
+                            }) => (
                                 <div
                                     key={v4()}
                                     style={{
@@ -164,26 +159,6 @@ export const Product = () => {
                                     }}
                                 >
                                     <div className="card__border">
-                                        <img
-                                            src={image}
-                                            width="100%"
-                                            alt={name}
-                                            style={{ padding: "1rem" }}
-                                        />
-                                        <div
-                                            className="badge__success"
-                                            style={{
-                                                width: "4rem",
-                                                marginLeft: "1rem",
-                                                marginTop: "1rem",
-                                                paddingLeft: "0"
-                                            }}
-                                        >
-                                            <span className="card__rating ">
-                                                {ratings}
-                                            </span>
-                                            <i className="fas fa-star"></i>
-                                        </div>
                                         <Link
                                             style={{
                                                 textDecoration: "none",
@@ -192,6 +167,27 @@ export const Product = () => {
                                             key={_id}
                                             to={`/product/${_id}`}
                                         >
+                                            <img
+                                                src={image}
+                                                width="100%"
+                                                alt={name}
+                                                style={{ padding: "1rem" }}
+                                            />
+                                            <div
+                                                className="badge__success"
+                                                style={{
+                                                    width: "4rem",
+                                                    marginLeft: "1rem",
+                                                    marginTop: "1rem",
+                                                    paddingLeft: "0"
+                                                }}
+                                            >
+                                                <span className="card__rating ">
+                                                    {ratings}
+                                                </span>
+                                                <i className="fas fa-star"></i>
+                                            </div>
+
                                             <div className="card__body">
                                                 <h3 className="card__title">
                                                     {name}
@@ -277,7 +273,6 @@ export const Product = () => {
                                                         ? removeItemFromWishlist(
                                                               {
                                                                   _id,
-
                                                                   token,
                                                                   dispatch
                                                               }
