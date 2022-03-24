@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useProduct } from "../Context/productContext";
 import { useParams, useNavigate } from "react-router-dom";
 import "../styles.css";
@@ -8,16 +8,19 @@ import { useAuth } from "../Context/authContext";
 import {
     addItemsToCart,
     addItemsToWishlist,
-    removeItemFromWishlist
+    addReview,
+    removeItemFromWishlist,
+    deleteReview
 } from "../utils/ApiCalls";
 import { v4 } from "uuid";
-import { PacmanLoader } from "react-spinners";
-import { css } from "@emotion/react";
+import { Loader } from "../components/Loader";
+import { useReview } from "../Context/reviewContext";
+import { Rating } from "../components/Rating";
 export const ProductDetails = () => {
     const { products } = useProduct();
-
+    const { userId } = useAuth();
     const { productId } = useParams();
-
+    const { review } = useReview();
     const productFindById = products.find(
         (product) => product._id === productId
     );
@@ -25,7 +28,12 @@ export const ProductDetails = () => {
     const navigate = useNavigate();
     const { itemsInCart, wishlist, dispatch } = useCart();
     const { token } = useAuth();
-
+    const [reviewText, setReviewText] = useState("");
+    const [reviewId, setReviewId] = useState("");
+    review?.forEach((item) => {
+        () => setReviewId(item?._id);
+    });
+    const [rating, setRating] = useState(0);
     return (
         <main>
             {products.length ? (
@@ -275,6 +283,62 @@ export const ProductDetails = () => {
                                     </div>
                                     <div className="reviews">
                                         <h4>Reviews</h4>
+                                        <div className="add__review">
+                                            <form
+                                                onSubmit={(e) => {
+                                                    e.preventDefault();
+
+                                                    addReview({
+                                                        userId,
+                                                        name: reviewText,
+                                                        dispatch,
+                                                        rating
+                                                    });
+                                                }}
+                                            >
+                                                <Rating
+                                                    rating={rating}
+                                                    setRating={setRating}
+                                                />
+                                                <input
+                                                    type="text"
+                                                    onChange={(e) =>
+                                                        setReviewText(
+                                                            e.target.value
+                                                        )
+                                                    }
+                                                    value={reviewText}
+                                                    autoFocus
+                                                />
+
+                                                <button type="submit">
+                                                    Add review
+                                                </button>
+                                            </form>
+                                        </div>
+                                        {review?.map((item) => {
+                                            return (
+                                                <div
+                                                    key={v4()}
+                                                    className="single__review"
+                                                >
+                                                    <p>{item?.name}</p>
+                                                    <p>{item?.review}</p>
+                                                    <p>{item?.rating}</p>
+                                                    <button
+                                                        onClick={() =>
+                                                            deleteReview({
+                                                                dispatch,
+                                                                reviewId:
+                                                                    item?._id
+                                                            })
+                                                        }
+                                                    >
+                                                        Delete
+                                                    </button>
+                                                </div>
+                                            );
+                                        })}
                                     </div>
                                 </div>
                             </div>
@@ -282,15 +346,7 @@ export const ProductDetails = () => {
                     }
                 )
             ) : (
-                <PacmanLoader
-                    loading
-                    size={100}
-                    css={css`
-                        display: block;
-                        margin: 4rem 20rem;
-                    `}
-                    color="#a02620"
-                />
+                <Loader />
             )}
         </main>
     );

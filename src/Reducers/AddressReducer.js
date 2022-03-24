@@ -21,5 +21,7 @@ export const AddressReducer = (state, { type, payload }) => {
             );
 
             return { ...state, address: deletedAddress };
+        default:
+            return state;
     }
 };

@@ -167,10 +167,9 @@ body {
 
 .single__product__details {
     display: flex;
-    justify-content: center;
+    justify-content: space-evenly;
     height: 100%;
     margin-top: 2rem;
-    gap: 2rem;
     margin-bottom: 2rem;
 }
 .single__product__image {

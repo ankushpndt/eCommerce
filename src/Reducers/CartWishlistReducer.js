@@ -25,9 +25,6 @@ const addItem = (state, action) => {
     }
 };
 
-// const addItemToWishlist = (state, action) => {
-//     return [...action.payload];
-// };
 export const CartWishlistReducer = (state, action) => {
     switch (action.type) {
         case "GET":
@@ -43,7 +40,6 @@ export const CartWishlistReducer = (state, action) => {
             };
 
         case "ADD_WISHLIST_ITEM":
-            // return { ...state, wishlist: addItemToWishlist(state, action) };
             return { ...state, wishlist: action.payload };
         case "REMOVE_WISHLIST_ITEM":
             return {

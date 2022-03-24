@@ -7,12 +7,11 @@ export const AddressProvider = ({ children }) => {
     const { userId } = useAuth();
 
     useEffect(() => {
-        getAddress(dispatch, userId);
+        userId && getAddress(dispatch, userId);
     }, [dispatch]);
     const [state, dispatch] = useReducer(AddressReducer, { address: [] });
     return (
         <addressContext.Provider value={{ address: state.address, dispatch }}>
-            {console.log(state)}
             <> {children}</>
         </addressContext.Provider>
     );

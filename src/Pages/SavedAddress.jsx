@@ -40,7 +40,7 @@ export const SavedAddress = () => {
             <div className="saved__addresses">
                 {!isEdit && (
                     <ul style={{ listStyle: "none" }}>
-                        {address &&
+                        {address?.length !== 0 &&
                             address?.map((item) => (
                                 <div
                                     key={v4()}

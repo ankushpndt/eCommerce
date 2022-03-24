@@ -258,3 +258,58 @@ export const deleteAddress = async ({ dispatch, addressId }) => {
         console.log(error);
     }
 };
+
+export const getReview = async (dispatch, userId) => {
+    try {
+        const response = await axios.get(
+            `https://backend.ankushpndt.repl.co/review/get/${userId}`
+        );
+        console.log(response.data);
+        if (response.status === 200) {
+            dispatch({
+                type: "GET_REVIEW",
+                payload: response.data.getAllReview
+            });
+        }
+    } catch (error) {
+        console.log(error);
+    }
+};
+export const addReview = async ({ userId, name, review, dispatch, rating }) => {
+    try {
+        const response = await axios.post(
+            `https://backend.ankushpndt.repl.co/review/add`,
+            {
+                userId,
+                name,
+                review,
+                rating
+            }
+        );
+        console.log(response.data);
+        if (response.status === 200) {
+            dispatch({
+                type: "ADD_REVIEW",
+                payload: response.data.savedReview
+            });
+        }
+    } catch (error) {
+        console.log(error);
+    }
+};
+export const deleteReview = async ({ dispatch, reviewId }) => {
+    try {
+        const response = await axios.delete(
+            `https://backend.ankushpndt.repl.co/review/delete/${reviewId}`
+        );
+        console.log(response.data);
+        if (response.status === 200) {
+            dispatch({
+                type: "DELETE_REVIEW",
+                payload: response.data.deleteReview
+            });
+        }
+    } catch (error) {
+        console.log(error);
+    }
+};

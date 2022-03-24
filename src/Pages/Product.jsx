@@ -1,23 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import { useProduct } from "../Context/productContext";
 import { useCart } from "../Context/cart-context";
 import { Link } from "react-router-dom";
-
 import "./Product.css";
 import { useNavigate } from "react-router-dom";
-
 import { ToastContainer } from "react-toastify";
 import { useAuth } from "../Context/authContext";
 import { checkItem } from "../checkItem";
 import ScrollToTop from "../components/ScrollToTop";
-import { PacmanLoader } from "react-spinners";
-import { css } from "@emotion/react";
 import {
     addItemsToCart,
     addItemsToWishlist,
     removeItemFromWishlist
 } from "../utils/ApiCalls";
 import { v4 } from "uuid";
+import { Loader } from "../components/Loader";
 export const Product = () => {
     const { token } = useAuth();
     const { itemsInCart } = useCart();
@@ -130,15 +127,7 @@ export const Product = () => {
                 </div>
                 <main className="main">
                     {loader ? (
-                        <PacmanLoader
-                            loading
-                            size={100}
-                            css={css`
-                                display: block;
-                                margin: 4rem 20rem;
-                            `}
-                            color="#a02620"
-                        />
+                        <Loader />
                     ) : (
                         searchedData.map(
                             ({

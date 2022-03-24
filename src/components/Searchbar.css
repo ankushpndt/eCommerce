@@ -1,6 +1,5 @@
 .search__bar {
     position: relative;
-    /* background: var(--primary-color); */
 }
 
 .search__bar .search__input {
@@ -13,13 +12,6 @@
 .search__bar .search__input:focus {
     outline: var(--tertiary-color-shade-1);
 }
-
-/* 
-  @media (max-width: 550px) {
-    .search__bar {
-      display: none;
-    }
-  } */
 
 .search__bar .search__bar__backdrop {
     top: 3rem;
