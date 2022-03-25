@@ -11,7 +11,6 @@ export const getProducts = async (setLoader, dispatch) => {
         const response = await axios.get(
             "https://backend.ankushpndt.repl.co/products"
         );
-        console.log(response.data);
 
         if (response?.data) {
             setLoader(false);
@@ -275,38 +274,46 @@ export const getReview = async (dispatch, userId) => {
         console.log(error);
     }
 };
-export const addReview = async ({ userId, name, review, dispatch, rating }) => {
+export const addReview = async ({
+    userId,
+    productId,
+    name,
+    review,
+    reviewDispatch,
+    rating
+}) => {
     try {
         const response = await axios.post(
             `https://backend.ankushpndt.repl.co/review/add`,
             {
                 userId,
+                productId,
                 name,
                 review,
                 rating
             }
         );
-        console.log(response.data);
+        console.log(response);
         if (response.status === 200) {
-            dispatch({
+            reviewDispatch({
                 type: "ADD_REVIEW",
-                payload: response.data.savedReview
+                payload: response.data.allReviews
             });
         }
     } catch (error) {
         console.log(error);
     }
 };
-export const deleteReview = async ({ dispatch, reviewId }) => {
+export const deleteReview = async ({ reviewDispatch, reviewId }) => {
     try {
         const response = await axios.delete(
             `https://backend.ankushpndt.repl.co/review/delete/${reviewId}`
         );
-        console.log(response.data);
+        console.log(response);
         if (response.status === 200) {
-            dispatch({
+            reviewDispatch({
                 type: "DELETE_REVIEW",
-                payload: response.data.deleteReview
+                payload: response.data.deletedReview
             });
         }
     } catch (error) {

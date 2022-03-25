@@ -202,7 +202,10 @@ body {
 }
 .reviews {
     border: 2px solid #f0f0f0;
-    padding: 1.5rem 1rem;
+    padding-bottom: 1.5rem;
+}
+.review__details {
+    padding: 0 1rem;
 }
 .offers {
     border: 2px solid #f0f0f0;

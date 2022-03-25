@@ -1,20 +1,16 @@
-export const ReviewReducer = (state, { payload, type }) => {
+export const ReviewReducer = (state, { type, payload }) => {
     switch (type) {
         case "GET_REVIEW":
             return { ...state, review: payload };
         case "ADD_REVIEW":
-            console.log(state);
-            let newReview = state.review;
-            newReview.push(payload);
-            return { ...state, review: newReview };
+            return { ...state, review: payload };
         case "DELETE_REVIEW":
-            console.log(state);
             let deletedReview = state.review;
             deletedReview = deletedReview.filter(
                 (item) => item._id !== payload._id
             );
 
-            return { ...state, Review: deletedReview };
+            return { ...state, review: deletedReview };
         default:
             return state;
     }

@@ -25,7 +25,7 @@ export const Rating = ({ rating, setRating }) => {
                             <StarIcon
                                 className="star"
                                 sx={{
-                                    fontSize: "2rem",
+                                    fontSize: "1.8rem",
                                     cursor: "pointer",
                                     color: { color }
                                 }}

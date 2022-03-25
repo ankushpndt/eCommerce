@@ -55,6 +55,18 @@ h5 {
 input {
     margin: 0.5rem 0.5rem;
 }
+.add__review textarea {
+    resize: none;
+    padding: 0.5rem;
+    width: 15rem;
+    height: 5rem;
+}
+.add__review {
+    padding-bottom: 0.5rem;
+}
+.rating__container {
+    padding: 1rem 0;
+}
 .fa-shopping-cart:before {
     margin-right: 4px;
 }

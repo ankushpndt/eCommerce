@@ -9,11 +9,13 @@ export const ReviewProvider = ({ children }) => {
     const { userId } = useAuth();
 
     useEffect(() => {
-        userId && getReview(dispatch, userId);
+        getReview(dispatch, userId);
     }, [dispatch]);
     const [state, dispatch] = useReducer(ReviewReducer, { review: [] });
     return (
-        <reviewContext.Provider value={{ review: state.review, dispatch }}>
+        <reviewContext.Provider
+            value={{ review: state.review, reviewDispatch: dispatch }}
+        >
             {children}
         </reviewContext.Provider>
     );

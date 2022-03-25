@@ -16,11 +16,12 @@ import { v4 } from "uuid";
 import { Loader } from "../components/Loader";
 import { useReview } from "../Context/reviewContext";
 import { Rating } from "../components/Rating";
+import DeleteIcon from "@mui/icons-material/Delete";
 export const ProductDetails = () => {
     const { products } = useProduct();
-    const { userId } = useAuth();
+    const { userId, user } = useAuth();
     const { productId } = useParams();
-    const { review } = useReview();
+    const { review, reviewDispatch } = useReview();
     const productFindById = products.find(
         (product) => product._id === productId
     );
@@ -28,22 +29,17 @@ export const ProductDetails = () => {
     const navigate = useNavigate();
     const { itemsInCart, wishlist, dispatch } = useCart();
     const { token } = useAuth();
-    const [reviewText, setReviewText] = useState("");
-    const [reviewId, setReviewId] = useState("");
-    review?.forEach((item) => {
-        () => setReviewId(item?._id);
-    });
+
     const [rating, setRating] = useState(0);
+
+    const [inputText, setInputText] = useState("");
     return (
         <main>
-            {products.length ? (
+            {products.length > 0 ? (
                 productDetails?.map(
                     ({ _id, name, price, ratings, image, seller, inStock }) => {
                         return (
-                            <div
-                                key={v4()}
-                                className="single__product__details"
-                            >
+                            <div key={_id} className="single__product__details">
                                 <div className="single__product__image">
                                     <img
                                         src={image}
@@ -70,6 +66,7 @@ export const ProductDetails = () => {
                                                           dispatch
                                                       });
                                             }}
+                                            aria-label="Add To Cart"
                                         >
                                             <span>
                                                 <i className="fas fa-shopping-cart"></i>{" "}
@@ -106,6 +103,7 @@ export const ProductDetails = () => {
 
                                                 // errorToastWishlist();
                                             }}
+                                            aria-label="Add To Wishlist"
                                         >
                                             <i className="fas fa-heart"></i>
                                         </button>
@@ -282,7 +280,16 @@ export const ProductDetails = () => {
                                         </div>
                                     </div>
                                     <div className="reviews">
-                                        <h4>Reviews</h4>
+                                        <h3
+                                            style={{
+                                                borderBottom:
+                                                    "1px solid rgb(240, 240, 240)",
+                                                padding: "1.5rem 1rem"
+                                            }}
+                                        >
+                                            Reviews
+                                        </h3>
+
                                         <div className="add__review">
                                             <form
                                                 onSubmit={(e) => {
@@ -290,30 +297,34 @@ export const ProductDetails = () => {
 
                                                     addReview({
                                                         userId,
-                                                        name: reviewText,
-                                                        dispatch,
+                                                        productId: _id,
+                                                        name: user,
+                                                        review: inputText,
+                                                        reviewDispatch,
                                                         rating
                                                     });
+                                                    setInputText("");
                                                 }}
+                                                style={{ padding: "0 1rem" }}
                                             >
                                                 <Rating
                                                     rating={rating}
                                                     setRating={setRating}
                                                 />
-                                                <input
-                                                    type="text"
-                                                    onChange={(e) =>
-                                                        setReviewText(
-                                                            e.target.value
-                                                        )
-                                                    }
-                                                    value={reviewText}
-                                                    autoFocus
-                                                />
+                                                <div className="rating__field">
+                                                    <textarea
+                                                        type="text"
+                                                        placeholder="Review"
+                                                    />
 
-                                                <button type="submit">
-                                                    Add review
-                                                </button>
+                                                    <button
+                                                        type="submit"
+                                                        aria-label="Add Review"
+                                                        className=" card__btn btn__hollow"
+                                                    >
+                                                        Add review
+                                                    </button>
+                                                </div>
                                             </form>
                                         </div>
                                         {review?.map((item) => {
@@ -322,20 +333,39 @@ export const ProductDetails = () => {
                                                     key={v4()}
                                                     className="single__review"
                                                 >
-                                                    <p>{item?.name}</p>
-                                                    <p>{item?.review}</p>
-                                                    <p>{item?.rating}</p>
-                                                    <button
-                                                        onClick={() =>
-                                                            deleteReview({
-                                                                dispatch,
-                                                                reviewId:
-                                                                    item?._id
-                                                            })
-                                                        }
-                                                    >
-                                                        Delete
-                                                    </button>
+                                                    {item?.productId === _id ? (
+                                                        <div className="review__details">
+                                                            <p>{item?.name}</p>
+                                                            <p>
+                                                                {item?.review}
+                                                            </p>
+                                                            <p>
+                                                                {item?.rating}
+                                                            </p>
+
+                                                            <DeleteIcon
+                                                                onClick={() =>
+                                                                    deleteReview(
+                                                                        {
+                                                                            reviewDispatch,
+                                                                            reviewId:
+                                                                                item?._id
+                                                                        }
+                                                                    )
+                                                                }
+                                                            />
+                                                        </div>
+                                                    ) : (
+                                                        <div
+                                                            style={{
+                                                                color: "gray",
+                                                                padding:
+                                                                    "0.5rem 1rem 0 1rem"
+                                                            }}
+                                                        >
+                                                            No reviews yet
+                                                        </div>
+                                                    )}
                                                 </div>
                                             );
                                         })}
