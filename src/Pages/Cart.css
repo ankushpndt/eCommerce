@@ -9,7 +9,9 @@
     justify-content: center;
     margin: 5rem 1rem;
 }
-
+.wishlist__main {
+    min-width: 500px;
+}
 .product {
     display: flex;
     flex-direction: column;
@@ -30,9 +32,12 @@
     border: none;
     font-size: larger;
     cursor: pointer;
-    color: red;
     padding-top: 0.8rem;
     padding-bottom: 0.4rem;
+}
+.icon__btn {
+    display: flex;
+    align-items: center;
 }
 .product__btn {
     display: flex;
@@ -80,6 +85,7 @@ h1 {
     }
     .wishlist__main {
         width: 100%;
+        min-width: 0;
     }
     .product {
         margin: auto;

@@ -11,6 +11,8 @@ import {
 } from "../utils/ApiCalls";
 import { v4 } from "uuid";
 import { getCartItems } from "../utils/ApiCalls";
+import DeleteIcon from "@mui/icons-material/Delete";
+import { Loader } from "../components/Loader";
 export const Cart = () => {
     const { token } = useAuth();
     const navigate = useNavigate();
@@ -24,152 +26,167 @@ export const Cart = () => {
     return (
         <div className="Cart">
             <main className="cart__main">
-                <ul key={v4()}>
-                    {itemsInCart?.length > 0 ? (
-                        itemsInCart.map((item) => {
-                            return (
-                                <div key={v4()} className="product">
-                                    <div className="product__wrapper">
-                                        {" "}
-                                        <div key={v4()} className="images">
-                                            <img
-                                                src={item?.productId?.image}
-                                                alt="error"
-                                            />
-                                        </div>
-                                        <div className="product__details">
-                                            <h2
-                                                style={{
-                                                    paddingBottom: "0.2rem 0"
-                                                }}
-                                            >
-                                                {item?.productId?.name}
-                                            </h2>
-                                            <small>
-                                                Seller:{" "}
-                                                {item?.productId?.seller}
-                                            </small>
-                                            <div
-                                                style={{ paddingTop: "0.2rem" }}
-                                            >
-                                                ₹{item?.productId?.price}
+                {itemsInCart?.length > 0 ? (
+                    <ul key={v4()}>
+                        {itemsInCart?.length > 0 ? (
+                            itemsInCart.map((item) => {
+                                return (
+                                    <div key={v4()} className="product">
+                                        <div className="product__wrapper">
+                                            {" "}
+                                            <div key={v4()} className="images">
+                                                <img
+                                                    src={item?.productId?.image}
+                                                    alt="error"
+                                                />
                                             </div>
+                                            <div className="product__details">
+                                                <h2
+                                                    style={{
+                                                        paddingBottom:
+                                                            "0.2rem 0"
+                                                    }}
+                                                >
+                                                    {item?.productId?.name}
+                                                </h2>
+                                                <small>
+                                                    Seller:{" "}
+                                                    {item?.productId?.seller}
+                                                </small>
+                                                <div
+                                                    style={{
+                                                        paddingTop: "0.2rem"
+                                                    }}
+                                                >
+                                                    ₹{item?.productId?.price}
+                                                </div>
 
-                                            <div className="product__btn">
-                                                <div className="icon__btn">
+                                                <div className="product__btn">
+                                                    <div className="icon__btn">
+                                                        <button
+                                                            style={{
+                                                                backgroundColor:
+                                                                    "transparent",
+                                                                border: "none",
+
+                                                                paddingRight:
+                                                                    "1rem",
+                                                                cursor: "pointer",
+                                                                paddingTop:
+                                                                    "0.2rem"
+                                                            }}
+                                                            onClick={() =>
+                                                                updateQuantity(
+                                                                    item,
+                                                                    "ADD",
+                                                                    token,
+                                                                    dispatch
+                                                                )
+                                                            }
+                                                        >
+                                                            <i
+                                                                className="fa fa-plus"
+                                                                aria-hidden="true"
+                                                            ></i>
+                                                        </button>
+                                                        <span>
+                                                            {item?.quantity}
+                                                        </span>
+
+                                                        <button
+                                                            style={{
+                                                                backgroundColor:
+                                                                    "transparent",
+                                                                border: "none",
+                                                                paddingLeft:
+                                                                    "1rem",
+                                                                cursor: "pointer",
+                                                                paddingTop:
+                                                                    "0.2rem"
+                                                            }}
+                                                            onClick={() =>
+                                                                updateQuantity(
+                                                                    item,
+                                                                    "SUB",
+                                                                    token,
+                                                                    dispatch
+                                                                )
+                                                            }
+                                                        >
+                                                            <i
+                                                                className="fa fa-minus"
+                                                                aria-hidden="true"
+                                                            ></i>
+                                                        </button>
+
+                                                        <button
+                                                            style={{
+                                                                backgroundColor:
+                                                                    "transparent",
+                                                                border: "none",
+                                                                paddingLeft:
+                                                                    "1rem",
+                                                                paddingTop:
+                                                                    "0.2rem",
+                                                                cursor: "pointer"
+                                                            }}
+                                                            onClick={() =>
+                                                                deleteItemFromCart(
+                                                                    {
+                                                                        _id: item
+                                                                            ?.productId
+                                                                            ?._id,
+                                                                        token,
+                                                                        dispatch
+                                                                    }
+                                                                )
+                                                            }
+                                                        >
+                                                            <DeleteIcon />
+                                                        </button>
+                                                    </div>
                                                     <button
-                                                        style={{
-                                                            backgroundColor:
-                                                                "transparent",
-                                                            border: "none",
-
-                                                            paddingRight:
-                                                                "1rem",
-                                                            cursor: "pointer",
-                                                            paddingTop: "0.2rem"
-                                                        }}
-                                                        onClick={() =>
-                                                            updateQuantity(
-                                                                item,
-                                                                "ADD",
+                                                        className="card__btn  card__btn__cart"
+                                                        onClick={() => {
+                                                            addItemsToWishlist({
+                                                                _id: item
+                                                                    ?.productId
+                                                                    ?._id,
                                                                 token,
                                                                 dispatch
-                                                            )
-                                                        }
-                                                    >
-                                                        <i
-                                                            className="fa fa-plus"
-                                                            aria-hidden="true"
-                                                        ></i>
-                                                    </button>
-                                                    <span>
-                                                        {item?.quantity}
-                                                    </span>
-
-                                                    <button
-                                                        style={{
-                                                            backgroundColor:
-                                                                "transparent",
-                                                            border: "none",
-                                                            paddingLeft: "1rem",
-                                                            cursor: "pointer",
-                                                            paddingTop: "0.2rem"
-                                                        }}
-                                                        onClick={() =>
-                                                            updateQuantity(
-                                                                item,
-                                                                "SUB",
-                                                                token,
-                                                                dispatch
-                                                            )
-                                                        }
-                                                    >
-                                                        <i
-                                                            className="fa fa-minus"
-                                                            aria-hidden="true"
-                                                        ></i>
-                                                    </button>
-
-                                                    <button
-                                                        style={{
-                                                            backgroundColor:
-                                                                "transparent",
-                                                            border: "none",
-                                                            paddingLeft: "1rem",
-                                                            paddingTop:
-                                                                "0.2rem",
-                                                            cursor: "pointer"
-                                                        }}
-                                                        onClick={() =>
+                                                            });
                                                             deleteItemFromCart({
                                                                 _id: item
                                                                     ?.productId
                                                                     ?._id,
                                                                 token,
                                                                 dispatch
-                                                            })
-                                                        }
+                                                            });
+                                                        }}
                                                     >
-                                                        <i className="fas fa-trash"></i>
+                                                        Save For Later
                                                     </button>
                                                 </div>
-                                                <button
-                                                    className="card__btn  card__btn__cart"
-                                                    onClick={() => {
-                                                        addItemsToWishlist({
-                                                            _id: item?.productId
-                                                                ?._id,
-                                                            token,
-                                                            dispatch
-                                                        });
-                                                        deleteItemFromCart({
-                                                            _id: item?.productId
-                                                                ?._id,
-                                                            token,
-                                                            dispatch
-                                                        });
-                                                    }}
-                                                >
-                                                    Save For Later
-                                                </button>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            );
-                        })
-                    ) : (
-                        <p
-                            style={{
-                                display: "flex",
-                                justifyContent: "center",
-                                alignItems: "center"
-                            }}
-                        >
-                            Your cart is empty
-                        </p>
-                    )}
-                </ul>
+                                );
+                            })
+                        ) : (
+                            <p
+                                style={{
+                                    display: "flex",
+                                    justifyContent: "center",
+                                    alignItems: "center"
+                                }}
+                            >
+                                Your cart is empty
+                            </p>
+                        )}
+                    </ul>
+                ) : (
+                    <Loader />
+                )}
             </main>
             {itemsInCart.length > 0 && (
                 <div className={"price__details"} style={{ padding: "1rem" }}>
