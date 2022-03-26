@@ -17,6 +17,7 @@ import { Loader } from "../components/Loader";
 import { useReview } from "../Context/reviewContext";
 import { Rating } from "../components/Rating";
 import DeleteIcon from "@mui/icons-material/Delete";
+import StarIcon from "@mui/icons-material/Star";
 export const ProductDetails = () => {
     const { products } = useProduct();
     const { userId, user } = useAuth();
@@ -33,6 +34,7 @@ export const ProductDetails = () => {
     const [rating, setRating] = useState(0);
 
     const [inputText, setInputText] = useState("");
+    console.log(inputText);
     return (
         <main>
             {products.length > 0 ? (
@@ -315,6 +317,12 @@ export const ProductDetails = () => {
                                                     <textarea
                                                         type="text"
                                                         placeholder="Review"
+                                                        onChange={(e) =>
+                                                            setInputText(
+                                                                e.target.value
+                                                            )
+                                                        }
+                                                        value={inputText}
                                                     />
 
                                                     <button
@@ -336,25 +344,50 @@ export const ProductDetails = () => {
                                                     {item?.productId ===
                                                         _id && (
                                                         <div className="review__details">
-                                                            <p>{item?.name}</p>
                                                             <p>
+                                                                User Review:{" "}
                                                                 {item?.review}
                                                             </p>
-                                                            <p>
-                                                                {item?.rating}
-                                                            </p>
+                                                            <div className="item__review">
+                                                                <p>
+                                                                    User Rating:{" "}
+                                                                    {
+                                                                        item?.rating
+                                                                    }
+                                                                </p>
+                                                                <StarIcon
+                                                                    sx={{
+                                                                        fontSize:
+                                                                            "1rem",
+                                                                        color: "#ffc107"
+                                                                    }}
+                                                                />
+                                                            </div>
 
-                                                            <DeleteIcon
-                                                                onClick={() =>
-                                                                    deleteReview(
-                                                                        {
-                                                                            reviewDispatch,
-                                                                            reviewId:
-                                                                                item?._id
-                                                                        }
-                                                                    )
-                                                                }
-                                                            />
+                                                            <div className="review__header">
+                                                                <p
+                                                                    style={{
+                                                                        color: "gray"
+                                                                    }}
+                                                                >
+                                                                    Name:{" "}
+                                                                    {item?.name}
+                                                                </p>
+                                                                <DeleteIcon
+                                                                    onClick={() =>
+                                                                        deleteReview(
+                                                                            {
+                                                                                reviewDispatch,
+                                                                                reviewId:
+                                                                                    item?._id
+                                                                            }
+                                                                        )
+                                                                    }
+                                                                    style={{
+                                                                        cursor: "pointer"
+                                                                    }}
+                                                                />
+                                                            </div>
                                                         </div>
                                                     )}
                                                 </div>

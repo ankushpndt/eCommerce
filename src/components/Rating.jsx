@@ -3,7 +3,6 @@ import StarIcon from "@mui/icons-material/Star";
 import "./Rating.css";
 import { v4 } from "uuid";
 export const Rating = ({ rating, setRating }) => {
-    // const [rating, setRating] = useState(0);
     const [hover, setHover] = useState(0);
     return (
         <div
