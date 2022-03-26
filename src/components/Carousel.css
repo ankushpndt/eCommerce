@@ -47,7 +47,7 @@
     transition-duration: 1s;
     transform: scale(1.08);
 }
-@media all and (max-width: 740px) {
+@media (max-width: 740px) {
     .slider {
         height: 100%;
         padding: 0 2rem;

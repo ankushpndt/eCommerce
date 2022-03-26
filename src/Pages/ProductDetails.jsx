@@ -333,7 +333,8 @@ export const ProductDetails = () => {
                                                     key={v4()}
                                                     className="single__review"
                                                 >
-                                                    {item?.productId === _id ? (
+                                                    {item?.productId ===
+                                                        _id && (
                                                         <div className="review__details">
                                                             <p>{item?.name}</p>
                                                             <p>
@@ -354,16 +355,6 @@ export const ProductDetails = () => {
                                                                     )
                                                                 }
                                                             />
-                                                        </div>
-                                                    ) : (
-                                                        <div
-                                                            style={{
-                                                                color: "gray",
-                                                                padding:
-                                                                    "0.5rem 1rem 0 1rem"
-                                                            }}
-                                                        >
-                                                            No reviews yet
                                                         </div>
                                                     )}
                                                 </div>
