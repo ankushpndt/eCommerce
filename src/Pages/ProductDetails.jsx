@@ -124,7 +124,7 @@ export const ProductDetails = () => {
                                             width: "2.5rem",
                                             margin: "0rem",
                                             textAlign: "left",
-                                            padding: "0.2rem 0rem"
+                                            padding: "0.4rem 0rem"
                                         }}
                                     >
                                         <span
@@ -349,8 +349,8 @@ export const ProductDetails = () => {
                                                                 {item?.review}
                                                             </p>
                                                             <div className="item__review">
+                                                                User Rating:{" "}
                                                                 <p>
-                                                                    User Rating:{" "}
                                                                     {
                                                                         item?.rating
                                                                     }
