@@ -29,8 +29,7 @@ export const HoriStepper = ({ activeStep }) => {
     const stepStyles = {
         boxSizing: "border-box"
     };
-    console.log(localStep);
-    console.log(activeStep);
+
     return (
         <>
             <Button

@@ -5,8 +5,6 @@ import { useNavigate } from "react-router-dom";
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-    // const { state } = useLocation();
-    // console.log(state);
     const {
         isUserLoggedIn,
         token: savedToken,
@@ -34,14 +32,13 @@ export const AuthProvider = ({ children }) => {
                 "https://backend.ankushpndt.repl.co/user",
                 { name: name, email: email, password: password }
             );
-            // console.log(response);
+
             if (response.status === 201) {
                 signUpUser(response.data);
             }
             if (response.data.success === true) navigate("/");
         } catch (error) {
             setError(error.response.data?.errors);
-            // console.log(error);
         }
     };
     const signUpUser = ({ token, userName, userid }) => {
@@ -69,7 +66,7 @@ export const AuthProvider = ({ children }) => {
                     password: password
                 }
             );
-            console.log(response);
+
             if (response.status === 200) {
                 loginUser(response.data);
             }
@@ -79,7 +76,6 @@ export const AuthProvider = ({ children }) => {
         }
     };
     const loginUser = ({ token, userName, userid }) => {
-        console.log(userid);
         setToken(token);
         setLogin(true);
         setUser(userName);

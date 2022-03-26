@@ -9,7 +9,7 @@ export const Rating = ({ rating, setRating }) => {
             className="rating__container"
             style={{ justifyContent: "flex-start", marginTop: "0" }}
         >
-            {[...Array(5)].map((item, i) => {
+            {[...Array(5)].map((i) => {
                 const ratingValue = i + 1;
                 let color =
                     ratingValue <= (hover || rating) ? "#ffc107" : "#e4e5e9";

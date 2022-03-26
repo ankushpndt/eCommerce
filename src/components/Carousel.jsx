@@ -14,7 +14,7 @@ export const Carousel = () => {
     const prevSlide = () => {
         setCurrent(current === 0 ? carouselLength - 1 : current - 1);
     };
-    console.log(current);
+
     const navigate = useNavigate();
     return (
         <div className="slider">

@@ -34,7 +34,7 @@ export const Payment = () => {
                             amount: totalAmtInCart
                         }
                     );
-                    console.log(response.data);
+
                     navigate("/cart/payment/success");
                 } catch (err) {
                     console.log(err);
@@ -42,7 +42,7 @@ export const Payment = () => {
             })();
     }, [stripeToken]);
     const { address } = useAddress();
-    console.log(address);
+
     return (
         <>
             <HoriStepper activeStep={1} />

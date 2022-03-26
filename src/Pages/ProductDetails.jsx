@@ -34,7 +34,6 @@ export const ProductDetails = () => {
     const [rating, setRating] = useState(0);
 
     const [inputText, setInputText] = useState("");
-    console.log(inputText);
     return (
         <main>
             {products.length > 0 ? (
@@ -322,7 +321,9 @@ export const ProductDetails = () => {
                                                                 e.target.value
                                                             )
                                                         }
-                                                        value={inputText}
+                                                        value={String(
+                                                            inputText
+                                                        )}
                                                     />
 
                                                     <button

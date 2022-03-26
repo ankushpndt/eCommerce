@@ -49,7 +49,6 @@ export const getCartItems = async (token, dispatch) => {
     }
 };
 export const addItemsToCart = async ({ _id, token, dispatch }) => {
-    console.log(_id);
     try {
         const res = await axios.post(
             `https://backend.ankushpndt.repl.co/cart/${_id}`,
@@ -59,7 +58,7 @@ export const addItemsToCart = async ({ _id, token, dispatch }) => {
 
             { headers: { "auth-token": token } }
         );
-        console.log(res.data);
+
         dispatch({
             type: "ADD_ITEM",
             payload: res.data.Updatedcart
@@ -72,14 +71,13 @@ export const addItemsToCart = async ({ _id, token, dispatch }) => {
     }
 };
 export const deleteItemFromCart = async ({ _id, token, dispatch }) => {
-    console.log(_id);
     try {
         const response = await axios.delete(
             `https://backend.ankushpndt.repl.co/cart/${_id}`,
 
             { headers: { "auth-token": token } }
         );
-        console.log(response);
+
         if (response.status === 200) {
             dispatch({
                 type: "UPDATE_CART",
@@ -93,7 +91,6 @@ export const deleteItemFromCart = async ({ _id, token, dispatch }) => {
     }
 };
 export const updateQuantity = async (action, text, token, dispatch) => {
-    // console.log(action);
     try {
         let quantity = action.quantity;
         if (text === "ADD") {
@@ -123,7 +120,6 @@ export const updateQuantity = async (action, text, token, dispatch) => {
     }
 };
 export const addItemsToWishlist = async ({ _id, token, dispatch }) => {
-    console.log(_id);
     try {
         const response = await axios.post(
             `https://backend.ankushpndt.repl.co/wishlist/${_id}`,
@@ -145,13 +141,12 @@ export const addItemsToWishlist = async ({ _id, token, dispatch }) => {
     }
 };
 export const removeItemFromWishlist = async ({ _id, token, dispatch }) => {
-    console.log(_id);
     try {
         const response = await axios.delete(
             `https://backend.ankushpndt.repl.co/wishlist/${_id}`,
             { headers: { "auth-token": token } }
         );
-        console.log(response);
+
         if (response.status === 200) {
             dispatch({
                 type: "REMOVE_WISHLIST_ITEM",
@@ -198,7 +193,7 @@ export const addAddress = async ({
                 address
             }
         );
-        console.log(response.data);
+
         if (response.status === 200) {
             dispatch({
                 type: "ADD_ADDRESS",
@@ -229,7 +224,7 @@ export const updateAddress = async ({
                 address
             }
         );
-        console.log(response);
+
         if (response.status === 200) {
             dispatch({
                 type: "UPDATE_ADDRESS",
@@ -241,12 +236,11 @@ export const updateAddress = async ({
     }
 };
 export const deleteAddress = async ({ dispatch, addressId }) => {
-    console.log(addressId);
     try {
         const response = await axios.delete(
             `https://backend.ankushpndt.repl.co/address/delete/${addressId}`
         );
-        console.log(response.data);
+
         if (response.status === 200) {
             dispatch({
                 type: "DELETE_ADDRESS",
@@ -263,7 +257,7 @@ export const getReview = async (dispatch, userId) => {
         const response = await axios.get(
             `https://backend.ankushpndt.repl.co/review/get/${userId}`
         );
-        console.log(response.data);
+
         if (response.status === 200) {
             dispatch({
                 type: "GET_REVIEW",
@@ -293,7 +287,7 @@ export const addReview = async ({
                 rating
             }
         );
-        console.log(response);
+
         if (response.status === 200) {
             reviewDispatch({
                 type: "ADD_REVIEW",
@@ -309,7 +303,7 @@ export const deleteReview = async ({ reviewDispatch, reviewId }) => {
         const response = await axios.delete(
             `https://backend.ankushpndt.repl.co/review/delete/${reviewId}`
         );
-        console.log(response);
+
         if (response.status === 200) {
             reviewDispatch({
                 type: "DELETE_REVIEW",

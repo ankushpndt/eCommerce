@@ -17,7 +17,7 @@ export const SignUp = () => {
             signUpWithCredentials(name, email, password);
         setError("");
     };
-    console.log(errorMessage);
+
     return (
         <div className="signup">
             <form

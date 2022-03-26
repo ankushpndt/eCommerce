@@ -11,7 +11,7 @@ export const SearchBox = ({ setToggleDropbox, searchTerm }) => {
             ? item
             : !item
     );
-    console.log(filteredProducts);
+
     return (
         <div className="searchBox">
             {searchTerm?.length !== 0 && (

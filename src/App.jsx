@@ -12,7 +12,6 @@ import { useAuth } from "./Context/authContext";
 import { ProductDetails } from "./Pages/ProductDetails";
 import { LandingPage } from "./Pages/LandingPage";
 import { PageNotFound } from "./Pages/PageNotFound";
-import { MyProfile } from "./Pages/MyProfile";
 import { useState } from "react";
 import { Searchbar } from "./components/Searchbar";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -49,9 +48,9 @@ export const App = () => {
                     </header>
                     <div className="icons">
                         {user && (
-                            <NavLink style={{ color: "white" }} to="/MyProfile">
+                            <div style={{ color: "white" }}>
                                 Welcome, {user}
-                            </NavLink>
+                            </div>
                         )}{" "}
                         <NavLink style={{ color: "white" }} to="/product">
                             {" "}
@@ -305,7 +304,11 @@ export const App = () => {
                 <Route path="/product" element={<Product />} />
                 <Route
                     path="/product/:productId"
-                    element={<ProductDetails />}
+                    element={
+                        <PrivateRoute>
+                            <ProductDetails />
+                        </PrivateRoute>
+                    }
                 />
                 <Route
                     path="/cart"
@@ -325,7 +328,6 @@ export const App = () => {
                 />
                 <Route path="/login" element={<Login />} />
                 <Route path="/signup" element={<SignUp />} />
-                <Route path="/myprofile" element={<MyProfile />} />
 
                 <Route path="/cart/savedaddress" element={<SavedAddress />} />
                 <Route

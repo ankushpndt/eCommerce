@@ -5,7 +5,7 @@ import { TextField } from "@mui/material";
 import "./Account.css";
 import { validateForm } from "../components/ValidateForm";
 export const Login = () => {
-    const { loginWithCredentials, error, setError } = useAuth();
+    const { loginWithCredentials, error } = useAuth();
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -15,7 +15,6 @@ export const Login = () => {
 
         validateForm({ email, password, setErrorMessage }) &&
             loginWithCredentials(email, password);
-        // setError("");
     };
 
     return (

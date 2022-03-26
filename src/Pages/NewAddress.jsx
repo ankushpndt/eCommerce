@@ -8,7 +8,6 @@ import "./Address.css";
 import { updateAddress } from "../utils/ApiCalls";
 
 export const NewAddress = ({ addressId, isAdd, update }) => {
-    console.log(isAdd, update);
     const { address } = useAddress();
     const userAddress = address?.find((item) => item?._id === addressId);
 

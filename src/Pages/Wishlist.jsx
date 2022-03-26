@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { useCart } from "../Context/cart-context";
-import { successToast, errorToastWishlist } from "../components/toasts";
 import { ToastContainer } from "react-toastify";
 import "./Cart.css";
 import { useAuth } from "../Context/authContext";
@@ -27,7 +26,7 @@ export const Wishlist = () => {
                 {wishlist?.length > 0 ? (
                     <ul key={v4()}>
                         {wishlist?.length > 0 ? (
-                            wishlist?.map((item, i) => {
+                            wishlist?.map((item) => {
                                 return (
                                     <div
                                         key={v4()}
