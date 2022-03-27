@@ -36,7 +36,7 @@
     height: min-content;
     top: calc(78px + 1rem);
 }
-h5 {
+.sortby__header {
     padding-bottom: 1rem;
 }
 .sortby {

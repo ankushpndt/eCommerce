@@ -141,9 +141,9 @@
     width: 100%;
     z-index: 1;
 }
+
 @media (max-width: 648px) {
     .searchBox {
-        right: -1rem;
-        width: 250px;
+        right: -3rem;
     }
 }

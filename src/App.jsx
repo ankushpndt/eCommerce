@@ -48,7 +48,7 @@ export const App = () => {
                     </header>
                     <div className="icons">
                         {user && (
-                            <div style={{ color: "white" }}>
+                            <div style={{ color: "white", padding: "1rem" }}>
                                 Welcome, {user}
                             </div>
                         )}{" "}

@@ -67,7 +67,7 @@ export const Product = () => {
             <div className="container">
                 <div className="filters__container">
                     <div className="sortby">
-                        <h5>Sort By</h5>
+                        <h5 className="sortby__header">Sort By</h5>
                         <label htmlFor="highToLow">
                             <input
                                 type="radio"
@@ -98,7 +98,7 @@ export const Product = () => {
                         </label>
                     </div>
                     <div className="filters">
-                        <h5>Filters</h5>
+                        <h5 className="sortby__header">Filters</h5>
                         <label htmlFor="stock">
                             <input
                                 type="checkbox"
