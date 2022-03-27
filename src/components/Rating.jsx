@@ -20,6 +20,7 @@ export const Rating = ({ rating, setRating }) => {
                                 type="radio"
                                 name="rating"
                                 value={ratingValue}
+                                className="rating__btn"
                             />
                             <StarIcon
                                 className="star"
