@@ -29,7 +29,7 @@ export const AuthProvider = ({ children }) => {
     const signUpWithCredentials = async (name, email, password) => {
         try {
             const response = await axios.post(
-                "https://backend.ankushpndt.repl.co/user",
+                "https://backend.ankushpndt.repl.co/user/signup",
                 { name: name, email: email, password: password }
             );
 
@@ -109,7 +109,8 @@ export const AuthProvider = ({ children }) => {
                 token,
                 userLogout,
                 user,
-                userId
+                userId,
+                setError
             }}
         >
             {children}
