@@ -218,7 +218,11 @@ export const Product = () => {
                                         </Link>
                                         <div>
                                             <button
-                                                className="card__btn  card__product__btn"
+                                                className={
+                                                    inStock
+                                                        ? "card__btn  card__product__btn"
+                                                        : "card__btn  card__product__btn out__of__stock"
+                                                }
                                                 disabled={
                                                     inStock ? false : true
                                                 }

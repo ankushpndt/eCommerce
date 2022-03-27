@@ -12,9 +12,9 @@
     max-width: 100%;
     margin-left: 4rem;
 }
-.container button {
+/* .container button {
     cursor: pointer;
-}
+} */
 .product__wishlist {
     position: relative;
     left: 18rem;
@@ -79,7 +79,10 @@ input {
     margin-left: 1rem;
     margin-bottom: 1rem;
 }
-
+.out__of__stock {
+    cursor: not-allowed;
+    background-color: rgba(231, 18, 18, 0.5);
+}
 @media all and (max-width: 648px) {
     .main {
         max-width: 1200px;
