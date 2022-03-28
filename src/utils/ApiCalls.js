@@ -5,6 +5,7 @@ import {
     successToastWishlist,
     errorToast
 } from "../components/toasts";
+import { toast } from "react-toastify";
 export const getProducts = async (setLoader, dispatch) => {
     try {
         setLoader(true);
@@ -265,7 +266,7 @@ export const getReview = async (dispatch, userId) => {
             });
         }
     } catch (error) {
-        console.log(error);
+        console.log(error.response);
     }
 };
 export const addReview = async ({
@@ -295,7 +296,9 @@ export const addReview = async ({
             });
         }
     } catch (error) {
-        console.log(error);
+        toast.error(error.response.data.message, {
+            position: "bottom-center"
+        });
     }
 };
 export const deleteReview = async ({ reviewDispatch, reviewId }) => {
