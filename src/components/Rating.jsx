@@ -4,13 +4,15 @@ import "./Rating.css";
 import { v4 } from "uuid";
 export const Rating = ({ rating, setRating }) => {
     const [hover, setHover] = useState(0);
+
     return (
         <div
             className="rating__container"
             style={{ justifyContent: "flex-start", marginTop: "0" }}
         >
-            {[...Array(5)].map((i) => {
+            {[...Array(5)].map((item, i) => {
                 const ratingValue = i + 1;
+
                 let color =
                     ratingValue <= (hover || rating) ? "#ffc107" : "#e4e5e9";
                 return (
@@ -19,7 +21,7 @@ export const Rating = ({ rating, setRating }) => {
                             <input
                                 type="radio"
                                 name="rating"
-                                value={ratingValue}
+                                // value={ratingValue}
                                 className="rating__btn"
                             />
                             <StarIcon
