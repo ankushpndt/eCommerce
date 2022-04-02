@@ -1,11 +1,11 @@
 import axios from "axios";
+import { toast } from "react-toastify";
 import {
-    errorToastWishlist,
+    errorToast,
     successToast,
     successToastWishlist,
-    errorToast
+    errorToastWishlist
 } from "../components/toasts";
-import { toast } from "react-toastify";
 export const getProducts = async (setLoader, dispatch) => {
     try {
         setLoader(true);
@@ -36,7 +36,11 @@ export const getWishlistItems = async (token, dispatch, setLoader) => {
         setLoader(false);
     } catch (error) {
         console.log(error);
-        toast.dark(error.response.data.message);
+        toast.dark(error?.response?.data?.message, {
+            position: "bottom-center",
+            autoClose: 3000,
+            hideProgressBar: true
+        });
     }
 };
 export const getCartItems = async (token, dispatch, setLoader) => {
@@ -52,7 +56,11 @@ export const getCartItems = async (token, dispatch, setLoader) => {
         setLoader(false);
     } catch (error) {
         console.log(error);
-        toast.dark(error.response.data.message);
+        toast.dark(error?.response?.data?.message, {
+            position: "bottom-center",
+            autoClose: 3000,
+            hideProgressBar: true
+        });
     }
 };
 export const addItemsToCart = async ({ _id, token, dispatch }) => {
@@ -60,7 +68,7 @@ export const addItemsToCart = async ({ _id, token, dispatch }) => {
         const res = await axios.post(
             `https://backend.ankushpndt.repl.co/cart/${_id}`,
             {
-                _id: _id
+                _id: String(_id)
             },
 
             { headers: { "auth-token": token } }
@@ -71,10 +79,17 @@ export const addItemsToCart = async ({ _id, token, dispatch }) => {
             payload: res.data.Updatedcart
         });
 
-        successToast();
-        console.log(response);
+        toast.success(res.data.message, {
+            position: "bottom-center",
+            autoClose: 3000,
+            hideProgressBar: true
+        });
     } catch (error) {
-        toast.dark(error?.response?.data?.message);
+        toast.dark(error?.response?.data?.message, {
+            position: "bottom-center",
+            autoClose: 3000,
+            hideProgressBar: true
+        });
     }
 };
 export const deleteItemFromCart = async ({ _id, token, dispatch }) => {
@@ -97,7 +112,11 @@ export const deleteItemFromCart = async ({ _id, token, dispatch }) => {
             });
         }
     } catch (error) {
-        toast.dark(error.response.data.message);
+        toast.dark(error?.response?.data?.message, {
+            position: "bottom-center",
+            autoClose: 3000,
+            hideProgressBar: true
+        });
     }
 };
 export const updateQuantity = async (action, text, token, dispatch) => {
@@ -126,7 +145,11 @@ export const updateQuantity = async (action, text, token, dispatch) => {
             });
         }
     } catch (error) {
-        toast.dark(error.response.data.message);
+        toast.dark(error?.response?.data?.message, {
+            position: "bottom-center",
+            autoClose: 3000,
+            hideProgressBar: true
+        });
     }
 };
 export const addItemsToWishlist = async ({ _id, token, dispatch }) => {
@@ -144,10 +167,18 @@ export const addItemsToWishlist = async ({ _id, token, dispatch }) => {
                 type: "ADD_WISHLIST_ITEM",
                 payload: response.data.Updatedwishlist
             });
-            successToastWishlist();
+            toast.success(res.data.message, {
+                position: "bottom-center",
+                autoClose: 3000,
+                hideProgressBar: true
+            });
         }
     } catch (error) {
-        toast.dark(error.response.data.message);
+        toast.dark(error?.response?.data?.message, {
+            position: "bottom-center",
+            autoClose: 3000,
+            hideProgressBar: true
+        });
     }
 };
 export const removeItemFromWishlist = async ({ _id, token, dispatch }) => {
@@ -169,7 +200,11 @@ export const removeItemFromWishlist = async ({ _id, token, dispatch }) => {
             });
         }
     } catch (error) {
-        toast.dark(error.response.data.message);
+        toast.dark(error?.response?.data?.message, {
+            position: "bottom-center",
+            autoClose: 3000,
+            hideProgressBar: true
+        });
     }
 };
 export const getAddress = async (dispatch, userId) => {
@@ -184,7 +219,11 @@ export const getAddress = async (dispatch, userId) => {
             });
         }
     } catch (error) {
-        toast.dark(error.response.data.message);
+        toast.dark(error?.response?.data?.message, {
+            position: "bottom-center",
+            autoClose: 3000,
+            hideProgressBar: true
+        });
     }
 };
 export const addAddress = async ({
@@ -219,7 +258,11 @@ export const addAddress = async ({
             });
         }
     } catch (error) {
-        toast.dark(error.response.data.message);
+        toast.dark(error?.response?.data?.message, {
+            position: "bottom-center",
+            autoClose: 3000,
+            hideProgressBar: true
+        });
     }
 };
 export const updateAddress = async ({
@@ -255,7 +298,11 @@ export const updateAddress = async ({
             });
         }
     } catch (error) {
-        toast.dark(error.response.data.message);
+        toast.dark(error?.response?.data?.message, {
+            position: "bottom-center",
+            autoClose: 3000,
+            hideProgressBar: true
+        });
     }
 };
 export const deleteAddress = async ({ dispatch, addressId }) => {
@@ -276,7 +323,11 @@ export const deleteAddress = async ({ dispatch, addressId }) => {
             });
         }
     } catch (error) {
-        toast.dark(error.response.data.message);
+        toast.dark(error?.response?.data?.message, {
+            position: "bottom-center",
+            autoClose: 3000,
+            hideProgressBar: true
+        });
     }
 };
 
@@ -293,7 +344,11 @@ export const getReview = async (dispatch, userId) => {
             });
         }
     } catch (error) {
-        toast.dark(error.response.data.message);
+        toast.dark(error?.response?.data?.message, {
+            position: "bottom-center",
+            autoClose: 3000,
+            hideProgressBar: true
+        });
     }
 };
 export const addReview = async ({
@@ -328,7 +383,11 @@ export const addReview = async ({
             });
         }
     } catch (error) {
-        toast.dark(error.response.data.message);
+        toast.dark(error?.response?.data?.message, {
+            position: "bottom-center",
+            autoClose: 3000,
+            hideProgressBar: true
+        });
     }
 };
 export const deleteReview = async ({ reviewDispatch, reviewId }) => {
@@ -349,6 +408,10 @@ export const deleteReview = async ({ reviewDispatch, reviewId }) => {
             });
         }
     } catch (error) {
-        toast.dark(error.response.data.message);
+        toast.dark(error?.response?.data?.message, {
+            position: "bottom-center",
+            autoClose: 3000,
+            hideProgressBar: true
+        });
     }
 };

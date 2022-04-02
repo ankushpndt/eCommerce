@@ -148,14 +148,14 @@ export const Cart = () => {
                                                     <button
                                                         className="card__btn  card__btn__cart"
                                                         onClick={() => {
-                                                            addItemsToWishlist({
+                                                            deleteItemFromCart({
                                                                 _id: item
                                                                     ?.productId
                                                                     ?._id,
                                                                 token,
                                                                 dispatch
                                                             });
-                                                            deleteItemFromCart({
+                                                            addItemsToWishlist({
                                                                 _id: item
                                                                     ?.productId
                                                                     ?._id,
