@@ -1,7 +1,7 @@
 import axios from "axios";
 import { createContext, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Loader } from "../components/Loader";
+
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
@@ -30,7 +30,7 @@ export const AuthProvider = ({ children }) => {
     const signUpWithCredentials = async (name, email, password) => {
         try {
             setLoader(true);
-            loader && <Loader />;
+
             const response = await axios.post(
                 "https://backend.ankushpndt.repl.co/user/signup",
                 { name: name, email: email, password: password }
@@ -64,7 +64,7 @@ export const AuthProvider = ({ children }) => {
     const loginWithCredentials = async (email, password) => {
         try {
             setLoader(true);
-            loader && <Loader />;
+
             const response = await axios.post(
                 "https://backend.ankushpndt.repl.co/user/login",
                 {
@@ -117,7 +117,8 @@ export const AuthProvider = ({ children }) => {
                 userLogout,
                 user,
                 userId,
-                setError
+                setError,
+                loader
             }}
         >
             {children}

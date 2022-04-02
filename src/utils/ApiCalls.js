@@ -13,7 +13,7 @@ export const getProducts = async (setLoader, dispatch) => {
             "https://backend.ankushpndt.repl.co/products"
         );
 
-        if (response?.data) {
+        if (response?.status === 200) {
             setLoader(false);
             dispatch({ type: "GET", payload: response.data.products });
         }
@@ -66,6 +66,11 @@ export const addItemsToCart = async ({ _id, token, dispatch }) => {
             type: "ADD_ITEM",
             payload: res.data.Updatedcart
         });
+        toast.success(response.data.message, {
+            position: "bottom-center",
+            autoClose: 3000,
+            hideProgressBar: true
+        });
         successToast();
     } catch (error) {
         toast.dark(error.response.data.message);
@@ -83,6 +88,11 @@ export const deleteItemFromCart = async ({ _id, token, dispatch }) => {
             dispatch({
                 type: "UPDATE_CART",
                 payload: response.data.Updatedcart
+            });
+            toast.success(response.data.message, {
+                position: "bottom-center",
+                autoClose: 3000,
+                hideProgressBar: true
             });
         }
     } catch (error) {
@@ -151,6 +161,11 @@ export const removeItemFromWishlist = async ({ _id, token, dispatch }) => {
                 type: "REMOVE_WISHLIST_ITEM",
                 payload: response.data.Updatedwishlist
             });
+            toast.success(response.data.message, {
+                position: "bottom-center",
+                autoClose: 3000,
+                hideProgressBar: true
+            });
         }
     } catch (error) {
         toast.dark(error.response.data.message);
@@ -196,6 +211,11 @@ export const addAddress = async ({
                 type: "ADD_ADDRESS",
                 payload: response.data.savedAddress
             });
+            toast.success(response.data.message, {
+                position: "bottom-center",
+                autoClose: 3000,
+                hideProgressBar: true
+            });
         }
     } catch (error) {
         toast.dark(error.response.data.message);
@@ -227,6 +247,11 @@ export const updateAddress = async ({
                 type: "UPDATE_ADDRESS",
                 payload: response.data.updatedAddress
             });
+            toast.success(response.data.message, {
+                position: "bottom-center",
+                autoClose: 3000,
+                hideProgressBar: true
+            });
         }
     } catch (error) {
         toast.dark(error.response.data.message);
@@ -242,6 +267,11 @@ export const deleteAddress = async ({ dispatch, addressId }) => {
             dispatch({
                 type: "DELETE_ADDRESS",
                 payload: response.data.deleteAddress
+            });
+            toast.success(response.data.message, {
+                position: "bottom-center",
+                autoClose: 3000,
+                hideProgressBar: true
             });
         }
     } catch (error) {
@@ -290,6 +320,11 @@ export const addReview = async ({
                 type: "ADD_REVIEW",
                 payload: response.data.allReviews
             });
+            toast.success(response.data.message, {
+                position: "bottom-center",
+                autoClose: 3000,
+                hideProgressBar: true
+            });
         }
     } catch (error) {
         toast.dark(error.response.data.message);
@@ -305,6 +340,11 @@ export const deleteReview = async ({ reviewDispatch, reviewId }) => {
             reviewDispatch({
                 type: "DELETE_REVIEW",
                 payload: response.data.deletedReview
+            });
+            toast.success(response.data.message, {
+                position: "bottom-center",
+                autoClose: 3000,
+                hideProgressBar: true
             });
         }
     } catch (error) {
