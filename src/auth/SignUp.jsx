@@ -4,7 +4,6 @@ import { NavLink } from "react-router-dom";
 import { TextField } from "@mui/material";
 import "./Account.css";
 import { validateForm } from "../components/ValidateForm";
-import { Loader } from "../components/Loader";
 export const SignUp = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -93,7 +92,6 @@ export const SignUp = () => {
                     </NavLink>
                 </p>
             </form>
-            )
         </div>
     );
 };

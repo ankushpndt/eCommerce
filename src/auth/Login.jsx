@@ -4,7 +4,6 @@ import { NavLink } from "react-router-dom";
 import { TextField } from "@mui/material";
 import "./Account.css";
 import { validateForm } from "../components/ValidateForm";
-import { Loader } from "../components/Loader";
 export const Login = () => {
     const { loginWithCredentials, error, token } = useAuth();
 
@@ -82,7 +81,6 @@ export const Login = () => {
                     </NavLink>
                 </p>
             </form>
-            )
         </div>
     );
 };
