@@ -34,6 +34,7 @@ export const getWishlistItems = async (token, dispatch) => {
         });
     } catch (error) {
         console.log(error);
+        toast.dark(error.response.data.message);
     }
 };
 export const getCartItems = async (token, dispatch) => {
@@ -47,6 +48,7 @@ export const getCartItems = async (token, dispatch) => {
         dispatch({ type: "GET", payload: response.data.cart });
     } catch (error) {
         console.log(error);
+        toast.dark(error.response.data.message);
     }
 };
 export const addItemsToCart = async ({ _id, token, dispatch }) => {
@@ -64,11 +66,9 @@ export const addItemsToCart = async ({ _id, token, dispatch }) => {
             type: "ADD_ITEM",
             payload: res.data.Updatedcart
         });
-    } catch (error) {
-        // errorToast(res.message);
-        alert(error);
-    } finally {
         successToast();
+    } catch (error) {
+        toast.dark(error.response.data.message);
     }
 };
 export const deleteItemFromCart = async ({ _id, token, dispatch }) => {
@@ -85,10 +85,8 @@ export const deleteItemFromCart = async ({ _id, token, dispatch }) => {
                 payload: response.data.Updatedcart
             });
         }
-    } catch (err) {
-        console.log(err.response);
-    } finally {
-        errorToast();
+    } catch (error) {
+        toast.dark(error.response.data.message);
     }
 };
 export const updateQuantity = async (action, text, token, dispatch) => {
@@ -116,8 +114,8 @@ export const updateQuantity = async (action, text, token, dispatch) => {
                 payload: response.data.Updatedcart
             });
         }
-    } catch (err) {
-        console.log(err);
+    } catch (error) {
+        toast.dark(error.response.data.message);
     }
 };
 export const addItemsToWishlist = async ({ _id, token, dispatch }) => {
@@ -138,7 +136,7 @@ export const addItemsToWishlist = async ({ _id, token, dispatch }) => {
             successToastWishlist();
         }
     } catch (error) {
-        console.log(error);
+        toast.dark(error.response.data.message);
     }
 };
 export const removeItemFromWishlist = async ({ _id, token, dispatch }) => {
@@ -155,9 +153,7 @@ export const removeItemFromWishlist = async ({ _id, token, dispatch }) => {
             });
         }
     } catch (error) {
-        console.log(error);
-    } finally {
-        errorToastWishlist();
+        toast.dark(error.response.data.message);
     }
 };
 export const getAddress = async (dispatch, userId) => {
@@ -172,7 +168,7 @@ export const getAddress = async (dispatch, userId) => {
             });
         }
     } catch (error) {
-        console.log(error);
+        toast.dark(error.response.data.message);
     }
 };
 export const addAddress = async ({
@@ -202,7 +198,7 @@ export const addAddress = async ({
             });
         }
     } catch (error) {
-        console.log(error);
+        toast.dark(error.response.data.message);
     }
 };
 export const updateAddress = async ({
@@ -233,7 +229,7 @@ export const updateAddress = async ({
             });
         }
     } catch (error) {
-        console.log(error);
+        toast.dark(error.response.data.message);
     }
 };
 export const deleteAddress = async ({ dispatch, addressId }) => {
@@ -249,7 +245,7 @@ export const deleteAddress = async ({ dispatch, addressId }) => {
             });
         }
     } catch (error) {
-        console.log(error);
+        toast.dark(error.response.data.message);
     }
 };
 
@@ -266,7 +262,7 @@ export const getReview = async (dispatch, userId) => {
             });
         }
     } catch (error) {
-        console.log(error.response);
+        toast.dark(error.response.data.message);
     }
 };
 export const addReview = async ({
@@ -296,9 +292,7 @@ export const addReview = async ({
             });
         }
     } catch (error) {
-        toast.error(error.response.data.message, {
-            position: "bottom-center"
-        });
+        toast.dark(error.response.data.message);
     }
 };
 export const deleteReview = async ({ reviewDispatch, reviewId }) => {
@@ -314,6 +308,6 @@ export const deleteReview = async ({ reviewDispatch, reviewId }) => {
             });
         }
     } catch (error) {
-        console.log(error);
+        toast.dark(error.response.data.message);
     }
 };

@@ -275,8 +275,6 @@ export const Product = () => {
                                                               token,
                                                               dispatch
                                                           });
-
-                                                    // errorToastWishlist();
                                                 }}
                                             >
                                                 <i className="fas fa-heart"></i>
@@ -288,7 +286,11 @@ export const Product = () => {
                         )
                     )}
                     <ScrollToTop />
-                    <ToastContainer />
+                    <ToastContainer
+                        position="bottom-center"
+                        autoClose={3000}
+                        hideProgressBar={true}
+                    />
                 </main>
             </div>
         </main>
