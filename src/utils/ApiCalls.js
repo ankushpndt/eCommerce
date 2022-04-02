@@ -21,8 +21,9 @@ export const getProducts = async (setLoader, dispatch) => {
         dispatch({ type: "ERROR" });
     }
 };
-export const getWishlistItems = async (token, dispatch) => {
+export const getWishlistItems = async (token, dispatch, setLoader) => {
     try {
+        setLoader(true);
         const response = await axios.get(
             "https://backend.ankushpndt.repl.co/wishlist",
 
@@ -32,13 +33,15 @@ export const getWishlistItems = async (token, dispatch) => {
             type: "GET_FROM_WISHLIST",
             payload: response.data.wishlist
         });
+        setLoader(false);
     } catch (error) {
         console.log(error);
         toast.dark(error.response.data.message);
     }
 };
-export const getCartItems = async (token, dispatch) => {
+export const getCartItems = async (token, dispatch, setLoader) => {
     try {
+        setLoader(true);
         const response = await axios.get(
             "https://backend.ankushpndt.repl.co/cart",
 
@@ -46,6 +49,7 @@ export const getCartItems = async (token, dispatch) => {
         );
 
         dispatch({ type: "GET", payload: response.data.cart });
+        setLoader(false);
     } catch (error) {
         console.log(error);
         toast.dark(error.response.data.message);
@@ -66,14 +70,11 @@ export const addItemsToCart = async ({ _id, token, dispatch }) => {
             type: "ADD_ITEM",
             payload: res.data.Updatedcart
         });
-        toast.success(response.data.message, {
-            position: "bottom-center",
-            autoClose: 3000,
-            hideProgressBar: true
-        });
+
         successToast();
+        console.log(response);
     } catch (error) {
-        toast.dark(error.response.data.message);
+        toast.dark(error?.response?.data?.message);
     }
 };
 export const deleteItemFromCart = async ({ _id, token, dispatch }) => {

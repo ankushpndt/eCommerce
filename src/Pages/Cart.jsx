@@ -16,17 +16,17 @@ import { Loader } from "../components/Loader";
 export const Cart = () => {
     const { token } = useAuth();
     const navigate = useNavigate();
-    const { itemsInCart, dispatch } = useCart();
+    const { itemsInCart, dispatch, setLoader, loader } = useCart();
 
     useEffect(() => {
         if (token) {
-            getCartItems(token, dispatch);
+            getCartItems(token, dispatch, setLoader);
         }
     }, [dispatch, token]);
     return (
         <div className="Cart">
             <main className="cart__main">
-                {itemsInCart?.length > 0 ? (
+                {!loader ? (
                     <ul key={v4()}>
                         {itemsInCart?.length > 0 ? (
                             itemsInCart.map((item) => {

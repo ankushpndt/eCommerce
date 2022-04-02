@@ -11,10 +11,10 @@ import { Loader } from "../components/Loader";
 export const Wishlist = () => {
     const { token } = useAuth();
 
-    const { wishlist, dispatch } = useCart();
+    const { wishlist, dispatch, setLoader, loader } = useCart();
     useEffect(() => {
         if (token) {
-            getWishlistItems(token, dispatch);
+            getWishlistItems(token, dispatch, setLoader);
         }
     }, [dispatch, token]);
     return (
@@ -23,7 +23,7 @@ export const Wishlist = () => {
             style={{ flexWrap: "wrap", justifyContent: "center" }}
         >
             <main className="wishlist__main">
-                {wishlist?.length > 0 ? (
+                {!loader ? (
                     <ul key={v4()}>
                         {wishlist?.length > 0 ? (
                             wishlist?.map((item) => {

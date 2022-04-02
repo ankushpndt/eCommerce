@@ -17,7 +17,7 @@ export const Login = () => {
         validateForm({ email, password, setErrorMessage }) &&
             loginWithCredentials(email, password);
     };
-    console.log(loader);
+
     return (
         <div className="login">
             {!loader ? (
