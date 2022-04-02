@@ -1,7 +1,7 @@
 import axios from "axios";
 import { createContext, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import { Loader } from "../components/Loader";
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
@@ -22,18 +22,22 @@ export const AuthProvider = ({ children }) => {
     const [error, setError] = useState("");
     const [user, setUser] = useState(userName);
     const [userId, setUserId] = useState(userid);
+    const [loader, setLoader] = useState(false);
     const navigate = useNavigate();
 
     //signup
 
     const signUpWithCredentials = async (name, email, password) => {
         try {
+            setLoader(true);
+            loader && <Loader />;
             const response = await axios.post(
                 "https://backend.ankushpndt.repl.co/user/signup",
                 { name: name, email: email, password: password }
             );
 
-            if (response.status === 201) {
+            if (response.data.success === true) {
+                setLoader(false);
                 signUpUser(response.data);
             }
             if (response.data.success === true) navigate("/");
@@ -59,6 +63,8 @@ export const AuthProvider = ({ children }) => {
     // login
     const loginWithCredentials = async (email, password) => {
         try {
+            setLoader(true);
+            loader && <Loader />;
             const response = await axios.post(
                 "https://backend.ankushpndt.repl.co/user/login",
                 {
@@ -67,7 +73,8 @@ export const AuthProvider = ({ children }) => {
                 }
             );
 
-            if (response.status === 200) {
+            if (response.data.success === true) {
+                setLoader(false);
                 loginUser(response.data);
             }
             if (response.data.success === true) navigate("/");

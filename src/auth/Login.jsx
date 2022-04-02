@@ -20,76 +20,69 @@ export const Login = () => {
 
     return (
         <div className="login">
-            {token ? (
-                <form
-                    onSubmit={submitHandler}
-                    style={{
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                        flexDirection: "column",
-                        margin: "1rem auto",
-                        padding: "4rem",
-                        border: "2px solid #f0f0f0",
-                        width: "20rem"
-                    }}
-                >
-                    <h2>Login</h2>
-                    <br />
-                    <TextField
-                        id="standard__basic"
-                        label="Email"
-                        type="text"
-                        name="email"
-                        helperText="Enter your email here"
-                        onChange={(e) => setEmail(e.target.value)}
-                        required
-                        value={email}
-                        variant="standard"
-                    />
+            <form
+                onSubmit={submitHandler}
+                style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    flexDirection: "column",
+                    margin: "1rem auto",
+                    padding: "4rem",
+                    border: "2px solid #f0f0f0",
+                    width: "20rem"
+                }}
+            >
+                <h2>Login</h2>
+                <br />
+                <TextField
+                    id="standard__basic"
+                    label="Email"
+                    type="text"
+                    name="email"
+                    helperText="Enter your email here"
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                    value={email}
+                    variant="standard"
+                />
 
-                    <br />
-                    <br />
+                <br />
+                <br />
 
-                    <TextField
-                        id="standard__basic"
-                        label="Password"
-                        type="password"
-                        name="password"
-                        helperText="Enter your password here"
-                        onChange={(e) => setPassword(e.target.value)}
-                        required
-                        value={password}
-                        variant="standard"
-                    />
-                    <br />
-                    <div className="name__error">
-                        {errorMessage !== "" && errorMessage}
-                    </div>
-                    <div>{error?.message}</div>
-                    <br />
-                    {/*Login button*/}
-                    <input
-                        type="submit"
-                        value="LOGIN"
-                        id="login__btn__outlined"
-                    />
-                    <br />
-                    <p>
-                        <NavLink
-                            style={{
-                                textDecoration: "none",
-                                color: "black"
-                            }}
-                            to="/signup"
-                        >
-                            Create an account
-                        </NavLink>
-                    </p>
-                </form>
-            ) : (
-                <Loader />
-            )}
+                <TextField
+                    id="standard__basic"
+                    label="Password"
+                    type="password"
+                    name="password"
+                    helperText="Enter your password here"
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                    value={password}
+                    variant="standard"
+                />
+                <br />
+                <div className="name__error">
+                    {errorMessage !== "" && errorMessage}
+                </div>
+                <div>{error?.message}</div>
+                <br />
+                {/*Login button*/}
+                <input type="submit" value="LOGIN" id="login__btn__outlined" />
+                <br />
+                <p>
+                    <NavLink
+                        style={{
+                            textDecoration: "none",
+                            color: "black"
+                        }}
+                        to="/signup"
+                    >
+                        Create an account
+                    </NavLink>
+                </p>
+            </form>
+            )
         </div>
     );
 };

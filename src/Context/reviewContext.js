@@ -6,11 +6,11 @@ import { useAuth } from "./authContext";
 export const reviewContext = createContext();
 
 export const ReviewProvider = ({ children }) => {
-    const { userId, token } = useAuth();
+    const { userId } = useAuth();
 
     useEffect(() => {
-        token && getReview(dispatch, userId);
-    }, [dispatch, token]);
+        userId && getReview(dispatch, userId);
+    }, [dispatch, userId]);
     const [state, dispatch] = useReducer(ReviewReducer, { review: [] });
     return (
         <reviewContext.Provider

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useProduct } from "../Context/productContext";
 import { useParams, useNavigate } from "react-router-dom";
 import "../styles.css";
@@ -10,7 +10,8 @@ import {
     addItemsToWishlist,
     addReview,
     removeItemFromWishlist,
-    deleteReview
+    deleteReview,
+    getReview
 } from "../utils/ApiCalls";
 import { v4 } from "uuid";
 import { Loader } from "../components/Loader";
@@ -21,7 +22,7 @@ import StarIcon from "@mui/icons-material/Star";
 import { ToastContainer } from "react-toastify";
 export const ProductDetails = () => {
     const { products } = useProduct();
-    const { userId, user } = useAuth();
+    const { userId, user, token } = useAuth();
     const { productId } = useParams();
     const { review, reviewDispatch } = useReview();
     const productFindById = products.find(
@@ -30,11 +31,13 @@ export const ProductDetails = () => {
     const productDetails = [productFindById];
     const navigate = useNavigate();
     const { itemsInCart, wishlist, dispatch } = useCart();
-    const { token } = useAuth();
 
     const [rating, setRating] = useState(0);
 
     const [inputText, setInputText] = useState("");
+    useEffect(() => {
+        userId && getReview(dispatch, userId);
+    }, [dispatch, userId]);
     return (
         <main>
             {products.length > 0 ? (
@@ -106,8 +109,6 @@ export const ProductDetails = () => {
                                                           token,
                                                           dispatch
                                                       });
-
-                                                // errorToastWishlist();
                                             }}
                                             aria-label="Add To Wishlist"
                                         >
