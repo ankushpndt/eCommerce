@@ -74,7 +74,17 @@ export const Login = () => {
                         value="LOGIN"
                         id="login__btn__outlined"
                     />
+                    <button
+                        id="login__btn__outlined"
+                        onClick={() =>
+                            loginWithCredentials("a@gmail.com", "12345678")
+                        }
+                        style={{ margin: "1rem 0" }}
+                    >
+                        Guest Login
+                    </button>
                     <br />
+
                     <p>
                         <NavLink
                             style={{
