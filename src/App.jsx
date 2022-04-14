@@ -66,10 +66,12 @@ export const App = () => {
                                 <span className="cart__icon">
                                     <ShoppingCartIcon />
                                 </span>
-                                <span className="cart__number">
-                                    {" "}
-                                    {itemsInCart?.length}
-                                </span>
+                                {user && (
+                                    <span className="cart__number">
+                                        {" "}
+                                        {itemsInCart?.length}
+                                    </span>
+                                )}
                             </div>
                         </NavLink>
                         <NavLink
@@ -84,10 +86,12 @@ export const App = () => {
                                     {" "}
                                     <FavoriteIcon />
                                 </span>
-                                <span className="wishlist__number">
-                                    {" "}
-                                    {wishlist?.length}
-                                </span>
+                                {user && (
+                                    <span className="wishlist__number">
+                                        {" "}
+                                        {wishlist?.length}
+                                    </span>
+                                )}
                             </div>
                         </NavLink>
                         {!user && (
@@ -213,17 +217,19 @@ export const App = () => {
                                     }}
                                 >
                                     Cart
-                                    <span
-                                        style={{
-                                            backgroundColor: "#ef4444",
-                                            borderRadius: "80%",
-                                            color: "white",
-                                            padding: "1px 5.5px 1px 6px"
-                                        }}
-                                    >
-                                        {" "}
-                                        {itemsInCart?.length}
-                                    </span>
+                                    {user && (
+                                        <span
+                                            style={{
+                                                backgroundColor: "#ef4444",
+                                                borderRadius: "80%",
+                                                color: "white",
+                                                padding: "1px 5.5px 1px 6px"
+                                            }}
+                                        >
+                                            {" "}
+                                            {itemsInCart?.length}
+                                        </span>
+                                    )}
                                 </span>
                             </NavLink>
                         </li>
@@ -248,17 +254,19 @@ export const App = () => {
                                     }}
                                 >
                                     Wishlist
-                                    <span
-                                        style={{
-                                            backgroundColor: "#ef4444",
-                                            borderRadius: "80%",
-                                            color: "white",
-                                            padding: "1px 5.5px 1px 6px"
-                                        }}
-                                    >
-                                        {" "}
-                                        {wishlist?.length}
-                                    </span>
+                                    {user && (
+                                        <span
+                                            style={{
+                                                backgroundColor: "#ef4444",
+                                                borderRadius: "80%",
+                                                color: "white",
+                                                padding: "1px 5.5px 1px 6px"
+                                            }}
+                                        >
+                                            {" "}
+                                            {wishlist?.length}
+                                        </span>
+                                    )}
                                 </span>
                             </NavLink>
                         </li>
