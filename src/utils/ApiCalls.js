@@ -35,7 +35,6 @@ export const getWishlistItems = async (token, dispatch, setLoader) => {
         });
         setLoader(false);
     } catch (error) {
-        console.log(error);
         toast.dark(error?.response?.data?.message, {
             position: "bottom-center",
             autoClose: 3000,
@@ -55,7 +54,6 @@ export const getCartItems = async (token, dispatch, setLoader) => {
         dispatch({ type: "GET", payload: response.data.cart });
         setLoader(false);
     } catch (error) {
-        console.log(error);
         toast.dark(error?.response?.data?.message, {
             position: "bottom-center",
             autoClose: 3000,

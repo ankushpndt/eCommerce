@@ -25,11 +25,11 @@ import ListIcon from "@mui/icons-material/List";
 import { SavedAddress } from "./Pages/SavedAddress";
 import { Payment } from "./Pages/Payment";
 import { OrderSuccessful } from "./Pages/OrderSuccessful";
-
+import { useCart } from "./Context/cart-context";
 export const App = () => {
     const stripePromise = loadStripe("pk_test_6pRNASCoBOKtIshFeQd4XMUh");
     const { userLogout, user } = useAuth();
-
+    const { itemsInCart, wishlist } = useCart();
     const [open, setOpen] = useState(false);
     return (
         <div className="App">
@@ -51,11 +51,10 @@ export const App = () => {
                             <div style={{ color: "white", padding: "1rem" }}>
                                 Welcome, {user}
                             </div>
-                        )}{" "}
+                        )}
                         <NavLink style={{ color: "white" }} to="/product">
-                            {" "}
-                            Products{" "}
-                        </NavLink>{" "}
+                            Products
+                        </NavLink>
                         <NavLink
                             style={{
                                 textDecoration: "none",
@@ -63,8 +62,16 @@ export const App = () => {
                             }}
                             to="/cart"
                         >
-                            <ShoppingCartIcon />
-                        </NavLink>{" "}
+                            <div className="cart__icon__container">
+                                <span className="cart__icon">
+                                    <ShoppingCartIcon />
+                                </span>
+                                <span className="cart__number">
+                                    {" "}
+                                    {itemsInCart?.length}
+                                </span>
+                            </div>
+                        </NavLink>
                         <NavLink
                             style={{
                                 textDecoration: "none",
@@ -72,7 +79,16 @@ export const App = () => {
                             }}
                             to="/wishlist"
                         >
-                            <FavoriteIcon />
+                            <div className="wishlist__icon__container">
+                                <span className="wishlist__icon">
+                                    {" "}
+                                    <FavoriteIcon />
+                                </span>
+                                <span className="wishlist__number">
+                                    {" "}
+                                    {wishlist?.length}
+                                </span>
+                            </div>
                         </NavLink>
                         {!user && (
                             <NavLink
@@ -167,7 +183,9 @@ export const App = () => {
                                 <span
                                     style={{
                                         fontSize: "1.2rem",
-                                        paddingLeft: "0.5rem"
+                                        paddingLeft: "0.5rem",
+                                        display: "flex",
+                                        gap: "0.5rem"
                                     }}
                                 >
                                     Products
@@ -188,10 +206,24 @@ export const App = () => {
                                 <span
                                     style={{
                                         fontSize: "1.2rem",
-                                        paddingLeft: "0.5rem"
+                                        paddingLeft: "0.5rem",
+                                        display: "flex",
+                                        gap: "0.5rem",
+                                        alignItems: "center"
                                     }}
                                 >
                                     Cart
+                                    <span
+                                        style={{
+                                            backgroundColor: "#ef4444",
+                                            borderRadius: "80%",
+                                            color: "white",
+                                            padding: "1px 5.5px 1px 6px"
+                                        }}
+                                    >
+                                        {" "}
+                                        {itemsInCart?.length}
+                                    </span>
                                 </span>
                             </NavLink>
                         </li>
@@ -209,10 +241,24 @@ export const App = () => {
                                 <span
                                     style={{
                                         fontSize: "1.2rem",
-                                        paddingLeft: "0.5rem"
+                                        paddingLeft: "0.5rem",
+                                        display: "flex",
+                                        gap: "0.5rem",
+                                        alignItems: "center"
                                     }}
                                 >
                                     Wishlist
+                                    <span
+                                        style={{
+                                            backgroundColor: "#ef4444",
+                                            borderRadius: "80%",
+                                            color: "white",
+                                            padding: "1px 5.5px 1px 6px"
+                                        }}
+                                    >
+                                        {" "}
+                                        {wishlist?.length}
+                                    </span>
                                 </span>
                             </NavLink>
                         </li>
