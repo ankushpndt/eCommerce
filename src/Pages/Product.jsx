@@ -229,7 +229,7 @@ export const Product = () => {
                                                 onClick={() => {
                                                     itemsInCart?.find(
                                                         (product) =>
-                                                            product.productId
+                                                            product?.productId
                                                                 ?._id === _id
                                                     )
                                                         ? navigate("/cart")

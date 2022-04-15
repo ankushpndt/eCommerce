@@ -38,6 +38,7 @@ export const ProductDetails = () => {
     useEffect(() => {
         userId && getReview(dispatch, userId);
     }, [dispatch, userId]);
+    console.log(itemsInCart);
     return (
         <main>
             {products.length > 0 ? (
@@ -65,7 +66,7 @@ export const ProductDetails = () => {
                                             onClick={() => {
                                                 itemsInCart?.find(
                                                     (product) =>
-                                                        product.productId
+                                                        product?.productId
                                                             ?._id === _id
                                                 )
                                                     ? navigate("/cart")
@@ -81,7 +82,7 @@ export const ProductDetails = () => {
                                                 <i className="fas fa-shopping-cart"></i>{" "}
                                                 {itemsInCart.find(
                                                     (product) =>
-                                                        product.productId
+                                                        product[0]?.productId
                                                             ?._id === _id
                                                 )
                                                     ? "Go To Cart"

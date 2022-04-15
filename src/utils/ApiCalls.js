@@ -13,7 +13,7 @@ export const getProducts = async (setLoader, dispatch) => {
             "https://backend.ankushpndt.repl.co/products"
         );
 
-        if (response?.status === 200) {
+        if (response?.data.success === true) {
             setLoader(false);
             dispatch({ type: "GET", payload: response.data.products });
         }
@@ -97,8 +97,7 @@ export const deleteItemFromCart = async ({ _id, token, dispatch }) => {
 
             { headers: { "auth-token": token } }
         );
-
-        if (response.status === 200) {
+        if (response.data.success === true) {
             dispatch({
                 type: "UPDATE_CART",
                 payload: response.data.Updatedcart
@@ -136,7 +135,7 @@ export const updateQuantity = async (action, text, token, dispatch) => {
             { headers: { "auth-token": token } }
         );
 
-        if (response.status === 200) {
+        if (response.data.success === true) {
             dispatch({
                 type: "UPDATE_CART",
                 payload: response.data.Updatedcart
@@ -160,12 +159,12 @@ export const addItemsToWishlist = async ({ _id, token, dispatch }) => {
 
             { headers: { "auth-token": token } }
         );
-        if (response.status === 200) {
+        if (response.data.success === true) {
             dispatch({
                 type: "ADD_WISHLIST_ITEM",
                 payload: response.data.Updatedwishlist
             });
-            toast.success(res.data.message, {
+            toast.success(response.data.message, {
                 position: "bottom-center",
                 autoClose: 3000,
                 hideProgressBar: true
@@ -186,7 +185,7 @@ export const removeItemFromWishlist = async ({ _id, token, dispatch }) => {
             { headers: { "auth-token": token } }
         );
 
-        if (response.status === 200) {
+        if (response.data.success === true) {
             dispatch({
                 type: "REMOVE_WISHLIST_ITEM",
                 payload: response.data.Updatedwishlist
@@ -210,7 +209,7 @@ export const getAddress = async (dispatch, userId) => {
         const response = await axios.get(
             `https://backend.ankushpndt.repl.co/address/get/${userId}`
         );
-        if (response.status === 200) {
+        if (response.data.success === true) {
             dispatch({
                 type: "GET_ADDRESS",
                 payload: response.data.getAllAddress
@@ -244,7 +243,7 @@ export const addAddress = async ({
             }
         );
 
-        if (response.status === 200) {
+        if (response.data.success === true) {
             dispatch({
                 type: "ADD_ADDRESS",
                 payload: response.data.savedAddress
@@ -284,7 +283,7 @@ export const updateAddress = async ({
             }
         );
 
-        if (response.status === 200) {
+        if (response.data.success === true) {
             dispatch({
                 type: "UPDATE_ADDRESS",
                 payload: response.data.updatedAddress
@@ -309,7 +308,7 @@ export const deleteAddress = async ({ dispatch, addressId }) => {
             `https://backend.ankushpndt.repl.co/address/delete/${addressId}`
         );
 
-        if (response.status === 200) {
+        if (response.data.success === true) {
             dispatch({
                 type: "DELETE_ADDRESS",
                 payload: response.data.deleteAddress
@@ -335,7 +334,7 @@ export const getReview = async (dispatch, userId) => {
             `https://backend.ankushpndt.repl.co/review/get/${userId}`
         );
 
-        if (response.status === 200) {
+        if (response.data.success === true) {
             dispatch({
                 type: "GET_REVIEW",
                 payload: response.data.getAllReview
@@ -369,7 +368,7 @@ export const addReview = async ({
             }
         );
 
-        if (response.status === 200) {
+        if (response.data.success === true) {
             reviewDispatch({
                 type: "ADD_REVIEW",
                 payload: response.data.allReviews
@@ -394,7 +393,7 @@ export const deleteReview = async ({ reviewDispatch, reviewId }) => {
             `https://backend.ankushpndt.repl.co/review/delete/${reviewId}`
         );
 
-        if (response.status === 200) {
+        if (response.data.success === true) {
             reviewDispatch({
                 type: "DELETE_REVIEW",
                 payload: response.data.deletedReview
