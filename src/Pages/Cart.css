@@ -25,6 +25,7 @@
 }
 .product__details {
     flex: 1;
+    height: 100%;
 }
 .close {
     display: flex;

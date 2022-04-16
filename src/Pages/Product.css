@@ -12,13 +12,10 @@
     max-width: 100%;
     margin-left: 4rem;
 }
-/* .container button {
-    cursor: pointer;
-} */
 .product__wishlist {
     position: relative;
     left: 18rem;
-    bottom: 3.5rem;
+    bottom: 3rem;
     border-radius: 50%;
     font-size: x-large;
     background-color: transparent;
@@ -67,6 +64,8 @@ input {
     height: 90%;
     box-shadow: 0 3px 6px rgb(0 0 0 / 16%), 0 3px 6px rgb(0 0 0 / 23%);
     border: none;
+    height: 100%;
+    min-height: 665px;
 }
 
 .card__rating {
@@ -77,11 +76,18 @@ input {
 }
 .card__product__btn {
     margin-left: 1rem;
-    margin-bottom: 1rem;
+    max-width: 108px;
+    width: 100%;
+}
+.cart__btn {
+    margin-top: 0;
 }
 .out__of__stock {
     cursor: not-allowed;
     background-color: rgba(231, 18, 18, 0.5);
+}
+.fas {
+    margin-right: 0.2rem;
 }
 @media all and (max-width: 648px) {
     .main {

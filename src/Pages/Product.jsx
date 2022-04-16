@@ -144,7 +144,8 @@ export const Product = () => {
                                 <div
                                     key={v4()}
                                     style={{
-                                        marginTop: "1rem"
+                                        marginTop: "1rem",
+                                        height: "100%"
                                     }}
                                 >
                                     <div className="card__border">
@@ -216,7 +217,7 @@ export const Product = () => {
                                                 </h4>
                                             </div>
                                         </Link>
-                                        <div>
+                                        <div style={{ height: "7vh" }}>
                                             <button
                                                 className={
                                                     inStock

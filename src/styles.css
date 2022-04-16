@@ -8,7 +8,9 @@ body {
     font-family: "Roboto Condensed", sans-serif;
     width: 100%;
 }
-
+.fas {
+    margin-right: 0;
+}
 .hamnav {
     width: 100%;
     display: flex;
@@ -62,23 +64,23 @@ body {
 .mobile__menu {
     display: none;
 }
-.wishlist__icon,
-.cart__icon {
+.wishlist__icon__container,
+.cart__icon__container {
     position: relative;
 }
 .wishlist__number {
     position: absolute;
-    top: 24%;
+    top: -28%;
+    right: -36%;
     background-color: red;
     padding: 1px 5.5px 1px 6px;
     border-radius: 80%;
-    right: 18%;
 }
 
 .cart__number {
     position: absolute;
-    top: 24%;
-    right: 21.8%;
+    top: -29%;
+    right: -41.2%;
     background-color: red;
     padding: 1px 5.5px 1px 6px;
     border-radius: 80%;
