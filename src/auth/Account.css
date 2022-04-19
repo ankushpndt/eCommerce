@@ -1,0 +1,18 @@
+#login__btn__outlined {
+    border-color: black;
+    color: black;
+    cursor: pointer;
+    background-color: white;
+    padding: 0.5rem;
+}
+#login__btn__outlined:hover {
+    color: white;
+    background-color: black;
+}
+.login,
+.signup {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+}

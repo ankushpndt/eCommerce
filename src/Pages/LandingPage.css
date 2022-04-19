@@ -1,0 +1,26 @@
+.landing__container {
+    padding: 1rem;
+}
+.new__releases h3 {
+    padding-bottom: 2rem;
+    text-align: center;
+}
+.new__releases__image {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+    gap: 1rem;
+}
+.landing__image {
+    width: 100%;
+    max-width: 50rem;
+    border-radius: 10px;
+}
+@media (max-width: 648px) {
+    .new__releases h3 {
+        padding-top: 2rem;
+        padding-bottom: 1rem;
+    }
+}

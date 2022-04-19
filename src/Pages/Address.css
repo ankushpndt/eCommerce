@@ -1,0 +1,35 @@
+.address {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+}
+.address__form {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    width: 20rem;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+.address__nav__btn {
+    padding: 0 1rem;
+}
+.address__container {
+    max-width: 650px;
+    margin: auto;
+}
+
+.address__btn {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 1rem;
+}
+.address__content div {
+    font-weight: bold;
+}
+.address__content > p {
+    color: gray;
+}

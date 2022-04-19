@@ -1,0 +1,111 @@
+@import url("https://metal-ui.netlify.app/components/components.css");
+.main {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    max-width: 100%;
+    margin-left: 4rem;
+}
+.product__wishlist {
+    position: relative;
+    left: 18rem;
+    bottom: 3rem;
+    border-radius: 50%;
+    font-size: x-large;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.filters__container {
+    min-width: 20%;
+    margin-top: 2rem;
+    margin-right: 2rem;
+    box-shadow: 0 3px 6px rgb(0 0 0 / 16%), 0 3px 6px rgb(0 0 0 / 23%);
+
+    position: sticky;
+    height: min-content;
+    top: calc(78px + 1rem);
+}
+.sortby__header {
+    padding-bottom: 1rem;
+}
+.sortby {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    justify-content: center;
+}
+.filters {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    justify-content: center;
+}
+
+input {
+    margin: 0.5rem 0.5rem;
+}
+
+.rating__container {
+    padding: 1rem 0;
+}
+.fa-shopping-cart:before {
+    margin-right: 4px;
+}
+.card__border {
+    padding: 0;
+    height: 90%;
+    box-shadow: 0 3px 6px rgb(0 0 0 / 16%), 0 3px 6px rgb(0 0 0 / 23%);
+    border: none;
+    height: 100%;
+    min-height: 665px;
+}
+
+.card__rating {
+    padding-left: 1rem;
+}
+.card__body {
+    padding: 1rem;
+}
+.card__product__btn {
+    margin-left: 1rem;
+    max-width: 108px;
+    width: 100%;
+}
+.cart__btn {
+    margin-top: 0;
+}
+.out__of__stock {
+    cursor: not-allowed;
+    background-color: rgba(231, 18, 18, 0.5);
+}
+.fas {
+    margin-right: 0.2rem;
+}
+@media all and (max-width: 648px) {
+    .main {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    .container {
+        flex-wrap: wrap;
+        margin-left: 0;
+    }
+
+    .filters__container {
+        display: flex;
+        position: static;
+        margin: 1rem auto 0 auto;
+        min-width: 0;
+    }
+}
