@@ -29,6 +29,7 @@
 7. Wishlist Management
   * Add to Wishlist
   * Remove from Wishlist
+
 8.Address Management
   * Add address
   * Edit Address
