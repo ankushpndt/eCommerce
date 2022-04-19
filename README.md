@@ -21,15 +21,15 @@
 3. Add rating and review
 4. Filter products based on availability and sort them based on price
 5. User Management
-  * Login/SignUp
-  * JWT authentication
+   * Login/SignUp
+   * JWT authentication
 6. Cart Management
-  * Add to Cart
-  * Remove from cart
+   * Add to Cart
+   * Remove from cart
 7. Wishlist Management
-  * Add to Wishlist
-  * Remove from Wishlist
+   * Add to Wishlist
+   * Remove from Wishlist
 8. Address Management
-  * Add address
-  * Edit Address
-  * Remove Address
+   * Add address
+   * Edit Address
+   * Remove Address
