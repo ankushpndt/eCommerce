@@ -16,7 +16,7 @@
     align-items: center;
     display: flex;
     flex-direction: column;
-    height: 100vh;
+    height: 80vh;
     justify-content: center;
     text-align: center;
 }
@@ -30,6 +30,9 @@
     white-space: nowrap;
 }
 @media (max-width: 30rem) {
+    .page__not__found {
+        height: 80vh;
+    }
     .page__not__found__heading {
         font-size: 8.5rem;
     }
