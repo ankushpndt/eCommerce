@@ -6,10 +6,7 @@ export const Rating = ({ rating, setRating }) => {
     const [hover, setHover] = useState(0);
 
     return (
-        <div
-            className="rating__container"
-            style={{ justifyContent: "flex-start", marginTop: "0" }}
-        >
+        <div className="rating__wrapper">
             {[...Array(5)].map((item, i) => {
                 const ratingValue = i + 1;
 
@@ -21,7 +18,6 @@ export const Rating = ({ rating, setRating }) => {
                             <input
                                 type="radio"
                                 name="rating"
-                                // value={ratingValue}
                                 className="rating__btn"
                             />
                             <StarIcon

@@ -1,4 +1,5 @@
 import "./styles.css";
+import { useState } from "react";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import { Wishlist } from "./Pages/Wishlist";
@@ -12,7 +13,6 @@ import { useAuth } from "./Context/authContext";
 import { ProductDetails } from "./Pages/ProductDetails";
 import { LandingPage } from "./Pages/LandingPage";
 import { PageNotFound } from "./Pages/PageNotFound";
-import { useState } from "react";
 import { Searchbar } from "./components/Searchbar";
 import MenuIcon from "@mui/icons-material/Menu";
 import HomeIcon from "@mui/icons-material/Home";
@@ -26,6 +26,7 @@ import { SavedAddress } from "./Pages/SavedAddress";
 import { Payment } from "./Pages/Payment";
 import { OrderSuccessful } from "./Pages/OrderSuccessful";
 import { useCart } from "./Context/cart-context";
+
 export const App = () => {
     const stripePromise = loadStripe("pk_test_6pRNASCoBOKtIshFeQd4XMUh");
     const { userLogout, user } = useAuth();
@@ -352,10 +353,11 @@ export const App = () => {
                     </ul>
                 </div>
             </div>
-
             <Routes>
                 <Route path="/" element={<LandingPage />} />
+
                 <Route path="/product" element={<Product />} />
+
                 <Route
                     path="/product/:productId"
                     element={
