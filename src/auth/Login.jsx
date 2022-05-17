@@ -5,6 +5,7 @@ import { TextField } from "@mui/material";
 import "./Account.css";
 import { validateForm } from "../components/ValidateForm";
 import { Loader } from "../components/Loader";
+import { ToastContainer } from "react-toastify";
 export const Login = () => {
     const { loginWithCredentials, error, loader } = useAuth();
 
@@ -100,6 +101,7 @@ export const Login = () => {
             ) : (
                 <Loader />
             )}
+            <ToastContainer />
         </div>
     );
 };

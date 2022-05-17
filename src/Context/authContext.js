@@ -1,7 +1,7 @@
 import axios from "axios";
 import { createContext, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import { toast } from "react-toastify";
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
@@ -42,6 +42,12 @@ export const AuthProvider = ({ children }) => {
             }
             if (response.data.success === true) navigate("/");
         } catch (error) {
+            setLoader(false);
+            toast.dark(error?.response?.data?.message, {
+                position: "bottom-center",
+                autoClose: 3000,
+                hideProgressBar: true
+            });
             setError(error.response.data?.errors);
         }
     };
@@ -79,6 +85,12 @@ export const AuthProvider = ({ children }) => {
             }
             if (response.data.success === true) navigate("/");
         } catch (error) {
+            toast.dark(error?.response?.data?.message, {
+                position: "bottom-center",
+                autoClose: 3000,
+                hideProgressBar: true
+            });
+            setLoader(false);
             setError(error.response.data.errors);
         }
     };

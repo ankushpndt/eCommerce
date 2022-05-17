@@ -5,6 +5,7 @@ import { TextField } from "@mui/material";
 import "./Account.css";
 import { validateForm } from "../components/ValidateForm";
 import { Loader } from "../components/Loader";
+import { ToastContainer } from "react-toastify";
 export const SignUp = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -97,6 +98,7 @@ export const SignUp = () => {
             ) : (
                 <Loader />
             )}
+            <ToastContainer />
         </div>
     );
 };

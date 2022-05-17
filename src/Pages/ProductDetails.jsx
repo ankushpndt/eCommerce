@@ -38,7 +38,6 @@ export const ProductDetails = () => {
     useEffect(() => {
         userId && getReview(dispatch, userId);
     }, [dispatch, userId]);
-    console.log(itemsInCart);
     return (
         <main>
             {products.length > 0 ? (
