@@ -10,7 +10,7 @@ import { getAddress } from "../utils/ApiCalls";
 import { useAuth } from "./authContext";
 export const addressContext = createContext();
 export const AddressProvider = ({ children }) => {
-    const { userId } = useAuth();
+    const { userId, token } = useAuth();
     const [loader, setLoader] = useState(false);
     useEffect(() => {
         userId && getAddress(dispatch, userId);
@@ -18,7 +18,13 @@ export const AddressProvider = ({ children }) => {
     const [state, dispatch] = useReducer(AddressReducer, { address: [] });
     return (
         <addressContext.Provider
-            value={{ address: state.address, dispatch, loader, setLoader }}
+            value={{
+                address: state.address,
+                dispatch,
+                loader,
+                setLoader,
+                token
+            }}
         >
             <> {children}</>
         </addressContext.Provider>

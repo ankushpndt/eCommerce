@@ -148,6 +148,27 @@ export const deleteItemFromCart = async ({ _id, token, dispatch }) => {
         });
     }
 };
+export const emptyCart = async ({ token, dispatch }) => {
+    try {
+        const response = await axios.delete(
+            `https://backend.ankushpndt.repl.co/cart/emptyCart`,
+            { headers: { "auth-token": token } }
+        );
+        console.log(response);
+        if (response.data.success === true) {
+            dispatch({
+                type: "UPDATE_CART",
+                payload: response.data.Updatedcart
+            });
+        }
+    } catch (error) {
+        toast.error(error?.response?.data?.message, {
+            position: "bottom-center",
+            autoClose: 3000,
+            hideProgressBar: true
+        });
+    }
+};
 export const updateQuantity = async (action, text, token, dispatch) => {
     try {
         let quantity = action.quantity;

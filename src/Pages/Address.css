@@ -16,6 +16,7 @@
 
 .address__nav__btn {
     padding-top: 1rem;
+    padding-left: 1rem;
 }
 .address__container {
     max-width: 650px;

@@ -7,8 +7,10 @@ import { HoriStepper } from "../components/HoriStepper";
 import { useAddress } from "../Context/addressContext";
 import { v4 } from "uuid";
 import "./Payment.css";
+import { emptyCart } from "../utils/ApiCalls";
 export const Payment = () => {
     const { itemsInCart } = useCart();
+    const { token, dispatch, address } = useAddress();
     const totalAmtInCart = itemsInCart.reduce(
         (total, i) =>
             parseInt(total) +
@@ -34,7 +36,7 @@ export const Payment = () => {
                             amount: totalAmtInCart
                         }
                     );
-
+                    console.log(response);
                     navigate("/cart/payment/success");
                 } catch (err) {
                     console.log(err);
@@ -42,7 +44,7 @@ export const Payment = () => {
             })();
     }, [stripeToken]);
     const { addressId } = useParams();
-    const { address } = useAddress();
+
     const getAddressBasedOnId = address?.find(
         (item) => item?._id === addressId
     );
@@ -56,7 +58,9 @@ export const Payment = () => {
                     {address && (
                         <div key={v4()} style={{ padding: "1rem 0" }}>
                             <div className="address__content">
-                                <div>Name: {getAddressBasedOnId?.name}</div>
+                                <h4>Deliver To:</h4>
+                                <br />
+                                <p>Name: {getAddressBasedOnId?.name}</p>
                                 <p>
                                     Mobile number:{" "}
                                     {getAddressBasedOnId?.mobileno}
@@ -78,7 +82,12 @@ export const Payment = () => {
                         token={onToken}
                         stripeKey={KEY}
                     >
-                        <button id="login__btn__outlined">Checkout</button>
+                        <button
+                            id="login__btn__outlined"
+                            onClick={() => emptyCart({ token, dispatch })}
+                        >
+                            Checkout
+                        </button>
                     </StripeCheckout>
                 )}
             </div>
