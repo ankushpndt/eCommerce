@@ -21,7 +21,6 @@ const addItem = (state, action) => {
         });
         return newItemsInCart;
     } else {
-        console.log(action.payload);
         return [...action.payload];
     }
 };

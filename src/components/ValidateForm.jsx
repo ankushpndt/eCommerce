@@ -8,8 +8,8 @@ export const validateForm = ({ name, email, password, setErrorMessage }) => {
         setErrorMessage("Invalid Email");
         return false;
     }
-    if (!/^(?=.*?[0-9]).{8,}$/i.test(password)) {
-        setErrorMessage("Invalid Password");
+    if (!/^(?=.*?[a-zA-Z0-9]).{8,}$/i.test(password)) {
+        setErrorMessage("Password should contain atleast 8 characters");
         return false;
     }
     setErrorMessage("");

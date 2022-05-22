@@ -6,11 +6,9 @@ import { useAuth } from "../Context/authContext";
 import { addAddress } from "../utils/ApiCalls";
 import "./Address.css";
 import { updateAddress } from "../utils/ApiCalls";
-
-export const NewAddress = ({ addressId, isAdd, update }) => {
+export const NewAddress = ({ addressId, isAdd, update, setIsEdit }) => {
     const { address } = useAddress();
     const userAddress = address?.find((item) => item?._id === addressId);
-
     const [fullName, setFullName] = useState(userAddress?.name);
     const [mobNumber, setMobNumber] = useState(userAddress?.mobileno);
     const [newPincode, setNewPincode] = useState(userAddress?.pincode);
@@ -27,7 +25,8 @@ export const NewAddress = ({ addressId, isAdd, update }) => {
                 mobileno: mobNumber,
                 pincode: newPincode,
                 address: newAddress,
-                dispatch
+                dispatch,
+                setIsEdit
             });
         update &&
             updateAddress({
@@ -37,9 +36,11 @@ export const NewAddress = ({ addressId, isAdd, update }) => {
                 name: fullName,
                 mobileno: mobNumber,
                 pincode: newPincode,
-                address: newAddress
+                address: newAddress,
+                setIsEdit
             });
     };
+
     return (
         <div className="address">
             <form onSubmit={submitHandler} className="address__form">
@@ -48,24 +49,32 @@ export const NewAddress = ({ addressId, isAdd, update }) => {
                     label="Full name"
                     variant="standard"
                     onChange={(e) => setFullName(e.target.value)}
+                    required
+                    value={fullName}
                 />
                 <TextField
                     id="standard-basic"
                     label="Mobile number"
                     variant="standard"
                     onChange={(e) => setMobNumber(e.target.value)}
+                    required
+                    value={mobNumber}
                 />
                 <TextField
                     id="standard-basic"
                     label="PIN code"
                     variant="standard"
                     onChange={(e) => setNewPincode(e.target.value)}
+                    required
+                    value={newPincode}
                 />
                 <TextField
                     id="standard-basic"
                     label="Address"
                     variant="standard"
                     onChange={(e) => setNewAddress(e.target.value)}
+                    required
+                    value={newAddress}
                 />
                 <button
                     type="submit"

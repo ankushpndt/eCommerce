@@ -26,7 +26,7 @@ import { SavedAddress } from "./Pages/SavedAddress";
 import { Payment } from "./Pages/Payment";
 import { OrderSuccessful } from "./Pages/OrderSuccessful";
 import { useCart } from "./Context/cart-context";
-
+import { ToastContainer, Slide } from "react-toastify";
 export const App = () => {
     const stripePromise = loadStripe("pk_test_6pRNASCoBOKtIshFeQd4XMUh");
     const { userLogout, user } = useAuth();
@@ -387,7 +387,7 @@ export const App = () => {
 
                 <Route path="/cart/savedaddress" element={<SavedAddress />} />
                 <Route
-                    path="/cart/payment"
+                    path="/cart/payment/:addressId"
                     element={
                         <Elements stripe={stripePromise}>
                             <Payment />
@@ -401,6 +401,13 @@ export const App = () => {
 
                 <Route path="/*" element={<PageNotFound />} />
             </Routes>
+            <ToastContainer
+                position="bottom-center"
+                autoClose={3000}
+                hideProgressBar={true}
+                transition={Slide}
+                theme="dark"
+            />
         </div>
     );
 };

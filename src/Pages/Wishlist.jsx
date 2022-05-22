@@ -1,10 +1,13 @@
 import React, { useEffect } from "react";
 import { useCart } from "../Context/cart-context";
-import { ToastContainer } from "react-toastify";
 import "./Cart.css";
 import { useAuth } from "../Context/authContext";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { removeItemFromWishlist, addItemsToCart } from "../utils/ApiCalls";
+import {
+    removeItemFromWishlist,
+    addItemsToCart,
+    deleteFromWishlist
+} from "../utils/ApiCalls";
 import { v4 } from "uuid";
 import { getWishlistItems } from "../utils/ApiCalls";
 import { Loader } from "../components/Loader";
@@ -81,15 +84,13 @@ export const Wishlist = () => {
                                                                 token,
                                                                 dispatch
                                                             });
-                                                            removeItemFromWishlist(
-                                                                {
-                                                                    _id: item
-                                                                        ?.productId
-                                                                        ?._id,
-                                                                    token,
-                                                                    dispatch
-                                                                }
-                                                            );
+                                                            deleteFromWishlist({
+                                                                _id: item
+                                                                    ?.productId
+                                                                    ?._id,
+                                                                token,
+                                                                dispatch
+                                                            });
                                                         }}
                                                     >
                                                         Move to Cart
@@ -115,7 +116,6 @@ export const Wishlist = () => {
                     <Loader />
                 )}
             </main>
-            <ToastContainer />
         </div>
     );
 };

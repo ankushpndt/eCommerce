@@ -4,7 +4,7 @@ import { useCart } from "../Context/cart-context";
 import { Link } from "react-router-dom";
 import "./Product.css";
 import { useNavigate } from "react-router-dom";
-import { ToastContainer } from "react-toastify";
+import { ToastContainer, Slide } from "react-toastify";
 import { useAuth } from "../Context/authContext";
 import { checkItem } from "../checkItem";
 import ScrollToTop from "../components/ScrollToTop";
@@ -137,9 +137,7 @@ export const Product = () => {
                                 price,
                                 ratings,
                                 inStock,
-                                discount,
-                                fastDelivery,
-                                seller
+                                fastDelivery
                             }) => (
                                 <div
                                     key={v4()}
@@ -291,6 +289,8 @@ export const Product = () => {
                         position="bottom-center"
                         autoClose={3000}
                         hideProgressBar={true}
+                        transition={Slide}
+                        theme="dark"
                     />
                 </main>
             </div>

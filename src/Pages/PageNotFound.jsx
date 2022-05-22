@@ -5,7 +5,7 @@ export const PageNotFound = () => {
             <h1 className="page__not__found__heading">
                 4
                 <span>
-                    <i class="fas fa-ghost"></i>
+                    <i className="fas fa-ghost"></i>
                 </span>
                 4
             </h1>

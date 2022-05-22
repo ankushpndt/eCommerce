@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import StripeCheckout from "react-stripe-checkout";
 import { useCart } from "../Context/cart-context";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { HoriStepper } from "../components/HoriStepper";
 import { useAddress } from "../Context/addressContext";
 import { v4 } from "uuid";
@@ -41,7 +41,11 @@ export const Payment = () => {
                 }
             })();
     }, [stripeToken]);
+    const { addressId } = useParams();
     const { address } = useAddress();
+    const getAddressBasedOnId = address?.find(
+        (item) => item?._id === addressId
+    );
 
     return (
         <>
@@ -49,25 +53,25 @@ export const Payment = () => {
             <div className="payment__container">
                 <div className="order__summary">
                     <h4>Order Summary</h4>
-                    {address &&
-                        address?.map((item) => (
-                            <div key={v4()} style={{ padding: "1rem 0" }}>
-                                <div className="address__content">
-                                    <div>Name: {item?.name}</div>
-                                    <p>Mobile number: {item?.mobileno}</p>
-                                    <p>Pincode: {item?.pincode}</p>
-                                    <p>Address: {item?.address}</p>
-                                </div>
+                    {address && (
+                        <div key={v4()} style={{ padding: "1rem 0" }}>
+                            <div className="address__content">
+                                <div>Name: {getAddressBasedOnId?.name}</div>
+                                <p>
+                                    Mobile number:{" "}
+                                    {getAddressBasedOnId?.mobileno}
+                                </p>
+                                <p>Pincode: {getAddressBasedOnId?.pincode}</p>
+                                <p>Address: {getAddressBasedOnId?.address}</p>
                             </div>
-                        ))}
+                        </div>
+                    )}
                 </div>
                 {stripeToken ? (
                     <span>Processing your payment. Please wait...</span>
                 ) : (
                     <StripeCheckout
                         name="Game Shop"
-                        // billingAddress
-                        // shippingAddress
                         description={`Your total is ₹ ${totalAmtInCart}`}
                         currency="INR"
                         amount={totalAmtInCart * 100}

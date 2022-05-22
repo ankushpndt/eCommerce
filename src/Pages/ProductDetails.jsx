@@ -19,7 +19,6 @@ import { useReview } from "../Context/reviewContext";
 import { Rating } from "../components/Rating";
 import DeleteIcon from "@mui/icons-material/Delete";
 import StarIcon from "@mui/icons-material/Star";
-import { ToastContainer } from "react-toastify";
 export const ProductDetails = () => {
     const { products } = useProduct();
     const { userId, user, token } = useAuth();
@@ -81,7 +80,7 @@ export const ProductDetails = () => {
                                                 <i className="fas fa-shopping-cart"></i>{" "}
                                                 {itemsInCart.find(
                                                     (product) =>
-                                                        product[0]?.productId
+                                                        product?.productId
                                                             ?._id === _id
                                                 )
                                                     ? "Go To Cart"
@@ -409,7 +408,6 @@ export const ProductDetails = () => {
             ) : (
                 <Loader />
             )}
-            <ToastContainer />
         </main>
     );
 };

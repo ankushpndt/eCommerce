@@ -63,6 +63,7 @@ export const getCartItems = async (token, dispatch, setLoader) => {
 };
 export const addItemsToCart = async ({ _id, token, dispatch }) => {
     try {
+        toast.loading("Please wait");
         const res = await axios.post(
             `https://backend.ankushpndt.repl.co/cart/${_id}`,
             {
@@ -72,25 +73,28 @@ export const addItemsToCart = async ({ _id, token, dispatch }) => {
             { headers: { "auth-token": token } }
         );
 
-        dispatch({
-            type: "ADD_ITEM",
-            payload: res.data.Updatedcart
-        });
+        if (res.data.success === true) {
+            toast.dismiss();
+            dispatch({
+                type: "ADD_ITEM",
+                payload: res.data.Updatedcart
+            });
 
-        toast.success(res.data.message, {
-            position: "bottom-center",
-            autoClose: 3000,
-            hideProgressBar: true
-        });
+            toast.success(res.data.message, {
+                position: "bottom-center",
+                autoClose: 3000,
+                hideProgressBar: true
+            });
+        }
     } catch (error) {
-        toast.dark(error?.response?.data?.message, {
+        toast.error(error?.response?.data?.message, {
             position: "bottom-center",
             autoClose: 3000,
             hideProgressBar: true
         });
     }
 };
-export const deleteItemFromCart = async ({ _id, token, dispatch }) => {
+export const deleteFromCart = async ({ _id, token, dispatch }) => {
     try {
         const response = await axios.delete(
             `https://backend.ankushpndt.repl.co/cart/${_id}`,
@@ -109,7 +113,35 @@ export const deleteItemFromCart = async ({ _id, token, dispatch }) => {
             });
         }
     } catch (error) {
-        toast.dark(error?.response?.data?.message, {
+        toast.error(error?.response?.data?.message, {
+            position: "bottom-center",
+            autoClose: 3000,
+            hideProgressBar: true
+        });
+    }
+};
+export const deleteItemFromCart = async ({ _id, token, dispatch }) => {
+    try {
+        toast.loading("Please wait");
+        const response = await axios.delete(
+            `https://backend.ankushpndt.repl.co/cart/${_id}`,
+
+            { headers: { "auth-token": token } }
+        );
+        if (response.data.success === true) {
+            toast.dismiss();
+            dispatch({
+                type: "UPDATE_CART",
+                payload: response.data.Updatedcart
+            });
+            toast.success(response.data.message, {
+                position: "bottom-center",
+                autoClose: 3000,
+                hideProgressBar: true
+            });
+        }
+    } catch (error) {
+        toast.error(error?.response?.data?.message, {
             position: "bottom-center",
             autoClose: 3000,
             hideProgressBar: true
@@ -128,7 +160,7 @@ export const updateQuantity = async (action, text, token, dispatch) => {
                 deleteItemFromCart(action);
             }
         }
-
+        toast.loading("Please wait");
         const response = await axios.post(
             `https://backend.ankushpndt.repl.co/cart/${action.productId._id}/${quantity}`,
             { _id: action.productId._id },
@@ -136,13 +168,14 @@ export const updateQuantity = async (action, text, token, dispatch) => {
         );
 
         if (response.data.success === true) {
+            toast.dismiss();
             dispatch({
                 type: "UPDATE_CART",
                 payload: response.data.Updatedcart
             });
         }
     } catch (error) {
-        toast.dark(error?.response?.data?.message, {
+        toast.error(error?.response?.data?.message, {
             position: "bottom-center",
             autoClose: 3000,
             hideProgressBar: true
@@ -151,6 +184,7 @@ export const updateQuantity = async (action, text, token, dispatch) => {
 };
 export const addItemsToWishlist = async ({ _id, token, dispatch }) => {
     try {
+        toast.loading("Please wait");
         const response = await axios.post(
             `https://backend.ankushpndt.repl.co/wishlist/${_id}`,
             {
@@ -160,6 +194,7 @@ export const addItemsToWishlist = async ({ _id, token, dispatch }) => {
             { headers: { "auth-token": token } }
         );
         if (response.data.success === true) {
+            toast.dismiss();
             dispatch({
                 type: "ADD_WISHLIST_ITEM",
                 payload: response.data.Updatedwishlist
@@ -171,14 +206,14 @@ export const addItemsToWishlist = async ({ _id, token, dispatch }) => {
             });
         }
     } catch (error) {
-        toast.dark(error?.response?.data?.message, {
+        toast.error(error?.response?.data?.message, {
             position: "bottom-center",
             autoClose: 3000,
             hideProgressBar: true
         });
     }
 };
-export const removeItemFromWishlist = async ({ _id, token, dispatch }) => {
+export const deleteFromWishlist = async ({ _id, token, dispatch }) => {
     try {
         const response = await axios.delete(
             `https://backend.ankushpndt.repl.co/wishlist/${_id}`,
@@ -197,26 +232,56 @@ export const removeItemFromWishlist = async ({ _id, token, dispatch }) => {
             });
         }
     } catch (error) {
-        toast.dark(error?.response?.data?.message, {
+        toast.error(error?.response?.data?.message, {
             position: "bottom-center",
             autoClose: 3000,
             hideProgressBar: true
         });
     }
 };
-export const getAddress = async (dispatch, userId) => {
+export const removeItemFromWishlist = async ({ _id, token, dispatch }) => {
     try {
+        toast.loading("Please wait");
+        const response = await axios.delete(
+            `https://backend.ankushpndt.repl.co/wishlist/${_id}`,
+            { headers: { "auth-token": token } }
+        );
+
+        if (response.data.success === true) {
+            toast.dismiss();
+            dispatch({
+                type: "REMOVE_WISHLIST_ITEM",
+                payload: response.data.Updatedwishlist
+            });
+            toast.success(response.data.message, {
+                position: "bottom-center",
+                autoClose: 3000,
+                hideProgressBar: true
+            });
+        }
+    } catch (error) {
+        toast.error(error?.response?.data?.message, {
+            position: "bottom-center",
+            autoClose: 3000,
+            hideProgressBar: true
+        });
+    }
+};
+export const getAddress = async (dispatch, userId, setLoader) => {
+    try {
+        setLoader(true);
         const response = await axios.get(
             `https://backend.ankushpndt.repl.co/address/get/${userId}`
         );
         if (response.data.success === true) {
+            setLoader(false);
             dispatch({
                 type: "GET_ADDRESS",
                 payload: response.data.getAllAddress
             });
         }
     } catch (error) {
-        toast.dark(error?.response?.data?.message, {
+        toast.error(error?.response?.data?.message, {
             position: "bottom-center",
             autoClose: 3000,
             hideProgressBar: true
@@ -229,9 +294,11 @@ export const addAddress = async ({
     mobileno,
     pincode,
     address,
-    dispatch
+    dispatch,
+    setIsEdit
 }) => {
     try {
+        toast.loading("Please wait");
         const response = await axios.post(
             `https://backend.ankushpndt.repl.co/address/add`,
             {
@@ -244,6 +311,7 @@ export const addAddress = async ({
         );
 
         if (response.data.success === true) {
+            toast.dismiss();
             dispatch({
                 type: "ADD_ADDRESS",
                 payload: response.data.savedAddress
@@ -253,9 +321,10 @@ export const addAddress = async ({
                 autoClose: 3000,
                 hideProgressBar: true
             });
+            setIsEdit(false);
         }
     } catch (error) {
-        toast.dark(error?.response?.data?.message, {
+        toast.error(error?.response?.data?.message, {
             position: "bottom-center",
             autoClose: 3000,
             hideProgressBar: true
@@ -269,9 +338,11 @@ export const updateAddress = async ({
     pincode,
     address,
     dispatch,
-    addressId
+    addressId,
+    setIsEdit
 }) => {
     try {
+        toast.loading("Please wait");
         const response = await axios.put(
             `https://backend.ankushpndt.repl.co/address/update/${addressId}`,
             {
@@ -284,6 +355,7 @@ export const updateAddress = async ({
         );
 
         if (response.data.success === true) {
+            toast.dismiss();
             dispatch({
                 type: "UPDATE_ADDRESS",
                 payload: response.data.updatedAddress
@@ -293,9 +365,10 @@ export const updateAddress = async ({
                 autoClose: 3000,
                 hideProgressBar: true
             });
+            setIsEdit(false);
         }
     } catch (error) {
-        toast.dark(error?.response?.data?.message, {
+        toast.error(error?.response?.data?.message, {
             position: "bottom-center",
             autoClose: 3000,
             hideProgressBar: true
@@ -304,11 +377,13 @@ export const updateAddress = async ({
 };
 export const deleteAddress = async ({ dispatch, addressId }) => {
     try {
+        toast.loading("Please wait");
         const response = await axios.delete(
             `https://backend.ankushpndt.repl.co/address/delete/${addressId}`
         );
 
         if (response.data.success === true) {
+            toast.dismiss();
             dispatch({
                 type: "DELETE_ADDRESS",
                 payload: response.data.deleteAddress
@@ -320,7 +395,7 @@ export const deleteAddress = async ({ dispatch, addressId }) => {
             });
         }
     } catch (error) {
-        toast.dark(error?.response?.data?.message, {
+        toast.error(error?.response?.data?.message, {
             position: "bottom-center",
             autoClose: 3000,
             hideProgressBar: true
@@ -341,7 +416,7 @@ export const getReview = async (dispatch, userId) => {
             });
         }
     } catch (error) {
-        toast.dark(error?.response?.data?.message, {
+        toast.error(error?.response?.data?.message, {
             position: "bottom-center",
             autoClose: 3000,
             hideProgressBar: true
@@ -357,6 +432,7 @@ export const addReview = async ({
     rating
 }) => {
     try {
+        toast.loading("Please wait");
         const response = await axios.post(
             `https://backend.ankushpndt.repl.co/review/add`,
             {
@@ -369,6 +445,7 @@ export const addReview = async ({
         );
 
         if (response.data.success === true) {
+            toast.dismiss();
             reviewDispatch({
                 type: "ADD_REVIEW",
                 payload: response.data.allReviews
@@ -380,7 +457,7 @@ export const addReview = async ({
             });
         }
     } catch (error) {
-        toast.dark(error?.response?.data?.message, {
+        toast.error(error?.response?.data?.message, {
             position: "bottom-center",
             autoClose: 3000,
             hideProgressBar: true
@@ -389,11 +466,13 @@ export const addReview = async ({
 };
 export const deleteReview = async ({ reviewDispatch, reviewId }) => {
     try {
+        toast.loading("Please wait");
         const response = await axios.delete(
             `https://backend.ankushpndt.repl.co/review/delete/${reviewId}`
         );
 
         if (response.data.success === true) {
+            toast.dismiss();
             reviewDispatch({
                 type: "DELETE_REVIEW",
                 payload: response.data.deletedReview
@@ -405,7 +484,7 @@ export const deleteReview = async ({ reviewDispatch, reviewId }) => {
             });
         }
     } catch (error) {
-        toast.dark(error?.response?.data?.message, {
+        toast.error(error?.response?.data?.message, {
             position: "bottom-center",
             autoClose: 3000,
             hideProgressBar: true

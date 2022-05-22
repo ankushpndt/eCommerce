@@ -5,7 +5,10 @@ import { TextField } from "@mui/material";
 import "./Account.css";
 import { validateForm } from "../components/ValidateForm";
 import { Loader } from "../components/Loader";
-import { ToastContainer } from "react-toastify";
+import InputAdornment from "@mui/material/InputAdornment";
+import IconButton from "@mui/material/IconButton";
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
 export const SignUp = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -19,7 +22,7 @@ export const SignUp = () => {
             signUpWithCredentials(name, email, password);
         setError("");
     };
-
+    const [showPass, setShowPass] = useState(false);
     return (
         <div className="signup">
             {!loader ? (
@@ -62,14 +65,34 @@ export const SignUp = () => {
                     />
                     <br />
                     <TextField
-                        type="password"
+                        type={showPass ? "text" : "password"}
                         label="Password"
                         name="password"
                         helperText="Enter your password here"
-                        onChange={(e) => setPassword(e.target.value)}
+                        onChange={(e) => {
+                            setPassword(e.target.value);
+                        }}
                         required
                         value={password}
                         variant="standard"
+                        InputProps={{
+                            endAdornment: (
+                                <InputAdornment position="end">
+                                    <IconButton
+                                        aria-label="toggle password visibility"
+                                        onClick={() => setShowPass(!showPass)}
+                                        onMouseDown={(e) => e.preventDefault()}
+                                        edge="end"
+                                    >
+                                        {showPass ? (
+                                            <VisibilityOff />
+                                        ) : (
+                                            <Visibility />
+                                        )}
+                                    </IconButton>
+                                </InputAdornment>
+                            )
+                        }}
                     />
                     <br />
                     <div className="name__error">
@@ -98,7 +121,6 @@ export const SignUp = () => {
             ) : (
                 <Loader />
             )}
-            <ToastContainer />
         </div>
     );
 };

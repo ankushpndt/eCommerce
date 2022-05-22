@@ -42,6 +42,7 @@ export const HoriStepper = ({ activeStep }) => {
                     else navigate("/cart/payment/success");
                 }}
                 disabled={activeStep === 0}
+                sx={{ color: "black" }}
             >
                 Back
             </Button>

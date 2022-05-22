@@ -5,10 +5,14 @@ import { TextField } from "@mui/material";
 import "./Account.css";
 import { validateForm } from "../components/ValidateForm";
 import { Loader } from "../components/Loader";
-import { ToastContainer } from "react-toastify";
+
+import InputAdornment from "@mui/material/InputAdornment";
+import IconButton from "@mui/material/IconButton";
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
 export const Login = () => {
     const { loginWithCredentials, error, loader } = useAuth();
-
+    const [showPass, setShowPass] = useState(false);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
@@ -18,7 +22,6 @@ export const Login = () => {
         validateForm({ email, password, setErrorMessage }) &&
             loginWithCredentials(email, password);
     };
-
     return (
         <div className="login">
             {!loader ? (
@@ -55,13 +58,31 @@ export const Login = () => {
                     <TextField
                         id="standard__basic"
                         label="Password"
-                        type="password"
+                        type={showPass ? "text" : "password"}
                         name="password"
                         helperText="Enter your password here"
                         onChange={(e) => setPassword(e.target.value)}
                         required
                         value={password}
                         variant="standard"
+                        InputProps={{
+                            endAdornment: (
+                                <InputAdornment position="end">
+                                    <IconButton
+                                        aria-label="toggle password visibility"
+                                        onClick={() => setShowPass(!showPass)}
+                                        onMouseDown={(e) => e.preventDefault()}
+                                        edge="end"
+                                    >
+                                        {showPass ? (
+                                            <VisibilityOff />
+                                        ) : (
+                                            <Visibility />
+                                        )}
+                                    </IconButton>
+                                </InputAdornment>
+                            )
+                        }}
                     />
                     <br />
                     <div className="name__error">
@@ -101,7 +122,6 @@ export const Login = () => {
             ) : (
                 <Loader />
             )}
-            <ToastContainer />
         </div>
     );
 };

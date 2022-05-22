@@ -1,13 +1,13 @@
 import React, { useEffect } from "react";
 import { useCart } from "../Context/cart-context";
-import { ToastContainer } from "react-toastify";
 import "./Cart.css";
 import { useAuth } from "../Context/authContext";
 import { useNavigate } from "react-router-dom";
 import {
     addItemsToWishlist,
-    deleteItemFromCart,
-    updateQuantity
+    deleteFromCart,
+    updateQuantity,
+    deleteItemFromCart
 } from "../utils/ApiCalls";
 import { v4 } from "uuid";
 import { getCartItems } from "../utils/ApiCalls";
@@ -148,7 +148,7 @@ export const Cart = () => {
                                                     <button
                                                         className="card__btn  card__btn__cart"
                                                         onClick={() => {
-                                                            deleteItemFromCart({
+                                                            deleteFromCart({
                                                                 _id: item
                                                                     ?.productId
                                                                     ?._id,
@@ -239,7 +239,6 @@ export const Cart = () => {
                     </button>
                 </div>
             )}
-            <ToastContainer />
         </div>
     );
 };
