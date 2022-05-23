@@ -94,7 +94,6 @@ export const AuthProvider = ({ children }) => {
                 hideProgressBar: true
             });
             setLoader(false);
-            setError(error.response.data.errors);
         }
     };
     const loginUser = ({ token, userName, userid }) => {

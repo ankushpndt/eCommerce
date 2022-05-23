@@ -9,7 +9,7 @@ import IconButton from "@mui/material/IconButton";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 export const Login = () => {
-    const { loginWithCredentials, error, loader } = useAuth();
+    const { loginWithCredentials, loader } = useAuth();
     const [showPass, setShowPass] = useState(false);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
