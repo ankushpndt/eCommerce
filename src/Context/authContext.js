@@ -43,7 +43,7 @@ export const AuthProvider = ({ children }) => {
             if (response.data.success === true) navigate("/");
         } catch (error) {
             setLoader(false);
-            toast.dark(error?.response?.data?.message, {
+            toast.error(error?.response?.data?.message, {
                 position: "bottom-center",
                 autoClose: 3000,
                 hideProgressBar: true
@@ -65,6 +65,9 @@ export const AuthProvider = ({ children }) => {
                 userId: userid
             })
         );
+        toast.success("Signed Up successfully!", {
+            position: "bottom-center"
+        });
     };
     // login
     const loginWithCredentials = async (email, password) => {
@@ -85,7 +88,7 @@ export const AuthProvider = ({ children }) => {
             }
             if (response.data.success === true) navigate("/");
         } catch (error) {
-            toast.dark(error?.response?.data?.message, {
+            toast.error(error?.response?.data?.message, {
                 position: "bottom-center",
                 autoClose: 3000,
                 hideProgressBar: true
@@ -108,6 +111,9 @@ export const AuthProvider = ({ children }) => {
                 userId: userid
             })
         );
+        toast.success("Signed in successfully!", {
+            position: "bottom-center"
+        });
     };
     const userLogout = async () => {
         localStorage.removeItem("login");
@@ -116,6 +122,9 @@ export const AuthProvider = ({ children }) => {
         setUser("");
         setUserId("");
         navigate("/login");
+        toast.success("Signed in successfully!", {
+            position: "bottom-center"
+        });
     };
 
     return (
