@@ -81,6 +81,7 @@ export const addItemsToCart = async ({ _id, token, dispatch }) => {
             });
         }
     } catch (error) {
+        toast.dismiss();
         toast.error(error?.response?.data?.message, {
             position: "bottom-center",
             autoClose: 3000,
@@ -135,6 +136,7 @@ export const deleteItemFromCart = async ({ _id, token, dispatch }) => {
             });
         }
     } catch (error) {
+        toast.dismiss();
         toast.error(error?.response?.data?.message, {
             position: "bottom-center",
             autoClose: 3000,
@@ -148,7 +150,6 @@ export const emptyCart = async ({ token, dispatch }) => {
             `https://backend.ankushpndt.repl.co/cart/emptyCart`,
             { headers: { "auth-token": token } }
         );
-        console.log(response);
         if (response.data.success === true) {
             dispatch({
                 type: "UPDATE_CART",
@@ -190,6 +191,7 @@ export const updateQuantity = async (action, text, token, dispatch) => {
             });
         }
     } catch (error) {
+        toast.dismiss();
         toast.error(error?.response?.data?.message, {
             position: "bottom-center",
             autoClose: 3000,
@@ -221,6 +223,7 @@ export const addItemsToWishlist = async ({ _id, token, dispatch }) => {
             });
         }
     } catch (error) {
+        toast.dismiss();
         toast.error(error?.response?.data?.message, {
             position: "bottom-center",
             autoClose: 3000,
@@ -275,6 +278,7 @@ export const removeItemFromWishlist = async ({ _id, token, dispatch }) => {
             });
         }
     } catch (error) {
+        toast.dismiss();
         toast.error(error?.response?.data?.message, {
             position: "bottom-center",
             autoClose: 3000,
@@ -339,6 +343,7 @@ export const addAddress = async ({
             setIsEdit(false);
         }
     } catch (error) {
+        toast.dismiss();
         toast.error(error?.response?.data?.message, {
             position: "bottom-center",
             autoClose: 3000,
@@ -383,6 +388,7 @@ export const updateAddress = async ({
             setIsEdit(false);
         }
     } catch (error) {
+        toast.dismiss();
         toast.error(error?.response?.data?.message, {
             position: "bottom-center",
             autoClose: 3000,
@@ -410,6 +416,7 @@ export const deleteAddress = async ({ dispatch, addressId }) => {
             });
         }
     } catch (error) {
+        toast.dismiss();
         toast.error(error?.response?.data?.message, {
             position: "bottom-center",
             autoClose: 3000,
@@ -472,6 +479,7 @@ export const addReview = async ({
             });
         }
     } catch (error) {
+        toast.dismiss();
         toast.error(error?.response?.data?.message, {
             position: "bottom-center",
             autoClose: 3000,
@@ -499,6 +507,7 @@ export const deleteReview = async ({ reviewDispatch, reviewId }) => {
             });
         }
     } catch (error) {
+        toast.dismiss();
         toast.error(error?.response?.data?.message, {
             position: "bottom-center",
             autoClose: 3000,
