@@ -3,9 +3,7 @@ import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { TextField } from "@mui/material";
 import "./Account.css";
-import { validateForm } from "../components/ValidateForm";
 import { Loader } from "../components/Loader";
-
 import InputAdornment from "@mui/material/InputAdornment";
 import IconButton from "@mui/material/IconButton";
 import Visibility from "@mui/icons-material/Visibility";
@@ -15,12 +13,10 @@ export const Login = () => {
     const [showPass, setShowPass] = useState(false);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [errorMessage, setErrorMessage] = useState("");
     const submitHandler = (e) => {
         e.preventDefault();
 
-        validateForm({ email, password, setErrorMessage }) &&
-            loginWithCredentials(email, password);
+        loginWithCredentials(email, password);
     };
     return (
         <div className="login">
@@ -84,11 +80,6 @@ export const Login = () => {
                             )
                         }}
                     />
-                    <br />
-                    <div className="name__error">
-                        {errorMessage !== "" && errorMessage}
-                    </div>
-                    <div>{error?.message}</div>
                     <br />
                     {/*Login button*/}
                     <input

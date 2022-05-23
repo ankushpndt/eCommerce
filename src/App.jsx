@@ -27,6 +27,7 @@ import { Payment } from "./Pages/Payment";
 import { OrderSuccessful } from "./Pages/OrderSuccessful";
 import { useCart } from "./Context/cart-context";
 import { ToastContainer, Slide } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 export const App = () => {
     const stripePromise = loadStripe("pk_test_6pRNASCoBOKtIshFeQd4XMUh");
     const { userLogout, user } = useAuth();

@@ -1,11 +1,5 @@
 import axios from "axios";
 import { toast } from "react-toastify";
-import {
-    errorToast,
-    successToast,
-    successToastWishlist,
-    errorToastWishlist
-} from "../components/toasts";
 export const getProducts = async (setLoader, dispatch) => {
     try {
         setLoader(true);

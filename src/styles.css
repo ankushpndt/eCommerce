@@ -176,19 +176,6 @@ body {
     background-color: #b91c1c;
     border-radius: 50%;
 }
-.Toastify__toast--success {
-    background-color: #38a169 !important;
-}
-.Toastify__toast--error {
-    background-color: #e53e3e !important;
-}
-.Toastify__toast-container,
-.Toastify__toast-container--bottom-center {
-    padding: 0.5rem;
-}
-.Toastify__toast--success {
-    color: white;
-}
 /* ProductDetails */
 
 .single__product__details {
