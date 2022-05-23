@@ -122,9 +122,7 @@ export const AuthProvider = ({ children }) => {
         setUser("");
         setUserId("");
         navigate("/login");
-        toast.success("Signed in successfully!", {
-            position: "bottom-center"
-        });
+        toast.success("Logged out successfully");
     };
 
     return (
