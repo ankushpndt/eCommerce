@@ -215,7 +215,12 @@ export const Product = () => {
                                                 </h4>
                                             </div>
                                         </Link>
-                                        <div style={{ height: "7vh" }}>
+                                        <div
+                                            style={{
+                                                height: "8vh",
+                                                paddingBottom: "1rem"
+                                            }}
+                                        >
                                             <button
                                                 className={
                                                     inStock

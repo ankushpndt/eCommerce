@@ -66,6 +66,9 @@ input {
     border: none;
     height: 100%;
     min-height: 665px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .card__rating {
