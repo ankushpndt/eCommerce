@@ -4,3 +4,4 @@
 4. Fixed padding in search bar results.
 5. Added custom scrollbar.
 6. Added bottom navbar for mobile view.
+7. Fixed padding in product card.
