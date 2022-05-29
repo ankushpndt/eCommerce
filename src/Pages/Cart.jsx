@@ -68,37 +68,7 @@ export const Cart = () => {
                                                                 backgroundColor:
                                                                     "transparent",
                                                                 border: "none",
-
                                                                 paddingRight:
-                                                                    "1rem",
-                                                                cursor: "pointer",
-                                                                paddingTop:
-                                                                    "0.2rem"
-                                                            }}
-                                                            onClick={() =>
-                                                                updateQuantity(
-                                                                    item,
-                                                                    "ADD",
-                                                                    token,
-                                                                    dispatch
-                                                                )
-                                                            }
-                                                        >
-                                                            <i
-                                                                className="fa fa-plus"
-                                                                aria-hidden="true"
-                                                            ></i>
-                                                        </button>
-                                                        <span>
-                                                            {item?.quantity}
-                                                        </span>
-
-                                                        <button
-                                                            style={{
-                                                                backgroundColor:
-                                                                    "transparent",
-                                                                border: "none",
-                                                                paddingLeft:
                                                                     "1rem",
                                                                 cursor: "pointer",
                                                                 paddingTop:
@@ -118,7 +88,35 @@ export const Cart = () => {
                                                                 aria-hidden="true"
                                                             ></i>
                                                         </button>
+                                                        <span>
+                                                            {item?.quantity}
+                                                        </span>
+                                                        <button
+                                                            style={{
+                                                                backgroundColor:
+                                                                    "transparent",
+                                                                border: "none",
 
+                                                                paddingLeft:
+                                                                    "1rem",
+                                                                cursor: "pointer",
+                                                                paddingTop:
+                                                                    "0.2rem"
+                                                            }}
+                                                            onClick={() =>
+                                                                updateQuantity(
+                                                                    item,
+                                                                    "ADD",
+                                                                    token,
+                                                                    dispatch
+                                                                )
+                                                            }
+                                                        >
+                                                            <i
+                                                                className="fa fa-plus"
+                                                                aria-hidden="true"
+                                                            ></i>
+                                                        </button>
                                                         <button
                                                             style={{
                                                                 backgroundColor:
