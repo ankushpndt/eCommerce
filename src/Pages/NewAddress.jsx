@@ -6,13 +6,28 @@ import { useAuth } from "../Context/authContext";
 import { addAddress } from "../utils/ApiCalls";
 import "./Address.css";
 import { updateAddress } from "../utils/ApiCalls";
-export const NewAddress = ({ addressId, isAdd, update, setIsEdit }) => {
+export const NewAddress = ({
+    addressId,
+    isAdd,
+    update,
+    setIsEdit,
+    setAdd,
+    setUpdate
+}) => {
     const { address } = useAddress();
     const userAddress = address?.find((item) => item?._id === addressId);
-    const [fullName, setFullName] = useState(userAddress?.name);
-    const [mobNumber, setMobNumber] = useState(userAddress?.mobileno);
-    const [newPincode, setNewPincode] = useState(userAddress?.pincode);
-    const [newAddress, setNewAddress] = useState(userAddress?.address);
+    const [fullName, setFullName] = useState(
+        isAdd ? "" : userAddress?.name || ""
+    );
+    const [mobNumber, setMobNumber] = useState(
+        isAdd ? "" : userAddress?.mobileno || ""
+    );
+    const [newPincode, setNewPincode] = useState(
+        isAdd ? "" : userAddress?.pincode || ""
+    );
+    const [newAddress, setNewAddress] = useState(
+        isAdd ? "" : userAddress?.address || ""
+    );
     const { dispatch } = useAddress();
     const { userId } = useAuth();
 
@@ -26,7 +41,9 @@ export const NewAddress = ({ addressId, isAdd, update, setIsEdit }) => {
                 pincode: newPincode,
                 address: newAddress,
                 dispatch,
-                setIsEdit
+                setIsEdit,
+                setAdd,
+                setUpdate
             });
         update &&
             updateAddress({
@@ -37,7 +54,9 @@ export const NewAddress = ({ addressId, isAdd, update, setIsEdit }) => {
                 mobileno: mobNumber,
                 pincode: newPincode,
                 address: newAddress,
-                setIsEdit
+                setIsEdit,
+                setAdd,
+                setUpdate
             });
     };
 
@@ -50,7 +69,7 @@ export const NewAddress = ({ addressId, isAdd, update, setIsEdit }) => {
                     variant="standard"
                     onChange={(e) => setFullName(e.target.value)}
                     required
-                    value={fullName}
+                    value={fullName || ""}
                 />
                 <TextField
                     id="standard-basic"
@@ -58,7 +77,7 @@ export const NewAddress = ({ addressId, isAdd, update, setIsEdit }) => {
                     variant="standard"
                     onChange={(e) => setMobNumber(e.target.value)}
                     required
-                    value={mobNumber}
+                    value={mobNumber || ""}
                 />
                 <TextField
                     id="standard-basic"
@@ -66,7 +85,7 @@ export const NewAddress = ({ addressId, isAdd, update, setIsEdit }) => {
                     variant="standard"
                     onChange={(e) => setNewPincode(e.target.value)}
                     required
-                    value={newPincode}
+                    value={newPincode || ""}
                 />
                 <TextField
                     id="standard-basic"
@@ -74,7 +93,7 @@ export const NewAddress = ({ addressId, isAdd, update, setIsEdit }) => {
                     variant="standard"
                     onChange={(e) => setNewAddress(e.target.value)}
                     required
-                    value={newAddress}
+                    value={newAddress || ""}
                 />
                 <button
                     type="submit"
@@ -84,6 +103,17 @@ export const NewAddress = ({ addressId, isAdd, update, setIsEdit }) => {
                     Save
                 </button>
             </form>
+            <button
+                id="login__btn__outlined"
+                onClick={() => {
+                    setFullName("Test user");
+                    setMobNumber("9876543210");
+                    setNewPincode("123456");
+                    setNewAddress("house no city state");
+                }}
+            >
+                Dummy address
+            </button>
         </div>
     );
 };

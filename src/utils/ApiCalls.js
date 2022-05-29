@@ -314,7 +314,9 @@ export const addAddress = async ({
     pincode,
     address,
     dispatch,
-    setIsEdit
+    setIsEdit,
+    setAdd,
+    setUpdate
 }) => {
     try {
         toast.loading("Please wait");
@@ -341,6 +343,8 @@ export const addAddress = async ({
                 hideProgressBar: true
             });
             setIsEdit(false);
+            setAdd(false);
+            setUpdate(false);
         }
     } catch (error) {
         toast.dismiss();
@@ -359,7 +363,9 @@ export const updateAddress = async ({
     address,
     dispatch,
     addressId,
-    setIsEdit
+    setIsEdit,
+    setAdd,
+    setUpdate
 }) => {
     try {
         toast.loading("Please wait");
@@ -386,6 +392,8 @@ export const updateAddress = async ({
                 hideProgressBar: true
             });
             setIsEdit(false);
+            setAdd(false);
+            setUpdate(false);
         }
     } catch (error) {
         toast.dismiss();

@@ -23,6 +23,7 @@ export const SavedAddress = () => {
     useEffect(() => {
         getAddress(dispatch, userId, setLoader);
     }, [dispatch]);
+
     return (
         <>
             {!loader ? (
@@ -33,7 +34,8 @@ export const SavedAddress = () => {
                         <button
                             onClick={() => {
                                 setIsEdit((isEdit) => !isEdit);
-                                setAdd((isAdd) => !isAdd);
+                                setAdd(true);
+                                setUpdate(false);
                             }}
                             id="login__btn__outlined"
                         >
@@ -116,6 +118,8 @@ export const SavedAddress = () => {
                             addressId={addressId}
                             update={update}
                             setIsEdit={setIsEdit}
+                            setAdd={setAdd}
+                            setUpdate={setUpdate}
                         />
                     )}
                 </div>

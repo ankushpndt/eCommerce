@@ -2,7 +2,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 80vh;
+
+    flex-direction: column;
 }
 .address__form {
     display: flex;
@@ -19,8 +20,10 @@
     padding-left: 1rem;
 }
 .address__container {
+    width: 100%;
     max-width: 650px;
     margin: auto;
+    padding-bottom: 0.5rem;
 }
 
 .address__btn {
