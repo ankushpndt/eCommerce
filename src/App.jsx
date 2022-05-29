@@ -26,6 +26,7 @@ import { SavedAddress } from "./Pages/SavedAddress";
 import { Payment } from "./Pages/Payment";
 import { OrderSuccessful } from "./Pages/OrderSuccessful";
 import { useCart } from "./Context/cart-context";
+import { Navbar } from "./components/Navbar";
 import { ToastContainer, Slide } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 export const App = () => {
@@ -149,6 +150,9 @@ export const App = () => {
                     >
                         <MenuIcon />
                     </button>{" "}
+                </div>
+                <div className="bottom__navbar">
+                    <Navbar />
                 </div>
                 <div
                     className={open ? "menu__drawer__active" : "menu__drawer"}

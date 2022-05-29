@@ -6,9 +6,7 @@ export const SearchBoxResult = ({ product, setToggleDropbox }) => {
             to={`/product/${product?._id}`}
             style={{
                 textDecoration: "none",
-                color: "black",
-
-                marginBottom: "1rem"
+                color: "black"
             }}
             onClick={
                 setToggleDropbox ? () => setToggleDropbox(false) : () => {}

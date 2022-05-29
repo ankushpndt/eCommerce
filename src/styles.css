@@ -8,6 +8,25 @@ body {
     font-family: "Roboto Condensed", sans-serif;
     width: 100%;
 }
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #747272;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: rgb(46, 46, 46);
+    border-radius: 15px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: rgb(0, 0, 0);
+}
 .fas {
     margin-right: 0;
 }
@@ -85,6 +104,9 @@ body {
     padding: 1px 5.5px 1px 6px;
     border-radius: 80%;
 }
+.bottom__navbar {
+    display: none;
+}
 @media (max-width: 800px) {
     .hamitems a {
         padding-right: 0.5rem;
@@ -154,6 +176,9 @@ body {
     }
     .searchbar input {
         width: 100%;
+    }
+    .bottom__navbar {
+        display: flex;
     }
 }
 

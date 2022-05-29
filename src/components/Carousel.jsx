@@ -23,7 +23,7 @@ export const Carousel = () => {
                 <div
                     className={index === current ? "slide active" : "slide"}
                     key={index}
-                    onClick={() => navigate("/product")}
+                    onClick={() => navigate(`/product/${imageItem?.productId}`)}
                 >
                     {index === current && (
                         <img src={imageItem.image} className="image" />

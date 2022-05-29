@@ -66,12 +66,13 @@
     cursor: pointer;
     display: flex;
     align-items: center;
-    margin-bottom: 1rem;
     border: none;
     background: transparent;
     text-decoration: none;
 }
-
+.searchBox__result {
+    padding: 0.5rem !important;
+}
 .searchBox__results .searchBox__result:hover {
     background: var(--primary-color);
 }
@@ -145,5 +146,8 @@
 @media (max-width: 648px) {
     .searchBox {
         right: -3rem;
+    }
+    .searchBox__result {
+        margin-bottom: 0.5rem;
     }
 }

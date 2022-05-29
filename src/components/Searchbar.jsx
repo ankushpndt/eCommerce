@@ -3,11 +3,12 @@ import React, { useState } from "react";
 import { SearchBox } from "../utils/SearchBox";
 import { Backdrop } from "../utils/Backdrop";
 import "./Searchbar.css";
+import useDebounce from "../customHooks/useDebounce";
 export const Searchbar = () => {
     const [searchTerm, setSearchTerm] = useState("");
 
     const [toggleDropbox, setToggleDropbox] = useState(false);
-
+    const debouncedSearchTerm = useDebounce(searchTerm, 1000);
     return (
         <div>
             <div className="search__bar">
@@ -29,7 +30,7 @@ export const Searchbar = () => {
                 {toggleDropbox && (
                     <SearchBox
                         setToggleDropbox={setToggleDropbox}
-                        searchTerm={searchTerm}
+                        searchTerm={debouncedSearchTerm}
                     />
                 )}
             </div>

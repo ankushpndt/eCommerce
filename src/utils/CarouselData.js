@@ -3,12 +3,15 @@ import gta from "../assets/gta.jpg";
 import spiderman from "../assets/miles.jpg";
 export const carouselData = [
     {
-        image: cyberpunk
+        image: cyberpunk,
+        productId: "608c457a5b54f72e84a93407"
     },
     {
-        image: gta
+        image: gta,
+        productId: "608c457a5b54f72e84a93405"
     },
     {
-        image: spiderman
+        image: spiderman,
+        productId: "608c457a5b54f72e84a93406"
     }
 ];
