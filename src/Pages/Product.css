@@ -96,6 +96,7 @@ input {
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
+        align-items: center;
     }
     .container {
         flex-wrap: wrap;
