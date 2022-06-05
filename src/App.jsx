@@ -43,7 +43,7 @@ export const App = () => {
                             to="/"
                             style={{ textDecoration: "none", color: "white" }}
                         >
-                            eCommerce
+                            ShopAtUp
                         </NavLink>
                     </div>
                     <header className="header">
@@ -139,7 +139,7 @@ export const App = () => {
             <div className="mobile__menu">
                 <div className="m__menu">
                     <Link to="/" className="logo">
-                        eCommerce
+                        ShopAtUp
                     </Link>
                     <div>
                         <Searchbar />
@@ -247,11 +247,7 @@ export const App = () => {
 
                 <Route
                     path="/product/:productId"
-                    element={
-                        <PrivateRoute>
-                            <ProductDetails />
-                        </PrivateRoute>
-                    }
+                    element={<ProductDetails />}
                 />
                 <Route
                     path="/cart"

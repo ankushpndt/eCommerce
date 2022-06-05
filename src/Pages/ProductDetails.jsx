@@ -296,109 +296,132 @@ export const ProductDetails = () => {
                                             Reviews
                                         </h3>
 
-                                        <div className="add__review">
-                                            <form
-                                                onSubmit={(e) => {
-                                                    e.preventDefault();
+                                        {token && (
+                                            <div className="add__review">
+                                                <form
+                                                    onSubmit={(e) => {
+                                                        e.preventDefault();
 
-                                                    addReview({
-                                                        userId,
-                                                        productId: _id,
-                                                        name: user,
-                                                        review: inputText,
-                                                        reviewDispatch,
-                                                        rating
-                                                    });
-                                                    setInputText("");
-                                                }}
-                                                style={{ padding: "0 1rem" }}
-                                            >
-                                                <Rating
-                                                    rating={rating}
-                                                    setRating={setRating}
-                                                />
-                                                <div className="rating__field">
-                                                    <textarea
-                                                        type="text"
-                                                        placeholder="Review"
-                                                        onChange={(e) =>
-                                                            setInputText(
-                                                                e.target.value
-                                                            )
-                                                        }
-                                                        value={String(
-                                                            inputText
-                                                        )}
-                                                    />
-
-                                                    <button
-                                                        type="submit"
-                                                        aria-label="Add Review"
-                                                        className=" card__btn btn__hollow"
-                                                    >
-                                                        Add review
-                                                    </button>
-                                                </div>
-                                            </form>
-                                        </div>
-                                        {review?.map((item) => {
-                                            return (
-                                                <div
-                                                    key={v4()}
-                                                    className="single__review"
+                                                        addReview({
+                                                            userId,
+                                                            productId: _id,
+                                                            name: user,
+                                                            review: inputText,
+                                                            reviewDispatch,
+                                                            rating
+                                                        });
+                                                        setInputText("");
+                                                    }}
+                                                    style={{
+                                                        padding: "0 1rem"
+                                                    }}
                                                 >
-                                                    {item?.productId ===
-                                                        _id && (
-                                                        <div className="review__details">
-                                                            <p>
-                                                                User Review:{" "}
-                                                                {item?.review}
-                                                            </p>
-                                                            <div className="item__review">
-                                                                User Rating:{" "}
-                                                                <p>
-                                                                    {
-                                                                        item?.rating
-                                                                    }
-                                                                </p>
-                                                                <StarIcon
-                                                                    sx={{
-                                                                        fontSize:
-                                                                            "1rem",
-                                                                        color: "#ffc107"
-                                                                    }}
-                                                                />
-                                                            </div>
+                                                    <Rating
+                                                        rating={rating}
+                                                        setRating={setRating}
+                                                    />
+                                                    <div className="rating__field">
+                                                        <textarea
+                                                            type="text"
+                                                            placeholder="Review"
+                                                            onChange={(e) =>
+                                                                setInputText(
+                                                                    e.target
+                                                                        .value
+                                                                )
+                                                            }
+                                                            value={String(
+                                                                inputText
+                                                            )}
+                                                        />
 
-                                                            <div className="review__header">
-                                                                <p
-                                                                    style={{
-                                                                        color: "gray"
-                                                                    }}
-                                                                >
-                                                                    Name:{" "}
-                                                                    {item?.name}
-                                                                </p>
-                                                                <DeleteIcon
-                                                                    onClick={() =>
-                                                                        deleteReview(
-                                                                            {
-                                                                                reviewDispatch,
-                                                                                reviewId:
-                                                                                    item?._id
-                                                                            }
-                                                                        )
+                                                        <button
+                                                            type="submit"
+                                                            aria-label="Add Review"
+                                                            className=" card__btn btn__hollow"
+                                                        >
+                                                            Add review
+                                                        </button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        )}
+                                        {review?.length > 0 ? (
+                                            review?.map((item) => {
+                                                return (
+                                                    <div
+                                                        key={v4()}
+                                                        className="single__review"
+                                                    >
+                                                        {item?.productId ===
+                                                            _id && (
+                                                            <div className="review__details">
+                                                                <p>
+                                                                    User Review:{" "}
+                                                                    {
+                                                                        item?.review
                                                                     }
-                                                                    style={{
-                                                                        cursor: "pointer"
-                                                                    }}
-                                                                />
+                                                                </p>
+                                                                <div className="item__review">
+                                                                    User Rating:{" "}
+                                                                    <p>
+                                                                        {
+                                                                            item?.rating
+                                                                        }
+                                                                    </p>
+                                                                    <StarIcon
+                                                                        sx={{
+                                                                            fontSize:
+                                                                                "1rem",
+                                                                            color: "#ffc107"
+                                                                        }}
+                                                                    />
+                                                                </div>
+
+                                                                <div className="review__header">
+                                                                    <p
+                                                                        style={{
+                                                                            color: "gray"
+                                                                        }}
+                                                                    >
+                                                                        Name:{" "}
+                                                                        {
+                                                                            item?.name
+                                                                        }
+                                                                    </p>
+                                                                    {token && (
+                                                                        <DeleteIcon
+                                                                            onClick={() =>
+                                                                                deleteReview(
+                                                                                    {
+                                                                                        reviewDispatch,
+                                                                                        reviewId:
+                                                                                            item?._id
+                                                                                    }
+                                                                                )
+                                                                            }
+                                                                            style={{
+                                                                                cursor: "pointer"
+                                                                            }}
+                                                                        />
+                                                                    )}
+                                                                </div>
                                                             </div>
-                                                        </div>
-                                                    )}
-                                                </div>
-                                            );
-                                        })}
+                                                        )}
+                                                    </div>
+                                                );
+                                            })
+                                        ) : (
+                                            <div
+                                                style={{
+                                                    display: "flex",
+                                                    justifyContent: "center",
+                                                    paddingTop: "1.5rem"
+                                                }}
+                                            >
+                                                No reviews yet.
+                                            </div>
+                                        )}
                                     </div>
                                 </div>
                             </div>
